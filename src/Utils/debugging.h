@@ -1,11 +1,11 @@
-﻿#ifndef _OPENGL_DEBUG_
-#define _OPENGL_DEBUG_
-
-#include <GL/glew.h>
+﻿#include <GL/glew.h>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <map>
+
+#ifndef DEBUGGING_H
+#define DEBUGGING_H
 
 static void printout_opengl_glsl_info() {
 	const GLubyte* renderer		= glGetString(GL_RENDERER);

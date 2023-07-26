@@ -1,4 +1,4 @@
-OBJS = $(wildcard src/*.cpp)
+OBJS = $(wildcard src/utils/*.h)
 CC = g++
 
 INCLUDE_PATHS = `pkg-config --cflags glfw3` `pkg-config --cflags glew`
@@ -9,11 +9,11 @@ EXECS = Main
 
 all: $(EXECS)
 
-Main: Main.o Game.o
-	$(CC) -o $@ $^ $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) -framework OpenGL
+Main: src/Main.o src/Game.o
+	$(CC) -o main $^ $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) -framework OpenGL
 
-Main.o: Main.cpp Game.h
+Main.o: src/Main.cpp $(OBJS) 
 	$(CC) -c $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) -framework OpenGL
 
 clean:
-	rm -f *.o *.out $(EXECS)
+	rm -f src/*.o src/*.out $(EXECS)
