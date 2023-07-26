@@ -51,7 +51,7 @@ void Game::UpdateGame() {
 }
 
 void Game::GenerateOutput() {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(DESTRUCT(BACKGROUND_COLOR));
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(this->window);
     glfwPollEvents();
