@@ -3,12 +3,13 @@
 
 class Quaternion {
     public:
-        float x;
-        float y;
-        float z;
-        float w;
 
-        Quaternion() { *this = Quaternion::Identity; }
+    float x;
+    float y;
+    float z;
+    float w;
+
+    Quaternion() { *this = Quaternion::Identity; }
 
     // This directly sets the quaternion components --
     // don't use for axis/angle

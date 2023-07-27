@@ -60,3 +60,15 @@ void Game::GenerateOutput() {
 void Game::Shutdown() {
     glfwTerminate();
 }
+
+void Game::AddActor(Actor *actor) {
+    this->actors.emplace_back(actor);
+}
+
+void Game::RemoveActor(Actor *actor) {
+    auto iter = std::find(this->actors.begin(), this->actors.end(), actor);
+    if (iter != this->actors.end()){
+        std::iter_swap(iter, this->actors.end() - 1);
+        this->actors.pop_back();
+    }
+}
