@@ -14,19 +14,19 @@ class Game {
         void RunLoop();
         void Shutdown();
 
-        void AddActor(class Actor *actor);
-        void RemoveActor(class Actor *actor);
-
     private:
         void ProcessInput();
         void UpdateGame();
         void GenerateOutput();
 
+        void LoadData();
+        void UnLoadData();
+
         GLFWwindow *window;
         uint32_t ticksCount;
         bool isRunning;
+        class RendererHandler *rendererHandler;
 
-        std::vector<class Actor*> actors;
 }; 
 
 #endif
