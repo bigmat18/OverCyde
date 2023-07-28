@@ -2,32 +2,28 @@
 #include "ViewMatrix.h"
 #include <vector>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-
 #ifndef RENDERER_HANDLER_H
 #define RENDERER_HANDLER_H
 
-class RendererHandler : Handler {
+class RendererHandler : public Handler {
     public:
         RendererHandler();
         ~RendererHandler();
 
-        bool Initialize(GLFWwindow *window);
-        void Shutdown(GLFWwindow *window);
+        bool Initialize(GLFWwindow *window) override;
+        void Shutdown(GLFWwindow *window) override;
 
-        void AddElement(class RendererObj *obj);
-        void RemoveElement(class RendererObj *obj);
+        void AddElement(class RendererObj *obj) override;
+        void RemoveElement(class RendererObj *obj) override;
 
-        void Update(GLFWwindow *window);
+        void Update(GLFWwindow *window) override;
 
-        ViewMatrix* GetView() { return &this->view; }
+        ViewMatrix* GetView() { return this->view; }
 
     private : 
-        std::vector<class RendererObj *> objs;
+        std::vector<class RendererObj*> objs;
         glm::mat4 projection;
-        class ViewMatrix view;
+        class ViewMatrix *view;
 };
 
 #endif

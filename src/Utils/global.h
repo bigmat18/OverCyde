@@ -8,7 +8,6 @@
 
 const u_int16_t HEIGHT = 1200;
 const u_int16_t WEIGHT = 900;
-const char* WINDOW_TITLE = "OverCyde";
 
 const glm::vec4 BACKGROUND_COLOR(0.0f, 0.0f, 0.0f, 1.0f);
 

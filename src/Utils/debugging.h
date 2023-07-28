@@ -59,8 +59,8 @@ static bool check_gl_errors(int line, const char* file, bool exit_on_error = tru
 }
 
 static bool check_gl_errors( bool exit_on_error = true) {
-		return check_gl_errors(-1, ".", exit_on_error);
-	}
+	return check_gl_errors(-1, ".", exit_on_error);
+}
 
 static bool check_shader(GLuint s,  bool exit_on_error = true) {
 	std::vector<GLchar> buf;

@@ -1,10 +1,13 @@
-#include "RendererHandler.h"
 #include "Utils/debugging.h"
-#include "Utils/global.h"
 
-RendererHandler::RendererHandler(){
+#include "RendererHandler.h"
+#include "RendererObj.h"
+#include "Utils/global.h"
+#include <vector>
+
+RendererHandler::RendererHandler() : Handler() {
     this->projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-    this->view = ViewMatrix();
+    this->view = new ViewMatrix();
 }
 
 RendererHandler::~RendererHandler() {}
@@ -20,7 +23,7 @@ bool RendererHandler::Initialize(GLFWwindow *window) {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     #endif
 
-    window = glfwCreateWindow(HEIGHT, WEIGHT, WINDOW_TITLE, NULL, NULL);
+    window = glfwCreateWindow(HEIGHT, WEIGHT, "OverCyde", NULL, NULL);
     if (!window) {
         glfwTerminate();
         return false;
@@ -47,10 +50,11 @@ void RendererHandler::Update(GLFWwindow *window) {
     //     obj->Draw(deltaTime, this->projection, this->view);
 
     glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void RendererHandler::AddElement(RendererObj *obj) {
-    this->objs.emplace_back(obj);
+    this->objs.__emplace_back(obj);
 }
 
 void RendererHandler::RemoveElement(RendererObj *obj) {

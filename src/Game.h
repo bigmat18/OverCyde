@@ -25,7 +25,7 @@ class Game {
         GLFWwindow *window;
         uint32_t ticksCount;
         bool isRunning;
-        class RendererHandler *rendererHandler;
+        class Handler *rendererHandler;
 
 }; 
 

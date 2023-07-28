@@ -10,9 +10,8 @@ Game::Game() : window(nullptr),
 }
 
 bool Game::Initialize() {
-    this->rendererHandler->Initialize(this->window);
     this->ticksCount = glfwGetTime();
-    return true;
+    return this->rendererHandler->Initialize(this->window);
 }
 
 void Game::RunLoop() {
@@ -23,7 +22,10 @@ void Game::RunLoop() {
     }
 }
 
-void Game::ProcessInput() {}
+void Game::ProcessInput() {
+    if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(this->window, true);
+}
 
 void Game::UpdateGame() {}
 
