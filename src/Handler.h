@@ -8,13 +8,13 @@ class Handler {
         Handler() {};
         ~Handler() {};
 
-        virtual bool Initialize(GLFWwindow *window) = 0;
-        virtual void Shutdown(GLFWwindow *window) = 0;
+        virtual void *Initialize() = 0;
+        virtual void Shutdown() = 0;
 
         virtual void AddElement(class RendererObj *obj) {};
         virtual void RemoveElement(class RendererObj *obj) {};
 
-        virtual void Update(GLFWwindow *window) = 0;
+        virtual void Update() = 0;
 };
 
 #endif

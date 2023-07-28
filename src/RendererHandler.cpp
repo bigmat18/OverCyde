@@ -12,9 +12,9 @@ RendererHandler::RendererHandler() : Handler() {
 
 RendererHandler::~RendererHandler() {}
 
-bool RendererHandler::Initialize(GLFWwindow *window) {
+void *RendererHandler::Initialize() {
     if (!glfwInit())
-        return -1;
+        return nullptr;
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -23,26 +23,26 @@ bool RendererHandler::Initialize(GLFWwindow *window) {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     #endif
 
-    window = glfwCreateWindow(HEIGHT, WEIGHT, "OverCyde", NULL, NULL);
-    if (!window) {
+    this->window = glfwCreateWindow(HEIGHT, WEIGHT, "OverCyde", NULL, NULL);
+    if (!this->window) {
         glfwTerminate();
-        return false;
+        return nullptr;
     }
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(this->window);
     glewInit();
     printout_opengl_glsl_info();
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glEnable(GL_DEPTH_TEST);
 
-    return true;
+    return this->window;
 }
 
-void RendererHandler::Shutdown(GLFWwindow *window) {
+void RendererHandler::Shutdown() {
     glfwTerminate();
 }
 
-void RendererHandler::Update(GLFWwindow *window) {
+void RendererHandler::Update() {
     glClearColor(DESTRUCT(BACKGROUND_COLOR));
     glClear(GL_COLOR_BUFFER_BIT);
 

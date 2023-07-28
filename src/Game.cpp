@@ -3,15 +3,15 @@
 #include "Utils/debugging.h"
 #include "Utils/global.h"
 
-Game::Game() : window(nullptr),
-               isRunning(true) 
+Game::Game() : isRunning(true) 
 { 
     this->rendererHandler = new RendererHandler();
 }
 
 bool Game::Initialize() {
     this->ticksCount = glfwGetTime();
-    return this->rendererHandler->Initialize(this->window);
+    this->window = (GLFWwindow*)this->rendererHandler->Initialize();
+    return this->window != nullptr;
 }
 
 void Game::RunLoop() {
@@ -30,11 +30,11 @@ void Game::ProcessInput() {
 void Game::UpdateGame() {}
 
 void Game::GenerateOutput() { 
-    this->rendererHandler->Update(this->window); 
+    this->rendererHandler->Update(); 
 }
 
 void Game::Shutdown() {
-    this->rendererHandler->Shutdown(this->window);
+    this->rendererHandler->Shutdown();
 }
 
 void Game::LoadData() {}

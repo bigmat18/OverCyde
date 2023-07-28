@@ -10,13 +10,13 @@ class RendererHandler : public Handler {
         RendererHandler();
         ~RendererHandler();
 
-        bool Initialize(GLFWwindow *window) override;
-        void Shutdown(GLFWwindow *window) override;
+        void *Initialize() override;
+        void Shutdown() override;
 
         void AddElement(class RendererObj *obj) override;
         void RemoveElement(class RendererObj *obj) override;
 
-        void Update(GLFWwindow *window) override;
+        void Update() override;
 
         ViewMatrix* GetView() { return this->view; }
 
@@ -24,6 +24,7 @@ class RendererHandler : public Handler {
         std::vector<class RendererObj*> objs;
         glm::mat4 projection;
         class ViewMatrix *view;
+        GLFWwindow *window;
 };
 
 #endif
