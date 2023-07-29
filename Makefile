@@ -1,6 +1,6 @@
 HEADERS = $(wildcard src/utils/*.h) $(wildcard src/*.h)
 OBJS = $(wildcard src/*.o)
-CC = clang++
+CC = g++
 
 INCLUDE_PATHS = `pkg-config --cflags glfw3` `pkg-config --cflags glew`
 LIBRARY_PATHS = `pkg-config --static --libs glfw3` `pkg-config --static --libs glew` 

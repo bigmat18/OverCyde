@@ -1,7 +1,7 @@
 #include "Utils/debugging.h"
 
 #include "RendererHandler.h"
-#include "RendererObj.h"
+#include "RendererComponent.h"
 #include "Utils/global.h"
 #include <vector>
 
@@ -12,7 +12,7 @@ RendererHandler::RendererHandler() : Handler() {
 
 RendererHandler::~RendererHandler() {}
 
-void *RendererHandler::Initialize() {
+GLFWwindow* RendererHandler::Initialize() {
     if (!glfwInit())
         return nullptr;
 
@@ -42,25 +42,20 @@ void RendererHandler::Shutdown() {
     glfwTerminate();
 }
 
-void RendererHandler::Update() {
-    glClearColor(DESTRUCT(BACKGROUND_COLOR));
-    glClear(GL_COLOR_BUFFER_BIT);
+void RendererHandler::Update(RendererComponent *obj, float deltaTime) {
 
-    // for(auto obj : this->objs )
-    //     obj->Draw(deltaTime, this->projection, this->view);
 
-    glfwSwapBuffers(window);
-    glfwPollEvents();
+    //obj->Draw(deltaTime, this->projection, this->view);
 }
 
-void RendererHandler::AddElement(RendererObj *obj) {
-    this->objs.__emplace_back(obj);
-}
+// void RendererHandler::AddElement(RendererComponent *obj) {
+//     this->objs.__emplace_back(obj);
+// }
 
-void RendererHandler::RemoveElement(RendererObj *obj) {
-    auto iter = std::find(this->objs.begin(), this->objs.end(), obj);
-    if (iter != this->objs.end()){
-        std::iter_swap(iter, this->objs.end() - 1);
-        this->objs.pop_back();
-    }
-}
+// void RendererHandler::RemoveElement(RendererComponent *obj) {
+//     auto iter = std::find(this->objs.begin(), this->objs.end(), obj);
+//     if (iter != this->objs.end()){
+//         std::iter_swap(iter, this->objs.end() - 1);
+//         this->objs.pop_back();
+//     }
+// }

@@ -16,8 +16,8 @@ class Game {
 
     private:
         void ProcessInput();
-        void UpdateGame();
-        void GenerateOutput();
+        void UpdateGame(class GameObj*);
+        void GenerateOutput(class RendererComponent *);
 
         void LoadData();
         void UnLoadData();
@@ -25,8 +25,8 @@ class Game {
         GLFWwindow *window;
         uint32_t ticksCount;
         bool isRunning;
-        class Handler *rendererHandler;
-
+        class RendererHandler *rendererHandler;
+        class GameObjHandler *gameObjHandler;
 }; 
 
 #endif
