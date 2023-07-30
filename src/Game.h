@@ -26,10 +26,10 @@ class Game {
 
         GLFWwindow *window;
         
-        float ticksCount;
-        float deltaTime;
+        GLfloat ticksCount;
+        GLfloat deltaTime;
         
-        bool isRunning;
+        GLboolean isRunning;
         class RendererHandler *rendererHandler;
         class GameObjHandler *gameObjHandler;
 }; 

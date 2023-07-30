@@ -8,7 +8,12 @@
 
 class RendererComponent : private Component {
     public:
-        RendererComponent(class GameObj *gameObj, int updateOrder = 0, std ::vector<class Texture *> textures, class Shape *shape, class Shader *shader);
+        RendererComponent(class GameObj *gameObj, 
+                          int updateOrder = 0, 
+                          std ::vector<class Texture *> textures, 
+                          class Shape *shape, 
+                          class Shader *shader);
+                          
         ~RendererComponent();
 
         void Update(int deltaTime) override;

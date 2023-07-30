@@ -1,5 +1,11 @@
 #include "RendererComponent.h"
+#include "../Rendering/Shader.h"
+#include "../Rendering/Texture.h"
+#include "../Rendering/Shape.h"
 #include <iostream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 RendererComponent::RendererComponent(GameObj *gameObj,
                                      int updateOrder = 0,
@@ -28,5 +34,14 @@ void RendererComponent::Update(int deltaTime) {
 }
 
 void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view) {
-    
+    this->model = glm::translate(this->model, this->gameObj->position);
+    this->model = glm::rotate(this->model, glm::radians(this->gameObj->rotation), this->gameObj->rotationVec);
+    this->model = glm::scale(this->model, this->gameObj->scale);
+
+    this->shader->setMatrix4("projection", projection);
+    this->shader->setMatrix4("model", model);
+    this->shader->setMatrix4("view", view);
+
+    this->texture->Bind();
+    this->shape->Draw();
 }

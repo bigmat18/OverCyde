@@ -5,8 +5,8 @@
 
 class Component {
     public:
-        Component(class GameObj* gameObj, int updateOrder = 0) : gameObj(gameObj),
-                                                                 updateOrder(updateOrder)
+        Component(class GameObj *gameObj, GLshort updateOrder = 0) : gameObj(gameObj),
+                                                                     updateOrder(updateOrder)
         { this->gameObj->AddComponent(this); }
 
         ~Component() { this->gameObj->RemoveComponent(this); }
@@ -16,7 +16,7 @@ class Component {
 
     protected:
         class GameObj* gameObj;
-        int updateOrder;
+        GLshort updateOrder;
 };
 
 #endif
