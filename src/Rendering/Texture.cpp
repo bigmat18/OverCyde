@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include <GL/glew.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "../Utils/stb_image.h"
 
 Texture::Texture(const std::string &path) : rendererID(0),
                                             filePath(path), 

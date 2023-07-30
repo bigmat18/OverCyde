@@ -1,5 +1,5 @@
 #include "Handler.h"
-#include "GameObj.h"
+#include "../GameObj.h"
 #include <vector>
 #include <iterator>
 #include <cstddef>

@@ -1,8 +1,7 @@
-#include "Utils/debugging.h"
-
+#include "../Utils/debugging.h"
+#include "../Utils/global.h"
+#include "../Components/RendererComponent.h"
 #include "RendererHandler.h"
-#include "RendererComponent.h"
-#include "Utils/global.h"
 #include <vector>
 
 RendererHandler::RendererHandler() : Handler() {
@@ -42,20 +41,6 @@ void RendererHandler::Shutdown() {
     glfwTerminate();
 }
 
-void RendererHandler::Update(RendererComponent *obj, float deltaTime) {
-
-
-    //obj->Draw(deltaTime, this->projection, this->view);
+void RendererHandler::Update(RendererComponent *obj) {
+    obj->Draw(this->window, this->projection, this->view->GetView());
 }
-
-// void RendererHandler::AddElement(RendererComponent *obj) {
-//     this->objs.__emplace_back(obj);
-// }
-
-// void RendererHandler::RemoveElement(RendererComponent *obj) {
-//     auto iter = std::find(this->objs.begin(), this->objs.end(), obj);
-//     if (iter != this->objs.end()){
-//         std::iter_swap(iter, this->objs.end() - 1);
-//         this->objs.pop_back();
-//     }
-// }

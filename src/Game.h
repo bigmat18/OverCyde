@@ -22,8 +22,13 @@ class Game {
         void LoadData();
         void UnLoadData();
 
+        void UpdateDeltaTime();
+
         GLFWwindow *window;
-        uint32_t ticksCount;
+        
+        float ticksCount;
+        float deltaTime;
+        
         bool isRunning;
         class RendererHandler *rendererHandler;
         class GameObjHandler *gameObjHandler;

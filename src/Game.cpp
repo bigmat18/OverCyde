@@ -1,6 +1,8 @@
 #include "Game.h"
-#include "RendererHandler.h"
-#include "GameObjHandler.h"
+#include "Handlers/RendererHandler.h"
+#include "Handlers/GameObjHandler.h"
+#include "Components/RendererComponent.h"
+#include "GameObj.h"
 #include "Utils/debugging.h"
 #include "Utils/global.h"
 
@@ -8,6 +10,7 @@ Game::Game() : isRunning(true)
 { 
     this->gameObjHandler = new GameObjHandler();
     this->rendererHandler = new RendererHandler();
+    this->ticksCount = glfwGetTime();
 }
 
 bool Game::Initialize() {
@@ -19,6 +22,7 @@ bool Game::Initialize() {
 
 void Game::RunLoop() {
     while(!glfwWindowShouldClose(this->window)) {
+        this->UpdateDeltaTime();
         this->ProcessInput();
 
         glClearColor(DESTRUCT(BACKGROUND_COLOR));
@@ -41,11 +45,11 @@ void Game::ProcessInput() {
 }
 
 void Game::UpdateGame(GameObj *obj) {
-    // for(el in gameobj) input->Update()
+    //obj->Update(this->deltaTime);
 }
 
 void Game::GenerateOutput(RendererComponent *obj) { 
-    this->rendererHandler->Update(obj, this->ticksCount); 
+    this->rendererHandler->Update(obj); 
 }
 
 void Game::Shutdown() {
@@ -56,3 +60,11 @@ void Game::Shutdown() {
 void Game::LoadData() {}
 
 void Game::UnLoadData() {}
+
+void Game::UpdateDeltaTime() {
+    this->deltaTime = (glfwGetTime() - this->ticksCount) / 1000.0f;
+    std::cout << "FPS: " << 1.0f / this->deltaTime << std::endl;
+    this->ticksCount = glfwGetTime();
+
+    if (this->deltaTime > 0.05f) this->deltaTime = 0.05f;
+}
