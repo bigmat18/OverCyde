@@ -19,7 +19,7 @@ bool Game::Initialize() {
 }
 
 void Game::RunLoop() {
-    while(!glfwWindowShouldClose(this->window)) {
+    while(!glfwWindowShouldClose(this->window) && this->isRunning) {
         this->gameObjHandler->UpdateDeltaTime();
         this->ProcessInput();
 
@@ -43,7 +43,7 @@ void Game::ProcessInput() {
 }
 
 void Game::UpdateGame(GameObj *obj) {
-    //obj->Update(this->deltaTime);
+    this->gameObjHandler->Update(obj);
 }
 
 void Game::GenerateOutput(RendererComponent *obj) { 
@@ -55,6 +55,17 @@ void Game::Shutdown() {
     this->gameObjHandler->Shutdown();
 }
 
-void Game::LoadData() {}
+void Game::LoadData() {
+    std::vector<std::string> paths = {
+        "../sprites/grass_up.png",
+        "../sprites/grass_lateral.png",
+        "../sprites/grass_lateral.png",
+        "../sprites/grass_lateral.png",
+        "../sprites/grass_lateral.png",
+        "../sprites/grass_bottom.png"
+    };
+    GameObj *cube = new GameObj();
+    // RendererComponent *render = new RendererComponent(cube, paths, new )
+}
 
 void Game::UnLoadData() {}

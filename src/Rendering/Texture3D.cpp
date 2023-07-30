@@ -3,7 +3,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Utils/stb_image.h"
 
-Texture3D::Texture3D(const std::vector<std::string> &paths) : Texture(), filePaths(paths)
+Texture3D::Texture3D(const std::vector<std::string> &paths) : Texture(), 
+                                                              filePaths(paths)
 {
     stbi_set_flip_vertically_on_load(true);
     glGenTextures(1, &this->rendererID);
@@ -16,15 +17,15 @@ Texture3D::Texture3D(const std::vector<std::string> &paths) : Texture(), filePat
                          0, GL_RGB, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, this->localBuffer);
         }
         stbi_image_free(this->localBuffer);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
     }
-
 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
 Texture3D::~Texture3D() { glDeleteTextures(1, &this->rendererID); }

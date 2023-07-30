@@ -7,7 +7,8 @@ GameObj::GameObj(RendererComponent *renderer = nullptr) : position((0.0f, 0.0f, 
                                                           scale((1.0f, 1.0f, 1.0f)),
                                                           rotation(0.0f)
 { this->renderer = renderer; }
-GameObj::~GameObj() {}
+
+GameObj::~GameObj() { delete this->renderer; }
 
 void GameObj::AddComponent(Component *component) {
     int order = component->GetUpdateOrder();
@@ -26,6 +27,8 @@ void GameObj::RemoveComponent(Component *component) {
 }
 
 void GameObj::Update(float deltaTime) {
+    this->renderer->Update(deltaTime);
+
     for(auto comp : this->components) {
         comp->Update(deltaTime);
     }

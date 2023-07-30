@@ -34,9 +34,11 @@ void RendererComponent::Update(int deltaTime) {
 }
 
 void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view) {
-    this->model = glm::translate(this->model, this->gameObj->position);
-    this->model = glm::rotate(this->model, glm::radians(this->gameObj->rotation), this->gameObj->rotationVec);
-    this->model = glm::scale(this->model, this->gameObj->scale);
+    GameObjData data = this->gameObj->GetGameObjData();
+
+    this->model = glm::translate(this->model, data.position);
+    this->model = glm::rotate(this->model, glm::radians(data.rotation), data.rotationVec);
+    this->model = glm::scale(this->model, data.scale);
 
     this->shader->setMatrix4("projection", projection);
     this->shader->setMatrix4("model", model);
