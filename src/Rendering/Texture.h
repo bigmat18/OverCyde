@@ -5,21 +5,24 @@
 #define TEXTURE_H
 
 class Texture {
-    private:
+    protected:
         GLuint rendererID;
-        std::string filePath;
-        unsigned char* localBuffer;
         GLint width, height, BPP;
+        unsigned char *localBuffer;
 
     public:
-        Texture(const std::string& path);
-        ~Texture();
+        Texture() : rendererID(0),
+                    width(0),
+                    height(0),
+                    BPP(0),
+                    localBuffer(nullptr) {};
+        ~Texture() {};
 
-        void Bind(GLuint slot = 0) const;
-        void Unbind() const;
+        virtual void Bind(GLuint slot = 0) = 0;
+        virtual void Unbind() = 0;
 
-        inline int GetWidth() const { return this->width; }
-        inline int GetHeight() const { return this->height; }
+        int GetWidth() const { return this->width; }
+        int GetHeight() const { return this->height; }
 };
 
 #endif

@@ -26,3 +26,7 @@ void RendererComponent::Update(int deltaTime) {
         this->texture = this->textures[static_cast<int>(this->currentFrame)];
     }
 }
+
+void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view) {
+    
+}

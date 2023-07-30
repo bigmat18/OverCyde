@@ -1,5 +1,6 @@
 #include "Component.h"
 #include <glm/glm.hpp>
+#include <GLFW/glfw3.h>
 #include <vector>
 
 #ifndef RENDERER_OBJ_H

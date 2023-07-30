@@ -1,5 +1,3 @@
-#include <GLFW/glfw3.h>
-
 #ifndef HANDLER_H
 #define HANDLER_H
 
