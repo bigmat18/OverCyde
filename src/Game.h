@@ -22,12 +22,7 @@ class Game {
         void LoadData();
         void UnLoadData();
 
-        void UpdateDeltaTime();
-
         GLFWwindow *window;
-        
-        GLfloat ticksCount;
-        GLfloat deltaTime;
         
         GLboolean isRunning;
         class RendererHandler *rendererHandler;

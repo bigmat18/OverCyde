@@ -10,11 +10,9 @@ Game::Game() : isRunning(true)
 { 
     this->gameObjHandler = new GameObjHandler();
     this->rendererHandler = new RendererHandler();
-    this->ticksCount = glfwGetTime();
 }
 
 bool Game::Initialize() {
-    this->ticksCount = glfwGetTime();
     this->gameObjHandler->Initialize();
     this->window = this->rendererHandler->Initialize();
     return this->window != nullptr;
@@ -22,7 +20,7 @@ bool Game::Initialize() {
 
 void Game::RunLoop() {
     while(!glfwWindowShouldClose(this->window)) {
-        this->UpdateDeltaTime();
+        this->gameObjHandler->UpdateDeltaTime();
         this->ProcessInput();
 
         glClearColor(DESTRUCT(BACKGROUND_COLOR));
@@ -60,11 +58,3 @@ void Game::Shutdown() {
 void Game::LoadData() {}
 
 void Game::UnLoadData() {}
-
-void Game::UpdateDeltaTime() {
-    this->deltaTime = (glfwGetTime() - this->ticksCount) / 1000.0f;
-    std::cout << "FPS: " << 1.0f / this->deltaTime << std::endl;
-    this->ticksCount = glfwGetTime();
-
-    if (this->deltaTime > 0.05f) this->deltaTime = 0.05f;
-}

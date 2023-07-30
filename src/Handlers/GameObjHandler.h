@@ -9,15 +9,17 @@
 
 class GameObjHandler : private Handler<GameObj, void> {
     public:
-        GameObjHandler() {};
-        ~GameObjHandler() {};
+        GameObjHandler();
+        ~GameObjHandler();
 
-        void Initialize() override {};
-        void Shutdown() override {};
-        void Update(GameObj *obj) override {};
+        void Initialize() override;
+        void Shutdown() override;
+        void Update(GameObj *obj) override;
 
-        void AddGameObj(GameObj *obj) {};
-        void RemoveGameObj(GameObj *obj) {};
+        void AddGameObj(GameObj *obj);
+        void RemoveGameObj(GameObj *obj);
+
+        void UpdateDeltaTime();
 
         template <class R>
         struct Iterator {
@@ -48,7 +50,8 @@ class GameObjHandler : private Handler<GameObj, void> {
 
     private:
         std::vector<GameObj*> objs;
-
+        GLfloat ticksCount;
+        GLfloat deltaTime;
 };
 
 #endif
