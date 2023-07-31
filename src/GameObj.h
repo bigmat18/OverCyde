@@ -5,10 +5,35 @@
 #define GAME_OBJ_H
 
 struct GameObjData {
-    glm::vec3 position;
-    glm::vec3 rotationVec;
-    glm::vec3 scale;
-    GLfloat rotation;
+    protected:
+        glm::vec3 position;
+        glm::vec3 rotationVec;
+        glm::vec3 scale;
+        GLfloat rotation;
+
+    public:
+        GameObjData(glm::vec3 position, glm::vec3 rotationVec, glm::vec3 scale, GLfloat rotation) : position(position),
+                                                                                                    rotationVec(rotationVec),
+                                                                                                    scale(scale),
+                                                                                                    rotation(rotation) {}
+
+        glm::vec3 GetPosition() const { return this->position; }
+        glm::vec3 GetRotationVec() const { return this->rotationVec; }
+        glm::vec3 GetScale() const { return this->scale; }
+        GLfloat GetRotation() const { return this->rotation; }
+};
+
+struct GameObjDataWrite : GameObjData {
+    public:
+        GameObjDataWrite(glm::vec3 position, 
+                         glm::vec3 rotationVec, 
+                         glm::vec3 scale, 
+                         GLfloat rotation) : GameObjData(position, rotationVec, scale, rotation) {};
+
+        void SetPosition(glm::vec3 position) { this->position = position; }
+        void SetRotationVec(glm::vec3 rotationVec) { this->rotationVec = rotationVec; }
+        void SetScale(glm::vec3 scale) { this->scale = scale; }
+        void SetRotation(GLfloat rotation) { this->rotation = rotation; }
 };
 
 class GameObj {
@@ -20,19 +45,16 @@ class GameObj {
         void RemoveComponent(class Component *component);
 
         void Update(float deltaTime);
-        
-        struct GameObjData GetGameObjData() const { 
-            return (struct GameObjData){this->position, this->rotationVec, this->scale, this->rotation}; 
-        };
+
+        struct GameObjDataWrite *GetGameObjDataWrite() const { return this->data; }
+        struct GameObjData *GetGameObjData() const { 
+            return static_cast<GameObjData*>(this->data); 
+        }
 
         class RendererComponent *renderer;
     private:
         std::vector<class Component*> components;
-        
-        glm::vec3 position;
-        glm::vec3 rotationVec;
-        glm::vec3 scale;
-        GLfloat rotation;
+        struct GameObjDataWrite *data;
 };
 
 #endif

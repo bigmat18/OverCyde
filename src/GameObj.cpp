@@ -2,11 +2,14 @@
 #include "Components/Component.h"
 #include "Components/RendererComponent.h"
 
-GameObj::GameObj(RendererComponent *renderer = nullptr) : position((0.0f, 0.0f, 0.0f)),
-                                                          rotationVec((0.0f, 0.0f, 0.0f)),
-                                                          scale((1.0f, 1.0f, 1.0f)),
-                                                          rotation(0.0f)
-{ this->renderer = renderer; }
+GameObj::GameObj(RendererComponent *renderer = nullptr)
+{ 
+    this->renderer = renderer; 
+    this->data = new GameObjDataWrite({0.0f, 0.0f, 0.0f}, 
+                                      {0.0f, 0.0f, 0.0f}, 
+                                      {1.0f, 1.0f, 1.0f}, 
+                                      0.0f);
+}
 
 GameObj::~GameObj() { delete this->renderer; }
 

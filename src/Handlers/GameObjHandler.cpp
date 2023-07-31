@@ -7,21 +7,13 @@ GameObjHandler::GameObjHandler() : deltaTime(0.0f),
 
 GameObjHandler::~GameObjHandler() {}
 
-void GameObjHandler::Initialize() {
-    this->ticksCount = glfwGetTime();
-}
+void GameObjHandler::Initialize() { this->ticksCount = glfwGetTime(); }
 
-void GameObjHandler::Shutdown() {
-    for(auto obj : this->objs) delete obj;
-}
+void GameObjHandler::Shutdown() { for(auto obj : this->objs) delete obj; }
 
-void GameObjHandler::Update(GameObj *obj) {
-    obj->Update(this->deltaTime);
-}
+void GameObjHandler::Update(GameObj *obj) { obj->Update(this->deltaTime); }
 
-void GameObjHandler::AddGameObj(GameObj *obj) {
-    this->objs.emplace_back(obj);
-}
+void GameObjHandler::AddGameObj(GameObj *obj) { this->objs.emplace_back(obj); }
 
 void GameObjHandler::RemoveGameObj(GameObj *obj) {
     auto iter = std::find(this->objs.begin(), this->objs.end(), obj);

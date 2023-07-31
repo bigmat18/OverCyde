@@ -5,11 +5,13 @@
 #include <vector>
 
 RendererHandler::RendererHandler() : Handler() {
-    this->projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    this->projection = glm::perspective(glm::radians(static_cast<float>(ZOOM)), 
+                                                     static_cast<float>(HEIGHT) / static_cast<float>(WEIGHT),
+                                                     0.1f, 100.0f);
     this->view = new ViewMatrix();
 }
 
-RendererHandler::~RendererHandler() {}
+RendererHandler::~RendererHandler() { delete this->view; }
 
 GLFWwindow* RendererHandler::Initialize() {
     if (!glfwInit())
@@ -37,9 +39,7 @@ GLFWwindow* RendererHandler::Initialize() {
     return this->window;
 }
 
-void RendererHandler::Shutdown() {
-    glfwTerminate();
-}
+void RendererHandler::Shutdown() { glfwTerminate(); }
 
 void RendererHandler::Update(RendererComponent *obj) {
     obj->Draw(this->window, this->projection, this->view->GetView());

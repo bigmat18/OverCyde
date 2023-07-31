@@ -9,6 +9,8 @@
 const u_int16_t HEIGHT = 1200;
 const u_int16_t WEIGHT = 900;
 
+const u_int16_t ZOOM = 900;
+
 const glm::vec4 BACKGROUND_COLOR(0.0f, 0.0f, 0.0f, 1.0f);
 
 #endif
