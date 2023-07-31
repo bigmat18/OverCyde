@@ -1,4 +1,5 @@
 #include <vector>
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 
 #ifndef GAME_OBJ_H
@@ -38,7 +39,7 @@ struct GameObjDataWrite : GameObjData {
 
 class GameObj {
     public:
-        GameObj(class RendererComponent *renderer = nullptr);
+        GameObj(class RendererComponent *renderer);
         ~GameObj();
 
         void AddComponent(class Component *component);

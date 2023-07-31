@@ -1,13 +1,13 @@
 #include "GameObj.h"
 #include "Components/Component.h"
 #include "Components/RendererComponent.h"
+#include "Handlers/GameObjHandler.h"
 
-GameObj::GameObj(RendererComponent *renderer = nullptr)
+GameObj::GameObj(RendererComponent *renderer) : renderer(renderer)
 { 
-    this->renderer = renderer; 
-    this->data = new GameObjDataWrite({0.0f, 0.0f, 0.0f}, 
-                                      {0.0f, 0.0f, 0.0f}, 
-                                      {1.0f, 1.0f, 1.0f}, 
+    this->data = new GameObjDataWrite(glm::vec3(0.0f, 0.0f, 0.0f),
+                                      glm::vec3(0.0f, 0.0f, 0.0f),
+                                      glm::vec3(1.0f, 1.0f, 1.0f),
                                       0.0f);
 }
 

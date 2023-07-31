@@ -2,22 +2,23 @@
 #include "../Rendering/Shader.h"
 #include "../Rendering/Texture.h"
 #include "../Rendering/Shape.h"
+#include "../GameObj.h"
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 RendererComponent::RendererComponent(GameObj *gameObj,
-                                     int updateOrder = 0,
                                      std::vector<Texture *> textures,
                                      Shape *shape,
-                                     Shader *shader) : Component(gameObj, updateOrder),
-                                                       textures(textures),
-                                                       shape(shape),
-                                                       shader(shader),
-                                                       model(glm::mat4(1)),
-                                                       currentFrame(0.0f),
-                                                       animFps(20.0f)
+                                     Shader *shader,
+                                     int updateOrder) : Component(gameObj, updateOrder),
+                                                        textures(textures),
+                                                        shape(shape),
+                                                        shader(shader),
+                                                        model(glm::mat4(1)),
+                                                        currentFrame(0.0f),
+                                                        animFps(20.0f)
 { this->texture = this->textures[0]; }
 
 RendererComponent::~RendererComponent() {}

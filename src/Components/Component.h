@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "../GameObj.h"
 
 #ifndef COMPONENT_H
@@ -9,9 +10,9 @@ class Component {
                                                                      updateOrder(updateOrder)
         { this->gameObj->AddComponent(this); }
 
-        ~Component() { this->gameObj->RemoveComponent(this); }
+        virtual ~Component() { this->gameObj->RemoveComponent(this); }
 
-        virtual void Update(int deltaTime);
+        virtual void Update(int deltaTime) = 0;
         int GetUpdateOrder() const { return this->updateOrder; }
 
     protected:

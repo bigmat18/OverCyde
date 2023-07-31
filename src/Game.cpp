@@ -56,15 +56,14 @@ void Game::Shutdown() {
 }
 
 void Game::LoadData() {
-    std::vector<std::string> paths = {
-        "../sprites/grass_up.png",
-        "../sprites/grass_lateral.png",
-        "../sprites/grass_lateral.png",
-        "../sprites/grass_lateral.png",
-        "../sprites/grass_lateral.png",
-        "../sprites/grass_bottom.png"
-    };
-    GameObj *cube = new GameObj();
+    // std::vector<std::string> paths = {
+    //     "../sprites/grass_up.png",
+    //     "../sprites/grass_lateral.png",
+    //     "../sprites/grass_lateral.png",
+    //     "../sprites/grass_lateral.png",
+    //     "../sprites/grass_lateral.png",
+    //     "../sprites/grass_bottom.png"
+    // };
     // RendererComponent *render = new RendererComponent(cube, paths, new )
 }
 
