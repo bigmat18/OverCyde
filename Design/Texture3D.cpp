@@ -1,5 +1,6 @@
 #include "Texture3D.h"
 #include <GL/glew.h>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Utils/stb_image.h"
 

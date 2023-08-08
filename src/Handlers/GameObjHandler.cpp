@@ -2,8 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-GameObjHandler::GameObjHandler() : deltaTime(0.0f), 
-                                   ticksCount(0.0f) {}
+GameObjHandler::GameObjHandler() : ticksCount(0.0f),
+                                   deltaTime(0.0f) {}
 
 GameObjHandler::~GameObjHandler() {}
 

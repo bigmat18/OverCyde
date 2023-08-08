@@ -1,8 +1,9 @@
 #include "Texture2D.h"
 #include <GL/glew.h>
+#include <iostream>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Utils/stb_image.h"
-#include <iostream>
 
 Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
 {
