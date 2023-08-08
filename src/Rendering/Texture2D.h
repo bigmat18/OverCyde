@@ -5,7 +5,7 @@
 #ifndef TEXTURE2D_H
 #define TEXTURE2D_H
 
-class Texture2D : private Texture {
+class Texture2D : public Texture {
     private:
         std::string filePath;
 

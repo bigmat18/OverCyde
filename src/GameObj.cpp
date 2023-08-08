@@ -31,8 +31,6 @@ void GameObj::RemoveComponent(Component *component) {
 }
 
 void GameObj::Update(float deltaTime) {
-    this->renderer->Update(deltaTime);
-
     for(auto comp : this->components) {
         comp->Update(deltaTime);
     }

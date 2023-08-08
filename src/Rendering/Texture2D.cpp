@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Utils/stb_image.h"
+#include <iostream>
 
 Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
 {
@@ -25,8 +26,11 @@ Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
 Texture2D::~Texture2D() { glDeleteTextures(1, &this->rendererID); }
 
 void Texture2D::Bind(GLuint slot) {
+    std::cout << "1" << std::endl;
     glActiveTexture(GL_TEXTURE0 + slot);
+    std::cout << "2" << std::endl;
     glBindTexture(GL_TEXTURE_2D, this->rendererID);
+    std::cout << "3" << std::endl;
 }
 
 void Texture2D::Unbind() { glBindTexture(GL_TEXTURE_2D, 0); }

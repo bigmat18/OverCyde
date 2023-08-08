@@ -57,6 +57,7 @@ std::string Shader::readFile(const char *path){
         file.close();
         return stream.str();
     }catch(std::ifstream::failure e){
+        std::cout << strerror(errno) << std::endl;
         std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }
 }

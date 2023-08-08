@@ -8,7 +8,7 @@
 #include "Rendering/Cube.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Texture.h"
-#include "Rendering/Texture3D.h"
+#include "Rendering/Texture2D.h"
 
 Game::Game() : isRunning(true) 
 { 
@@ -19,6 +19,8 @@ Game::Game() : isRunning(true)
 bool Game::Initialize() {
     this->gameObjHandler->Initialize();
     this->window = this->rendererHandler->Initialize();
+
+    this->LoadData();
     return this->window != nullptr;
 }
 
@@ -36,7 +38,7 @@ void Game::RunLoop() {
             this->GenerateOutput(obj->renderer);
         }
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(this->window);
         glfwPollEvents();
     }
 }
@@ -68,12 +70,14 @@ void Game::LoadData() {
                          "../sprites/grass_bottom.png" };
 
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
-    Texture3D *tex = new Texture3D(paths);
+
+    Texture2D *tex = new Texture2D("sprites/grass_up.png");
     std::vector<Texture*> textures;
     textures.push_back(tex);
 
     GameObj *cube = new GameObj();
-    RendererComponent *render = new RendererComponent(cube, textures, new Cube(1.0f), new Shader("../shaders/base.vert", "../shaders/base.vert"));
+    this->gameObjHandler->AddGameObj(cube);
+    RendererComponent *render = new RendererComponent(cube, textures, new Cube(1.0f), new Shader("shaders/base.vert", "shaders/base.frag"));
 }
 
 void Game::UnLoadData() {}
