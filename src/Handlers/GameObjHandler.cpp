@@ -27,7 +27,7 @@ void GameObjHandler::UpdateDeltaTime() {
     this->deltaTime = (glfwGetTime() - this->ticksCount) / 1000.0f;
     this->ticksCount = glfwGetTime();
 
-    std::cout << "FPS: " << 1.0f / this->deltaTime << std::endl;
+    //std::cout << "FPS: " << 1.0f / this->deltaTime << std::endl;
 
     if (this->deltaTime > 0.05f) this->deltaTime = 0.05f;
 }

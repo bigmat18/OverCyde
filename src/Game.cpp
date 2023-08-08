@@ -5,6 +5,10 @@
 #include "GameObj.h"
 #include "Utils/debugging.h"
 #include "Utils/global.h"
+#include "Rendering/Cube.h"
+#include "Rendering/Shader.h"
+#include "Rendering/Texture.h"
+#include "Rendering/Texture3D.h"
 
 Game::Game() : isRunning(true) 
 { 
@@ -56,15 +60,20 @@ void Game::Shutdown() {
 }
 
 void Game::LoadData() {
-    // std::vector<std::string> paths = {
-    //     "../sprites/grass_up.png",
-    //     "../sprites/grass_lateral.png",
-    //     "../sprites/grass_lateral.png",
-    //     "../sprites/grass_lateral.png",
-    //     "../sprites/grass_lateral.png",
-    //     "../sprites/grass_bottom.png"
-    // };
-    // RendererComponent *render = new RendererComponent(cube, paths, new )
+    std::string arr[] = {"../sprites/grass_up.png",
+                         "../sprites/grass_lateral.png",
+                         "../sprites/grass_lateral.png",
+                         "../sprites/grass_lateral.png",
+                         "../sprites/grass_lateral.png",
+                         "../sprites/grass_bottom.png" };
+
+    std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
+    Texture3D *tex = new Texture3D(paths);
+    std::vector<Texture*> textures;
+    textures.push_back(tex);
+
+    GameObj *cube = new GameObj();
+    RendererComponent *render = new RendererComponent(cube, textures, new Cube(1.0f), new Shader("../shaders/base.vert", "../shaders/base.vert"));
 }
 
 void Game::UnLoadData() {}

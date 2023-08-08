@@ -2,8 +2,9 @@
 #include "Components/Component.h"
 #include "Components/RendererComponent.h"
 #include "Handlers/GameObjHandler.h"
+#include <typeinfo>
 
-GameObj::GameObj(RendererComponent *renderer) : renderer(renderer)
+GameObj::GameObj() : renderer(nullptr)
 { 
     this->data = new GameObjDataWrite(glm::vec3(0.0f, 0.0f, 0.0f),
                                       glm::vec3(0.0f, 0.0f, 0.0f),

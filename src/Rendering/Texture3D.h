@@ -6,7 +6,7 @@
 #ifndef TEXTURE3D_H
 #define TEXTURE3D_H
 
-class Texture3D : private Texture {
+class Texture3D : public Texture {
     private:
         std::vector<std::string> filePaths;
 

@@ -9,7 +9,7 @@
 class RendererComponent : private Component {
     public:
         RendererComponent(class GameObj *gameObj, 
-                          std ::vector<class Texture *> textures, 
+                          std::vector<class Texture *> textures, 
                           class Shape *shape, 
                           class Shader *shader,
                           int updateOrder = 0);

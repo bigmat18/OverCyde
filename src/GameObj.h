@@ -39,7 +39,7 @@ struct GameObjDataWrite : GameObjData {
 
 class GameObj {
     public:
-        GameObj(class RendererComponent *renderer);
+        GameObj();
         ~GameObj();
 
         void AddComponent(class Component *component);
