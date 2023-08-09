@@ -11,18 +11,18 @@ class RendererComponent : public Component {
         RendererComponent(class GameObj *gameObj,
                           class Shape *shape,
                           class Shader *shader,
-                          int updateOrder = 0);
+                          GLshort updateOrder = 0);
 
         ~RendererComponent();
 
         void Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view);
         void SetTexture(class Texture *texture) { this->texture = texture; };
 
-    private:
+    protected:
+        class Texture *texture;
         class Shape *shape;
         class Shader *shader;
         glm::mat4 model;
-        class Texture *texture;
 
 };
 

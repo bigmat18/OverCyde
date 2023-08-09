@@ -7,9 +7,11 @@
 AnimRendererComponent::AnimRendererComponent(GameObj *gameObj,
                                              Shape *shape,
                                              Shader *shader,
-                                             int updateOrder = 0) : RendererComponent(gameObj, shape, shader, updateOrder),
+                                             GLshort updateOrder) : RendererComponent(gameObj, shape, shader, updateOrder),
                                                                     currentFrame(0.0f),
                                                                     animFps(20.0f) {}
+
+AnimRendererComponent::~AnimRendererComponent() {}
 
 void AnimRendererComponent::Update(int deltaTime) {
     if(this->textures.size() > 0) {

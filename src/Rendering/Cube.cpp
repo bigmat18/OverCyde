@@ -1,5 +1,6 @@
 #include "Cube.h"
 #include "VertexBuffer.h"
+#include "../Utils/debugging.h"
 #include <iostream>
 
 Cube::Cube(GLfloat side) : Shape(), side(side)
@@ -53,10 +54,13 @@ void Cube::BuildShape() {
     for(unsigned int i = 0; i<36; ++i) indices[i] = i;
 
     this->VBO = new VertexBuffer(vertices, 36 * 5 * sizeof(float));
+    check_gl_errors(__LINE__, __FILE__);
     this->EBO = new IndexBuffer(indices, 36);
+    check_gl_errors(__LINE__, __FILE__);
 
     VertexBufferLayout layout;
     layout.Push<float>(3);
     layout.Push<float>(2);
     this->VAO->AddBuffer(*this->VBO, layout);
+    check_gl_errors(__LINE__, __FILE__);
 }

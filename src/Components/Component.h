@@ -12,7 +12,7 @@ class Component {
 
         virtual ~Component() { this->gameObj->RemoveComponent(this); }
 
-        virtual void Update(int deltaTime) = 0;
+        virtual void Update(int deltaTime) {};
         int GetUpdateOrder() const { return this->updateOrder; }
 
     protected:

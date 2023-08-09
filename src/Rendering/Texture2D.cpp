@@ -18,7 +18,7 @@ Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this->width, this->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->localBuffer);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    glGenerateMipmap(GL_TEXTURE_2D);
 
     if (this->localBuffer)
         stbi_image_free(this->localBuffer);
@@ -27,11 +27,8 @@ Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
 Texture2D::~Texture2D() { glDeleteTextures(1, &this->rendererID); }
 
 void Texture2D::Bind(GLuint slot) {
-    std::cout << "1" << std::endl;
     glActiveTexture(GL_TEXTURE0 + slot);
-    std::cout << "2" << std::endl;
     glBindTexture(GL_TEXTURE_2D, this->rendererID);
-    std::cout << "3" << std::endl;
 }
 
 void Texture2D::Unbind() { glBindTexture(GL_TEXTURE_2D, 0); }

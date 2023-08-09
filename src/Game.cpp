@@ -62,23 +62,19 @@ void Game::Shutdown() {
 }
 
 void Game::LoadData() {
-    std::string arr[] = {"../sprites/grass_up.png",
-                         "../sprites/grass_lateral.png",
-                         "../sprites/grass_lateral.png",
-                         "../sprites/grass_lateral.png",
-                         "../sprites/grass_lateral.png",
-                         "../sprites/grass_bottom.png" };
-
+    std::string arr[] = {"sprites/grass_up.png",
+                         "sprites/grass_lateral.png",
+                         "sprites/grass_lateral.png",
+                         "sprites/grass_lateral.png",
+                         "sprites/grass_lateral.png",
+                         "sprites/grass_bottom.png"};
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
-
-    Texture2D *tex = new Texture2D("sprites/grass_up.png");
-    std::vector<Texture*> textures;
-    textures.push_back(tex);
 
     GameObj *cube = new GameObj();
     this->gameObjHandler->AddGameObj(cube);
-    RendererComponent *render = new RendererComponent(cube, new Cube(1.0f), new Shader("shaders/base.vert", "shaders/base.frag"));
-    render->SetTextures(textures);
+    RendererComponent *renderer = new RendererComponent(cube, new Cube(0.5f), new Shader("shaders/base.vert", "shaders/base.frag"));
+    cube->renderer = renderer;
+    renderer->SetTexture(new Texture2D("sprites/grass_up.png"));
 }
 
 void Game::UnLoadData() {}
