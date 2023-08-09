@@ -77,7 +77,8 @@ void Game::LoadData() {
 
     GameObj *cube = new GameObj();
     this->gameObjHandler->AddGameObj(cube);
-    RendererComponent *render = new RendererComponent(cube, textures, new Cube(1.0f), new Shader("shaders/base.vert", "shaders/base.frag"));
+    RendererComponent *render = new RendererComponent(cube, new Cube(1.0f), new Shader("shaders/base.vert", "shaders/base.frag"));
+    render->SetTextures(textures);
 }
 
 void Game::UnLoadData() {}

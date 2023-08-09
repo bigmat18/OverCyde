@@ -6,28 +6,24 @@
 #ifndef RENDERER_OBJ_H
 #define RENDERER_OBJ_H
 
-class RendererComponent : private Component {
+class RendererComponent : public Component {
     public:
         RendererComponent(class GameObj *gameObj,
-                          const std::vector<class Texture *> &textures,
                           class Shape *shape,
                           class Shader *shader,
                           int updateOrder = 0);
 
         ~RendererComponent();
 
-        void Update(int deltaTime) override;
         void Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view);
+        void SetTexture(class Texture *texture) { this->texture = texture; };
 
     private:
-        std::vector<class Texture*> textures;
         class Shape *shape;
         class Shader *shader;
         glm::mat4 model;
-
-        float currentFrame;
-        float animFps;
         class Texture *texture;
+
 };
 
 #endif
