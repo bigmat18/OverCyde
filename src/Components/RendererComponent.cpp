@@ -32,6 +32,7 @@ void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4
     // this->shader->setMatrix4("view", view);
     if(this->texture) {
         this->texture->Bind();
+        this->shader->use();
         this->shape->Draw();
     }
 }

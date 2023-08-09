@@ -5,7 +5,7 @@
 #include "GameObj.h"
 #include "Utils/debugging.h"
 #include "Utils/global.h"
-#include "Rendering/Cube.h"
+#include "Rendering/Surface.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Texture.h"
 #include "Rendering/Texture2D.h"
@@ -72,7 +72,7 @@ void Game::LoadData() {
 
     GameObj *cube = new GameObj();
     this->gameObjHandler->AddGameObj(cube);
-    RendererComponent *renderer = new RendererComponent(cube, new Cube(0.5f), new Shader("shaders/base.vert", "shaders/base.frag"));
+    RendererComponent *renderer = new RendererComponent(cube, new Surface(0.5f), new Shader("shaders/base.vert", "shaders/base.frag"));
     cube->renderer = renderer;
     renderer->SetTexture(new Texture2D("sprites/grass_up.png"));
 }

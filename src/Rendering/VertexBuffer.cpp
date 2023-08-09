@@ -9,6 +9,6 @@ VertexBuffer::VertexBuffer(const void* data, GLuint size){
 
 VertexBuffer::~VertexBuffer(){ glDeleteBuffers(1, &this->VBO); }
 
-void VertexBuffer::Bind() const { glBindBuffer(GL_ARRAY_BUFFER, VBO); }
+void VertexBuffer::Bind() const { glBindBuffer(GL_ARRAY_BUFFER, this->VBO); }
 
 void VertexBuffer::Unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
