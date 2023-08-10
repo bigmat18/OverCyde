@@ -11,18 +11,18 @@ class Texture {
         unsigned char *localBuffer;
 
     public:
-        Texture() : rendererID(0),
-                    width(0),
-                    height(0),
-                    BPP(0),
-                    localBuffer(nullptr) {};
-        ~Texture() {};
+        Texture();
+        ~Texture();
 
         virtual void Bind(GLuint slot = 0) = 0;
         virtual void Unbind() = 0;
 
         int GetWidth() const { return this->width; }
         int GetHeight() const { return this->height; }
+
+        void SetFlipVerticallyOnLoad(bool value = true);
+        void LoadImageBuffer(char const *string);
+        void FreeImageBuffer();
 };
 
 #endif

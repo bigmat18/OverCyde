@@ -7,8 +7,8 @@
 #include "Utils/global.h"
 #include "Rendering/Surface.h"
 #include "Rendering/Shader.h"
-#include "Rendering/Texture.h"
 #include "Rendering/Texture2D.h"
+#include "Rendering/Texture3D.h"
 
 Game::Game() : isRunning(true) 
 { 
@@ -29,6 +29,7 @@ void Game::RunLoop() {
         this->gameObjHandler->UpdateDeltaTime();
         this->ProcessInput();
 
+        glClearColor(DESTRUCT(BACKGROUND_COLOR));
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         for(auto it = this->gameObjHandler->begin(), end = this->gameObjHandler->end(); it != end; ++it){

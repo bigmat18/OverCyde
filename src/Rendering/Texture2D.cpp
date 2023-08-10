@@ -1,14 +1,10 @@
 #include "Texture2D.h"
 #include <GL/glew.h>
-#include <iostream>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "../Utils/stb_image.h"
 
 Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
 {
-    stbi_set_flip_vertically_on_load(true);
-    this->localBuffer = stbi_load(this->filePath.c_str(), &this->width, &this->height, &this->BPP, 4);
+    this->SetFlipVerticallyOnLoad();
+    this->LoadImageBuffer(this->filePath.c_str());
     glGenTextures(1, &this->rendererID);
     glBindTexture(GL_TEXTURE_2D, this->rendererID);
 
@@ -20,8 +16,7 @@ Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this->width, this->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->localBuffer);
     glGenerateMipmap(GL_TEXTURE_2D);
 
-    if (this->localBuffer)
-        stbi_image_free(this->localBuffer);
+    if (this->localBuffer) this->FreeImageBuffer();
 }
 
 Texture2D::~Texture2D() { glDeleteTextures(1, &this->rendererID); }
