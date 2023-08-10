@@ -29,8 +29,7 @@ void Game::RunLoop() {
         this->gameObjHandler->UpdateDeltaTime();
         this->ProcessInput();
 
-        glClearColor(DESTRUCT(BACKGROUND_COLOR));
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         for(auto it = this->gameObjHandler->begin(), end = this->gameObjHandler->end(); it != end; ++it){
             const auto obj = *it;
