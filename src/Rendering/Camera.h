@@ -32,8 +32,8 @@ class Camera {
         GLfloat GetZoom() const { return this->Zoom; };
         glm::vec3 GetPosizion() const { return this->Position; };
 
-        class ViewMatrix* SetView(class ViewMatrix* view) { this->view = view; };
-        glm::mat4 UpdateViewMatrix() const { this->view->SetView(this->Position, this->Front, this->Up); };
+        void SetView(class ViewMatrix* view) { this->view = view; };
+        void UpdateViewMatrix() const { this->view->SetView(this->Position, this->Front, this->Up); };
 
         void ProcessInput(GLFWwindow *window, float deltaTime);
         void MouseCallBack(double xpos, double ypos);

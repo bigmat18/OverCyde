@@ -3,11 +3,12 @@
 #include "../Components/RendererComponent.h"
 #include "RendererHandler.h"
 #include <vector>
+#include <glm/gtx/string_cast.hpp>
 
 RendererHandler::RendererHandler() : Handler() {
-    this->projection = glm::perspective(glm::radians(static_cast<float>(ZOOM)), 
-                                                     static_cast<float>(HEIGHT) / static_cast<float>(WEIGHT),
-                                                     0.1f, 100.0f);
+    this->projection = glm::perspective(glm::radians(ZOOM),
+                                        (float)(WIDTH) / (float)(HEIGHT),
+                                        0.1f, 100.0f);
     this->view = new ViewMatrix();
 }
 
@@ -24,7 +25,7 @@ GLFWwindow* RendererHandler::Initialize() {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     #endif
 
-    this->window = glfwCreateWindow(HEIGHT, WEIGHT, "OverCyde", NULL, NULL);
+    this->window = glfwCreateWindow(WIDTH, HEIGHT, "OverCyde", NULL, NULL);
     if (!this->window) {
         glfwTerminate();
         return nullptr;

@@ -11,8 +11,9 @@
 #include "Rendering/Texture2D.h"
 #include "Rendering/Texture3D.h"
 #include "Rendering/Camera.h"
+#include <glm/gtx/string_cast.hpp>
 
-Camera *camera = new Camera(HEIGHT, WEIGHT, 45, nullptr);
+Camera *camera = new Camera(WIDTH, HEIGHT, 45, nullptr);
 
 void MouseCallBackWrapper(GLFWwindow *window, double xpos, double ypos){
     if (camera)
@@ -65,7 +66,6 @@ void Game::ProcessInput(float deltaTime) {
     camera->ProcessInput(window, deltaTime);
     glfwSetCursorPosCallback(window, MouseCallBackWrapper);
     glfwSetScrollCallback(window, ScrollCallBackWrapper);
-
     camera->UpdateViewMatrix();
 }
 
