@@ -6,9 +6,23 @@
 #include "Utils/debugging.h"
 #include "Utils/global.h"
 #include "Rendering/Surface.h"
+#include "Rendering/Cube.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Texture2D.h"
 #include "Rendering/Texture3D.h"
+#include "Rendering/Camera.h"
+
+Camera *camera = new Camera(HEIGHT, WEIGHT, 45, nullptr);
+
+void MouseCallBackWrapper(GLFWwindow *window, double xpos, double ypos){
+    if (camera)
+        return camera->MouseCallBack(xpos, ypos);
+}
+
+void ScrollCallBackWrapper(GLFWwindow *window, double xoffset, double yoffset){
+    if (camera)
+        return camera->ScrollCallBack(yoffset);
+}
 
 Game::Game() : isRunning(true) 
 { 
@@ -19,7 +33,8 @@ Game::Game() : isRunning(true)
 bool Game::Initialize() {
     this->gameObjHandler->Initialize();
     this->window = this->rendererHandler->Initialize();
-
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    camera->SetView(this->rendererHandler->GetViewMatrix());
     this->LoadData();
     return this->window != nullptr;
 }
@@ -27,7 +42,7 @@ bool Game::Initialize() {
 void Game::RunLoop() {
     while(!glfwWindowShouldClose(this->window) && this->isRunning) {
         this->gameObjHandler->UpdateDeltaTime();
-        this->ProcessInput();
+        this->ProcessInput(this->gameObjHandler->GetDeltaTime());
 
         glClearColor(DESTRUCT(BACKGROUND_COLOR));
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -43,9 +58,15 @@ void Game::RunLoop() {
     }
 }
 
-void Game::ProcessInput() {
+void Game::ProcessInput(float deltaTime) {
     if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(this->window, true);
+
+    camera->ProcessInput(window, deltaTime);
+    glfwSetCursorPosCallback(window, MouseCallBackWrapper);
+    glfwSetScrollCallback(window, ScrollCallBackWrapper);
+
+    camera->UpdateViewMatrix();
 }
 
 void Game::UpdateGame(GameObj *obj) {
@@ -72,7 +93,7 @@ void Game::LoadData() {
 
     GameObj *cube = new GameObj();
     this->gameObjHandler->AddGameObj(cube);
-    RendererComponent *renderer = new RendererComponent(cube, new Surface(0.5f), new Shader("shaders/base.vert", "shaders/base.frag"));
+    RendererComponent *renderer = new RendererComponent(cube, new Cube(0.2f), new Shader("shaders/base.vert", "shaders/base.frag"));
     cube->renderer = renderer;
     renderer->SetTexture(new Texture2D("sprites/grass_up.png"));
 }

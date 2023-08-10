@@ -20,6 +20,7 @@ class GameObjHandler : private Handler<GameObj, void> {
         void RemoveGameObj(GameObj *obj);
 
         void UpdateDeltaTime();
+        float GetDeltaTime() const { return this->deltaTime; };
 
         template <class R>
         struct Iterator {

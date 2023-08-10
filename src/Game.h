@@ -15,7 +15,7 @@ class Game {
         void Shutdown();
 
     private:
-        void ProcessInput();
+        void ProcessInput(float deltaTime);
         void UpdateGame(class GameObj*);
         void GenerateOutput(class RendererComponent *);
 
