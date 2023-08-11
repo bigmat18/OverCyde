@@ -6,11 +6,6 @@
 #include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
-const float SPEED = 2.5f;
-const float SENSITIVITY = 0.1f;
-
 Camera::Camera(const float width, const float height, const float fov, ViewMatrix *view) : Yaw(YAW),
                                                                                            Pitch(PITCH),
                                                                                            MovementSpeed(SPEED),

@@ -52,7 +52,7 @@ void Game::RunLoop() {
         for(auto it = this->gameObjHandler->begin(), end = this->gameObjHandler->end(); it != end; ++it){
             const auto obj = *it;
             this->UpdateGame(obj);
-            this->GenerateOutput(obj->renderer);
+            this->GenerateOutput(obj->GetRenderer());
         }
 
         glfwSwapBuffers(this->window);
@@ -84,19 +84,18 @@ void Game::Shutdown() {
 }
 
 void Game::LoadData() {
-    std::string arr[] = {"sprites/grass_up.png",
+    std::string arr[] = {"sprites/grass_lateral.png",
                          "sprites/grass_lateral.png",
+                         "sprites/grass_up.png",
+                         "sprites/grass_bottom.png",
                          "sprites/grass_lateral.png",
-                         "sprites/grass_lateral.png",
-                         "sprites/grass_lateral.png",
-                         "sprites/grass_bottom.png"};
+                         "sprites/grass_lateral.png"};
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
 
     GameObj *cube = new GameObj();
     this->gameObjHandler->AddGameObj(cube);
-    RendererComponent *renderer = new RendererComponent(cube, new Cube(0.2f), new Shader("shaders/base.vert", "shaders/base.frag"));
-    cube->renderer = renderer;
-    renderer->SetTexture(new Texture2D("sprites/grass_up.png"));
+    RendererComponent *renderer = new RendererComponent(cube, new Cube(0.2f, true), new Shader("shaders/base.vert", "shaders/base.frag"));
+    renderer->SetTexture(new Texture3D(paths));
 }
 
 void Game::UnLoadData() {}

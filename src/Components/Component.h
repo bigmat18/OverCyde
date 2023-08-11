@@ -10,6 +10,8 @@ class Component {
                                                                      updateOrder(updateOrder)
         { this->gameObj->AddComponent(this); }
 
+        Component() {};
+
         virtual ~Component() { this->gameObj->RemoveComponent(this); }
 
         virtual void Update(int deltaTime) {};

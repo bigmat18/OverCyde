@@ -24,6 +24,7 @@ void GameObjHandler::RemoveGameObj(GameObj *obj) {
 }
 
 void GameObjHandler::UpdateDeltaTime() {
-    this->deltaTime = glfwGetTime() - this->ticksCount;
+    this->deltaTime = (glfwGetTime() - this->ticksCount) / 1000.0f;
     this->ticksCount = glfwGetTime();
+    if (this->deltaTime > 0.05f) this->deltaTime = 0.05f;
 }

@@ -6,11 +6,15 @@
 
 class Cube : public Shape {
     public:
-        Cube(GLfloat side);
+        Cube(GLfloat side, const bool is3D);
         void BuildShape();
 
     private:
+        void BuildShape3D();
+        void BuildShape2D();
+        
         GLfloat side;
+        bool is3D;
 };
 
 #endif
