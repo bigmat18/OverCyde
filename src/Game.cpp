@@ -80,10 +80,12 @@ void Game::LoadData() {
                          "sprites/grass_lateral.png"};
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
 
-    GameObj *cube = new GameObj();
-    this->gameObjHandler->AddGameObj(cube);
-    RendererComponent *renderer = new RendererComponent(cube, new Cube(0.2f, true), new Shader("shaders/base.vert", "shaders/base.frag"));
+    GameObj *obj = new GameObj();
+    this->gameObjHandler->AddGameObj(obj);
+    RendererComponent *renderer = new RendererComponent(obj, new Cube(0.2f, true), new Shader("shaders/base.vert", "shaders/base.frag"));
     renderer->SetTexture(new Texture3D(paths));
+    obj->SetRotationVec(glm::vec3(1.0f, 0.0f, 0.0f));
+    obj->SetRotation(45.0f);
 }
 
 void Game::UnLoadData() {}

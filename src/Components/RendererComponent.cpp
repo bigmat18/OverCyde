@@ -26,8 +26,8 @@ RendererComponent::RendererComponent(GameObj *gameObj,
 RendererComponent::~RendererComponent() {}
 
 void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view) {
-    this->model = glm::translate(this->model, this->gameObj->GetPosition());
-    // this->model = glm::rotate(this->model, glm::radians(data->GetRotation()), data->GetRotationVec());
+    this->model = glm::translate(glm::mat4(1), this->gameObj->GetPosition());
+    this->model = glm::rotate(this->model, glm::radians(this->gameObj->GetRotation()), this->gameObj->GetRotationVec());
     this->model = glm::scale(this->model, this->gameObj->GetScale());
 
     this->shader->setMatrix4("model", this->model);
