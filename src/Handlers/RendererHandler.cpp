@@ -5,11 +5,10 @@
 #include <vector>
 #include <glm/gtx/string_cast.hpp>
 
-RendererHandler::RendererHandler() : Handler() {
+RendererHandler::RendererHandler(ViewMatrix *view) : Handler(), view(view) {
     this->projection = glm::perspective(glm::radians(ZOOM),
                                         (float)(WIDTH) / (float)(HEIGHT),
                                         0.1f, 100.0f);
-    this->view = new ViewMatrix();
 }
 
 RendererHandler::~RendererHandler() { delete this->view; }

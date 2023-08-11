@@ -24,7 +24,6 @@ class Camera {
         float init;
 
         class ViewMatrix *view;
-
         void updateCameraVectors();
     public:
         Camera(const GLfloat WIDTH, const GLfloat HEIGTH, const GLfloat fov, class ViewMatrix* view);
@@ -33,7 +32,7 @@ class Camera {
         glm::vec3 GetPosizion() const { return this->Position; };
 
         void SetView(class ViewMatrix* view) { this->view = view; };
-        void UpdateViewMatrix() const { this->view->SetView(this->Position, this->Front, this->Up); };
+        void UpdateView() { this->view->SetView(this->Position, this->Front, this->Up); };
 
         void ProcessInput(GLFWwindow *window, float deltaTime);
         void MouseCallBack(double xpos, double ypos);

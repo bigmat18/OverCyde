@@ -3,6 +3,7 @@
 #include "../Utils/global.h"
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <iostream>
 
 const float YAW = -90.0f;

@@ -27,15 +27,16 @@ void ScrollCallBackWrapper(GLFWwindow *window, double xoffset, double yoffset){
 
 Game::Game() : isRunning(true) 
 { 
+    ViewMatrix *view = new ViewMatrix();
     this->gameObjHandler = new GameObjHandler();
-    this->rendererHandler = new RendererHandler();
+    this->rendererHandler = new RendererHandler(view);
+    camera->SetView(view);
 }
 
 bool Game::Initialize() {
     this->gameObjHandler->Initialize();
     this->window = this->rendererHandler->Initialize();
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    camera->SetView(this->rendererHandler->GetViewMatrix());
     this->LoadData();
     return this->window != nullptr;
 }
@@ -66,7 +67,7 @@ void Game::ProcessInput(float deltaTime) {
     camera->ProcessInput(window, deltaTime);
     glfwSetCursorPosCallback(window, MouseCallBackWrapper);
     glfwSetScrollCallback(window, ScrollCallBackWrapper);
-    camera->UpdateViewMatrix();
+    camera->UpdateView();
 }
 
 void Game::UpdateGame(GameObj *obj) {
