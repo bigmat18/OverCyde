@@ -24,13 +24,17 @@ void Camera::ProcessInput(GLFWwindow *window, float deltaTime){
     float cameraSpeed = this->MovementSpeed * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        this->Position += cameraSpeed * this->Up;
+        this->Position += cameraSpeed * this->Front;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        this->Position -= cameraSpeed * this->Up;
+        this->Position -= cameraSpeed * this->Front;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
         this->Position -= glm::normalize(glm::cross(this->Front, this->Up)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         this->Position += glm::normalize(glm::cross(this->Front, this->Up)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        this->Position += cameraSpeed * this->Up;
+    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        this->Position -= cameraSpeed * this->Up;
 }
 
 void Camera::MouseCallBack(double xpos, double ypos){

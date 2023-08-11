@@ -15,8 +15,8 @@ class ViewMatrix {
 
         glm::mat4 GetView() const { return this->view; }
 
-        void SetView(glm::vec3 position, glm::vec3 front, glm::vec3 up) { 
-            this->view = glm::lookAt(position, position + front, up);
+        void SetView(glm::vec3 position, glm::vec3 front, glm::vec3 up) {
+            this->view = glm::rotate(glm::lookAt(position, position + front, up), glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         }
 
     private:

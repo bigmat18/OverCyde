@@ -15,6 +15,16 @@
 
 Camera *camera = new Camera(WIDTH, HEIGHT, 45, nullptr);
 
+void MouseCallBackWrapper(GLFWwindow *window, double xpos, double ypos){
+    if (camera)
+        return camera->MouseCallBack(xpos, ypos);
+}
+
+void ScrollCallBackWrapper(GLFWwindow *window, double xoffset, double yoffset){
+    if (camera)
+        return camera->ScrollCallBack(yoffset);
+}
+
 Game::Game() : isRunning(true) 
 { 
     ViewMatrix *view = new ViewMatrix();
@@ -72,20 +82,28 @@ void Game::Shutdown() {
 }
 
 void Game::LoadData() {
-    std::string arr[] = {"sprites/grass_lateral.png",
-                         "sprites/grass_lateral.png",
-                         "sprites/grass_up.png",
-                         "sprites/grass_bottom.png",
-                         "sprites/grass_lateral.png",
-                         "sprites/grass_lateral.png"};
+    std::string arr[] = {"sprites/texture_pietra_2_127_right.png",
+                         "sprites/texture_pietra_2_127_left.png",
+                         "sprites/texture_pietra_2_127_up.png",
+                         "sprites/texture_pietra_2_127_up.png",
+                         "sprites/texture_pietra_2_127_front.png",
+                         "sprites/texture_pietra_2_127_front.png"};
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
 
-    GameObj *obj = new GameObj();
-    this->gameObjHandler->AddGameObj(obj);
-    RendererComponent *renderer = new RendererComponent(obj, new Cube(0.2f, true), new Shader("shaders/base.vert", "shaders/base.frag"));
-    renderer->SetTexture(new Texture3D(paths));
-    obj->SetRotationVec(glm::vec3(1.0f, 0.0f, 0.0f));
-    obj->SetRotation(45.0f);
+    float side = 0.1f;
+    Cube *cube = new Cube(side, true);
+    Texture3D *tex3D = new Texture3D(paths);
+    Shader *shader = new Shader("shaders/base.vert", "shaders/base.frag");
+
+    for (int i = 0; i < 10; i++) {
+        for(int j=0; j < 10; j++) {
+            GameObj *obj = new GameObj();
+            this->gameObjHandler->AddGameObj(obj);
+            RendererComponent *renderer = new RendererComponent(obj, cube, shader);
+            renderer->SetTexture(tex3D);
+            obj->SetPosition(glm::vec3((side * 2 * i), 0.0f, (side * 2 * j)));
+        }
+    }
 }
 
 void Game::UnLoadData() {}
