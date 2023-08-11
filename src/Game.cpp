@@ -15,16 +15,6 @@
 
 Camera *camera = new Camera(WIDTH, HEIGHT, 45, nullptr);
 
-void MouseCallBackWrapper(GLFWwindow *window, double xpos, double ypos){
-    if (camera)
-        return camera->MouseCallBack(xpos, ypos);
-}
-
-void ScrollCallBackWrapper(GLFWwindow *window, double xoffset, double yoffset){
-    if (camera)
-        return camera->ScrollCallBack(yoffset);
-}
-
 Game::Game() : isRunning(true) 
 { 
     ViewMatrix *view = new ViewMatrix();
@@ -65,8 +55,6 @@ void Game::ProcessInput(float deltaTime) {
         glfwSetWindowShouldClose(this->window, true);
 
     camera->ProcessInput(window, deltaTime);
-    glfwSetCursorPosCallback(window, MouseCallBackWrapper);
-    glfwSetScrollCallback(window, ScrollCallBackWrapper);
     camera->UpdateView();
 }
 
