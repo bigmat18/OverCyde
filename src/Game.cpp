@@ -90,18 +90,21 @@ void Game::LoadData() {
                          "sprites/texture_pietra_2_127_front.png"};
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
 
-    float side = 0.1f;
+    float side = 0.05f;
     Cube *cube = new Cube(side, true);
     Texture3D *tex3D = new Texture3D(paths);
     Shader *shader = new Shader("shaders/base.vert", "shaders/base.frag");
 
-    for (int i = 0; i < 10; i++) {
-        for(int j=0; j < 10; j++) {
+    int nCubeInScreen = static_cast<int>(1.0f / side);
+    int multiple = 4;
+
+    for (int i = 0; i < nCubeInScreen * multiple; i++) {
+        for(int j=0; j < nCubeInScreen * multiple; j++) {
             GameObj *obj = new GameObj();
             this->gameObjHandler->AddGameObj(obj);
             RendererComponent *renderer = new RendererComponent(obj, cube, shader);
             renderer->SetTexture(tex3D);
-            obj->SetPosition(glm::vec3((side * 2 * i), 0.0f, (side * 2 * j)));
+            obj->SetPosition(glm::vec3((-1.0f * multiple) + side + (side * 2 * i), 0.0f, (-1.0f * multiple) + side + (side * 2 * j)));
         }
     }
 }
