@@ -3,11 +3,12 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Utils/stb_image.h"
 
-Texture::Texture() : rendererID(0),
-                     width(0),
-                     height(0),
-                     BPP(0),
-                     localBuffer(nullptr){};
+Texture::Texture(GLuint slot) : rendererID(0),
+                                width(0),
+                                height(0),
+                                BPP(0),
+                                localBuffer(nullptr),
+                                slot(slot) {};
 Texture::~Texture(){};
 
 void Texture::SetFlipVerticallyOnLoad(bool value) {

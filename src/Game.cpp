@@ -65,6 +65,8 @@ void Game::ProcessInput(float deltaTime) {
         glfwSetWindowShouldClose(this->window, true);
 
     camera->ProcessInput(window, deltaTime);
+    glfwSetCursorPosCallback(window, MouseCallBackWrapper);
+    glfwSetScrollCallback(window, ScrollCallBackWrapper);
     camera->UpdateView();
 }
 
@@ -82,27 +84,44 @@ void Game::Shutdown() {
 }
 
 void Game::LoadData() {
-    std::string arr[] = {"sprites/texture_pietra_2_127_right.png",
-                         "sprites/texture_pietra_2_127_left.png",
-                         "sprites/texture_pietra_2_127_up.png",
-                         "sprites/texture_pietra_2_127_up.png",
-                         "sprites/texture_pietra_2_127_front.png",
-                         "sprites/texture_pietra_2_127_front.png"};
+    std::string arr[] = {
+        "sprites/texture_pietra_2_127_right.png", // Right
+        "sprites/texture_pietra_2_127_left.png",  // Left
+        "sprites/texture_pietra_2_127_up.png",    // Top
+        "sprites/black.png",                      // Bottom
+        "sprites/texture_pietra_2_127_front.png", // Front
+        "sprites/black.png"                       // Back
+    };
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
 
+
     float side = 0.05f;
-    Cube *cube = new Cube(side, true);
-    Texture3D *tex3D = new Texture3D(paths);
-    Shader *shader = new Shader("shaders/base.vert", "shaders/base.frag");
+    Cube *cube3D = new Cube(side, true);
+    Surface *surface = new Surface(side);
+    Texture2D *tex2D = new Texture2D("sprites/matt.png", 0);
+    Texture3D *tex3D = new Texture3D(paths, 0);
+
+    Shader *shader3D = new Shader("shaders/base_3d.vert", "shaders/base_3d.frag");
+    Shader *shader2D= new Shader("shaders/base_2d.vert", "shaders/base_2d.frag");
+    
+
+    GameObj *matt = new GameObj();
+    this->gameObjHandler->AddGameObj(matt);
+    RendererComponent *rendererMatt = new RendererComponent(matt, surface, shader2D);
+    rendererMatt->SetTexture(tex2D);
+    // matt->SetPosition(glm::vec3((-1.0f * 1) + side + (side * 2 * 0), side*4, (-1.0f * 1) + side + (side * 2 * 0)));
+    // matt->SetRotation(-40.0f);
+    // matt->SetRotationVec(glm::vec3(1.0f, 0.0f, 0.0f));
+
 
     int nCubeInScreen = static_cast<int>(1.0f / side);
-    int multiple = 4;
+    int multiple = 1;
 
-    for (int i = 0; i < nCubeInScreen * multiple; i++) {
-        for(int j=0; j < nCubeInScreen * multiple; j++) {
+    for (int i = 0; i < 4; i++) {
+        for(int j=0; j < 4; j++) {
             GameObj *obj = new GameObj();
             this->gameObjHandler->AddGameObj(obj);
-            RendererComponent *renderer = new RendererComponent(obj, cube, shader);
+            RendererComponent *renderer = new RendererComponent(obj, cube3D, shader3D);
             renderer->SetTexture(tex3D);
             obj->SetPosition(glm::vec3((-1.0f * multiple) + side + (side * 2 * i), 0.0f, (-1.0f * multiple) + side + (side * 2 * j)));
         }

@@ -11,10 +11,10 @@ class Texture3D : public Texture {
         std::vector<std::string> filePaths;
 
     public:
-        Texture3D(const std::vector<std::string> &paths);
+        Texture3D(const std::vector<std::string> &paths, GLuint slot);
         ~Texture3D();
 
-        void Bind(GLuint slot = 0) override;
+        void Bind() override;
         void Unbind() override;
 };
 

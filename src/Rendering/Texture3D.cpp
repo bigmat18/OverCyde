@@ -1,8 +1,8 @@
 #include "Texture3D.h"
 #include <GL/glew.h>
 
-Texture3D::Texture3D(const std::vector<std::string> &paths) : Texture(), 
-                                                              filePaths(paths)
+Texture3D::Texture3D(const std::vector<std::string> &paths, GLuint slot) : Texture(slot), 
+                                                                           filePaths(paths)
 {
     this->SetFlipVerticallyOnLoad(false);
     glGenTextures(1, &this->rendererID);
@@ -26,8 +26,8 @@ Texture3D::Texture3D(const std::vector<std::string> &paths) : Texture(),
 
 Texture3D::~Texture3D() { glDeleteTextures(1, &this->rendererID); }
 
-void Texture3D::Bind(GLuint slot) {
-    glActiveTexture(GL_TEXTURE0 + slot);
+void Texture3D::Bind() {
+    glActiveTexture(GL_TEXTURE0 + this->slot);
     glBindTexture(GL_TEXTURE_CUBE_MAP, this->rendererID);
 }
 

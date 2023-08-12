@@ -10,10 +10,10 @@ class Texture2D : public Texture {
         std::string filePath;
 
     public:
-        Texture2D(const std::string& path);
+        Texture2D(const std::string &path, GLuint slot);
         ~Texture2D();
 
-        void Bind(GLuint slot = 0) override;
+        void Bind() override;
         void Unbind() override;
 };
 

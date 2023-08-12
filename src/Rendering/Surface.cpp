@@ -8,7 +8,7 @@ Surface::Surface(GLfloat side) : Shape(), side(side)
 
 void Surface::BuildShape() {
     GLfloat vertices[] = {
-        // positions          // texture coords
+        // positions                      // texture coords
          this->side,  this->side, 0.0f,   1.0f, 1.0f, // top right
          this->side, -this->side, 0.0f,   1.0f, 0.0f, // bottom right
         -this->side, -this->side, 0.0f,   0.0f, 0.0f, // bottom left

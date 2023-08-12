@@ -1,7 +1,7 @@
 #include "Texture2D.h"
 #include <GL/glew.h>
 
-Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
+Texture2D::Texture2D(const std::string &path, GLuint slot) : Texture(slot), filePath(path)
 {
     this->SetFlipVerticallyOnLoad();
     this->LoadImageBuffer(this->filePath.c_str());
@@ -14,15 +14,15 @@ Texture2D::Texture2D(const std::string &path) : Texture(), filePath(path)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this->width, this->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, this->localBuffer);
-    glGenerateMipmap(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     if (this->localBuffer) this->FreeImageBuffer();
 }
 
 Texture2D::~Texture2D() { glDeleteTextures(1, &this->rendererID); }
 
-void Texture2D::Bind(GLuint slot) {
-    glActiveTexture(GL_TEXTURE0 + slot);
+void Texture2D::Bind() {
+    glActiveTexture(GL_TEXTURE0 + this->slot);
     glBindTexture(GL_TEXTURE_2D, this->rendererID);
 }
 

@@ -9,12 +9,13 @@ class Texture {
         GLuint rendererID;
         GLint width, height, BPP;
         unsigned char *localBuffer;
+        GLuint slot;
 
     public:
-        Texture();
+        Texture(GLuint slot);
         ~Texture();
 
-        virtual void Bind(GLuint slot = 0) = 0;
+        virtual void Bind() = 0;
         virtual void Unbind() = 0;
 
         int GetWidth() const { return this->width; }
