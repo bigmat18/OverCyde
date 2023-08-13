@@ -65,8 +65,6 @@ void Game::ProcessInput(float deltaTime) {
         glfwSetWindowShouldClose(this->window, true);
 
     camera->ProcessInput(window, deltaTime);
-    // glfwSetCursorPosCallback(window, MouseCallBackWrapper);
-    // glfwSetScrollCallback(window, ScrollCallBackWrapper);
     camera->UpdateView();
 }
 
@@ -97,7 +95,7 @@ void Game::LoadData() {
 
     float side = 0.05f;
     Cube *cube3D = new Cube(side, true);
-    Surface *surface = new Surface(side * 1.5f);
+    Surface *surface = new Surface(side*4, side*3.5);
     Texture2D *tex2D = new Texture2D("sprites/matt.png", 0);
     Texture3D *tex3D = new Texture3D(paths, 0);
 
@@ -109,10 +107,7 @@ void Game::LoadData() {
     this->gameObjHandler->AddGameObj(matt);
     RendererComponent *rendererMatt = new RendererComponent(matt, surface, shader2D);
     rendererMatt->SetTexture(tex2D);
-    matt->SetScale(glm::vec3(1.0f, 2.0f, 1.0f));
-    // matt->SetPosition(glm::vec3((-1.0f * 1) + side + (side * 2 * 0), side*4, (-1.0f * 1) + side + (side * 2 * 0)));
-    // matt->SetRotation(-40.0f);
-    // matt->SetRotationVec(glm::vec3(1.0f, 0.0f, 0.0f));
+    matt->SetScale(glm::vec3(1.2f, 1.2f, 1.2f));
 
 
     int nCubeInScreen = static_cast<int>(1.0f / side);

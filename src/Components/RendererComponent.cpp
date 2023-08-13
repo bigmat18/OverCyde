@@ -30,13 +30,11 @@ void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4
     this->model = glm::rotate(this->model, glm::radians(this->gameObj->GetRotation()), this->gameObj->GetRotationVec());
     this->model = glm::scale(this->model, this->gameObj->GetScale());
 
+    this->shader->use();
     this->shader->setMatrix4("model", this->model);
     this->shader->setMatrix4("view", view);
     this->shader->setMatrix4("projection", projection);
 
-    if(this->texture) {
-        this->shader->use();
-        this->texture->Bind();
-        this->shape->Draw();
-    }
+    this->texture->Bind();
+    this->shape->Draw();
 }

@@ -7,11 +7,11 @@
 class Surface : public Shape
 {
 public:
-    Surface(GLfloat side);
+    Surface(GLfloat height, GLfloat width);
     void BuildShape();
 
 private:
-    GLfloat side;
+    GLfloat height, width;
 };
 
 #endif

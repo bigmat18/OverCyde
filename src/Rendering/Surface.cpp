@@ -3,16 +3,16 @@
 #include "../Utils/debugging.h"
 #include <iostream>
 
-Surface::Surface(GLfloat side) : Shape(), side(side)
+Surface::Surface(GLfloat height, GLfloat width) : Shape(), height(height), width(width)
 { this->BuildShape(); }
 
 void Surface::BuildShape() {
     GLfloat vertices[] = {
-        // positions                      // texture coords
-         this->side,  this->side, 0.0f,   1.0f, 1.0f, // top right
-         this->side, -this->side, 0.0f,   1.0f, 0.0f, // bottom right
-        -this->side, -this->side, 0.0f,   0.0f, 0.0f, // bottom left
-        -this->side,  this->side, 0.0f,   0.0f, 1.0f  // top left 
+        // positions                                // texture coords
+        this->width / 2.0f, this->height / 2.0f,    0.0f, 1.0f, 1.0f,        // top right
+        this->width / 2.0f, -this->height / 2.0f,   0.0f, 1.0f, 0.0f,        // bottom right
+        -this->width / 2.0f, -this->height / 2.0f,  0.0f, 0.0f, 0.0f,        // bottom left
+        -this->width / 2.0f, this->height / 2.0f,   0.0f, 0.0f, 1.0f         // top left
     };
 
     GLuint indices[] = {
