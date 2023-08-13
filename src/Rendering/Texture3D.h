@@ -14,6 +14,8 @@ class Texture3D : public Texture {
         Texture3D(const std::vector<std::string> &paths, GLuint slot);
         ~Texture3D();
 
+        std::string GetString() override { return this->filePaths[0]; }
+
         void Bind() override;
         void Unbind() override;
 };

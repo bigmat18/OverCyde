@@ -15,6 +15,8 @@ class Texture2D : public Texture {
 
         void Bind() override;
         void Unbind() override;
+
+        std::string GetString() override { return this->filePath; }
 };
 
 #endif

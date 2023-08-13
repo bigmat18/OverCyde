@@ -24,6 +24,8 @@ class Texture {
         void SetFlipVerticallyOnLoad(bool value = true);
         void LoadImageBuffer(char const *string);
         void FreeImageBuffer();
+
+        virtual std::string GetString() = 0;
 };
 
 #endif
