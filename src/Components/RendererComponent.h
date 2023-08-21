@@ -15,7 +15,7 @@ class RendererComponent : public Component {
 
         ~RendererComponent();
 
-        void Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view);
+        virtual void Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view);
         void SetTexture(class Texture *texture) { this->texture = texture; };
 
     protected:

@@ -2,7 +2,7 @@
 #include "Handlers/RendererHandler.h"
 #include "Handlers/GameObjHandler.h"
 #include "Components/RendererComponent.h"
-#include "GameObj.h"
+#include "Objs/GameObj.h"
 #include "Utils/debugging.h"
 #include "Utils/global.h"
 #include "Rendering/Surface.h"

@@ -1,5 +1,5 @@
 SRC_FILES := $(wildcard src/*/*.cpp)
-HEADERS := $(wildcard src/utils/*.h) $(wildcard src/Rendering/*.h) $(wildcard src/Handlers/*.h) $(wildcard src/Components/*.h) $(wildcard src/*.h)
+HEADERS := $(wildcard src/utils/*.h) $(wildcard src/Objs/*.h) $(wildcard src/Rendering/*.h) $(wildcard src/Handlers/*.h) $(wildcard src/Components/*.h) $(wildcard src/*.h)
 OBJS := $(patsubst $(SRC_FILES)/%.cpp, $(SRC_FILES)/%.o, $(SRC_FILES))
 CC = g++
 
@@ -11,7 +11,7 @@ EXECS = Main
 
 all: $(EXECS)
 
-Main: src/Main.o src/Game.o src/GameObj.o $(OBJS)
+Main: src/Main.o src/Game.o $(OBJS)
 	$(CC) $(COMPILER_FLAGS) -o main $^ $(INCLUDE_PATHS) $(LIBRARY_PATHS) -framework OpenGL
 
 Main.o: src/Main.cpp $(HEADERS) 

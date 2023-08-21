@@ -1,7 +1,7 @@
 #include "GameObj.h"
-#include "Components/Component.h"
-#include "Components/RendererComponent.h"
-#include "Handlers/GameObjHandler.h"
+#include "../Components/Component.h"
+#include "../Components/RendererComponent.h"
+#include "../Handlers/GameObjHandler.h"
 #include <typeinfo>
 
 GameObj::GameObj() : renderer(nullptr),

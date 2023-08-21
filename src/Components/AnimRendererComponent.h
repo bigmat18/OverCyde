@@ -3,8 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
-#ifndef ANIM_RENDERER_COMPO_H
-#define ANIM_RENDERER_COMPO_H
+#ifndef ANIM_RENDERER_COMPONENT_H
+#define ANIM_RENDERER_COMPONENT_H
 
 class AnimRendererComponent : public RendererComponent {
     public:

@@ -1,5 +1,5 @@
+#include "../Objs/GameObj.h"
 #include <GL/glew.h>
-#include "../GameObj.h"
 
 #ifndef COMPONENT_H
 #define COMPONENT_H
