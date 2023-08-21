@@ -29,7 +29,7 @@ class Camera {
         Camera(const GLfloat WIDTH, const GLfloat HEIGTH, const GLfloat fov, class ViewMatrix* view);
 
         GLfloat GetZoom() const { return this->Zoom; };
-        glm::vec3 GetPosizion() const { return this->Position; };
+        glm::vec3 GetPosition() const { return this->Position; };
 
         void SetView(class ViewMatrix* view) { this->view = view; };
         void UpdateView() { this->view->SetView(this->Position, this->Front, this->Up); };
