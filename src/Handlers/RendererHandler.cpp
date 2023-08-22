@@ -5,7 +5,7 @@
 #include <vector>
 #include <glm/gtx/string_cast.hpp>
 
-RendererHandler::RendererHandler(ViewMatrix *view) : Handler(), view(view) {
+RendererHandler::RendererHandler(ViewMatrix *view) : view(view) {
     this->projection = glm::perspective(glm::radians(ZOOM),
                                         (float)(WIDTH) / (float)(HEIGHT),
                                         0.1f, 100.0f);
@@ -43,6 +43,11 @@ GLFWwindow* RendererHandler::Initialize() {
 
 void RendererHandler::Shutdown() { glfwTerminate(); }
 
-void RendererHandler::Update(RendererComponent *obj) {
-    obj->Draw(this->window, this->projection, this->view->GetView());
+void RendererHandler::Update() const {
+    glClearColor(DESTRUCT(BACKGROUND_COLOR));
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    for(auto obj : this->objs){
+        obj->Draw(this->window, this->projection, this->view->GetView());
+    }
 }

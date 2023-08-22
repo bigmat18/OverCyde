@@ -14,9 +14,9 @@ class RendererHandler : private Handler<class RendererComponent, GLFWwindow*> {
 
         GLFWwindow *Initialize() override;
         void Shutdown() override;
-        void Update(class RendererComponent *obj) override;
+        void Update() const override;
 
-    private: 
+    private:
         glm::mat4 projection;
         class ViewMatrix *view;
         GLFWwindow *window;

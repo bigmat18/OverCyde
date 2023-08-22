@@ -25,60 +25,55 @@ void ScrollCallBackWrapper(GLFWwindow *window, double xoffset, double yoffset){
         return camera->ScrollCallBack(yoffset);
 }
 
-Game::Game() : isRunning(true) 
-{ 
+Game::Game() : m_isRunning(true) { 
     ViewMatrix *view = new ViewMatrix();
-    this->gameObjHandler = new GameObjHandler();
-    this->rendererHandler = new RendererHandler(view);
+    this->m_gameObjHandler = new GameObjHandler();
+    this->m_rendererHandler = new RendererHandler(view);
     camera->SetView(view);
 }
 
+Game::~Game() {
+    delete this->m_gameObjHandler;
+    delete this->m_rendererHandler;
+}
+
 bool Game::Initialize() {
-    this->gameObjHandler->Initialize();
-    this->window = this->rendererHandler->Initialize();
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    this->m_gameObjHandler->Initialize();
+    this->m_window = this->m_rendererHandler->Initialize();
+    glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     this->LoadData();
-    return this->window != nullptr;
+
+    return this->m_window != nullptr;
 }
 
 void Game::RunLoop() {
-    while(!glfwWindowShouldClose(this->window) && this->isRunning) {
-        this->gameObjHandler->UpdateDeltaTime();
-        this->ProcessInput(this->gameObjHandler->GetDeltaTime());
+    while(!glfwWindowShouldClose(this->m_window) && this->m_isRunning) {
+        this->m_gameObjHandler->UpdateDeltaTime();
+        this->ProcessInput(this->m_gameObjHandler->GetDeltaTime());
 
-        glClearColor(DESTRUCT(BACKGROUND_COLOR));
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        this->UpdateGame();
+        this->GenerateOutput();
 
-        for(auto it = this->gameObjHandler->begin(), end = this->gameObjHandler->end(); it != end; ++it){
-            const auto obj = *it;
-            this->UpdateGame(obj);
-            this->GenerateOutput(obj->GetRenderer());
-        }
-
-        glfwSwapBuffers(this->window);
+        glfwSwapBuffers(this->m_window);
         glfwPollEvents();
     }
 }
 
 void Game::ProcessInput(float deltaTime) {
-    if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(this->window, true);
+    if (glfwGetKey(this->m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(this->m_window, true);
 
-    camera->ProcessInput(window, deltaTime);
+    camera->ProcessInput(this->m_window, deltaTime);
     camera->UpdateView();
 }
 
-void Game::UpdateGame(GameObj *obj) {
-    this->gameObjHandler->Update(obj);
-}
+void Game::UpdateGame() { this->m_gameObjHandler->Update(); }
 
-void Game::GenerateOutput(RendererComponent *obj) { 
-    this->rendererHandler->Update(obj); 
-}
+void Game::GenerateOutput() { this->m_rendererHandler->Update(); }
 
 void Game::Shutdown() {
-    this->rendererHandler->Shutdown();
-    this->gameObjHandler->Shutdown();
+    this->m_rendererHandler->Shutdown();
+    this->m_gameObjHandler->Shutdown();
 }
 
 void Game::LoadData() {
@@ -104,7 +99,7 @@ void Game::LoadData() {
     
 
     GameObj *matt = new GameObj();
-    this->gameObjHandler->AddGameObj(matt);
+    this->m_gameObjHandler->AddElement(matt);
     RendererComponent *rendererMatt = new RendererComponent(matt, surface, shader2D);
     rendererMatt->SetTexture(tex2D);
     matt->SetScale(glm::vec3(1.2f, 1.2f, 1.2f));
@@ -116,7 +111,7 @@ void Game::LoadData() {
     for (int i = 0; i < nCubeInScreen * multiple; i++) {
         for(int j=0; j < nCubeInScreen * multiple; j++) {
             GameObj *obj = new GameObj();
-            this->gameObjHandler->AddGameObj(obj);
+            this->m_gameObjHandler->AddElement(obj);
             RendererComponent *renderer = new RendererComponent(obj, cube3D, shader3D);
             renderer->SetTexture(tex3D);
             obj->SetPosition(glm::vec3((-1.0f * multiple) + side + (side * 2 * i), 0.0f, (-1.0f * multiple) + side + (side * 2 * j)));

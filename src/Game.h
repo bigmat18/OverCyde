@@ -8,7 +8,7 @@
 class Game {
     public:
         Game();
-        ~Game() {};
+        ~Game();
 
         bool Initialize();
         void RunLoop();
@@ -16,17 +16,17 @@ class Game {
 
     private:
         void ProcessInput(float deltaTime);
-        void UpdateGame(class GameObj*);
-        void GenerateOutput(class RendererComponent *);
+        void UpdateGame();
+        void GenerateOutput();
 
         void LoadData();
         void UnLoadData();
 
-        GLFWwindow *window;
+        GLFWwindow *m_window;
         
-        GLboolean isRunning;
-        class RendererHandler *rendererHandler;
-        class GameObjHandler *gameObjHandler;
+        GLboolean m_isRunning;
+        class RendererHandler *m_rendererHandler;
+        class GameObjHandler *m_gameObjHandler;
 }; 
 
 #endif

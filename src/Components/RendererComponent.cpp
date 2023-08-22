@@ -13,17 +13,17 @@
 RendererComponent::RendererComponent(GameObj *gameObj,
                                      Shape *shape,
                                      Shader *shader,
-                                     GLshort updateOrder) : texture(nullptr),
+                                     GLshort updateOrder) : Component(),
+                                                            texture(nullptr),
                                                             shape(shape),
                                                             shader(shader),
-                                                            model(glm::mat4(1))
-{
-    this->gameObj = gameObj;
-    this->updateOrder = updateOrder;
-    this->gameObj->SetRenderer(this);
-}
+                                                            model(glm::mat4(1)) {}
 
-RendererComponent::~RendererComponent() {}
+RendererComponent::~RendererComponent() {
+    delete this->shape;
+    delete this->shader;
+    delete this->texture;
+}
 
 void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view) {
     this->model = glm::translate(glm::mat4(1), this->gameObj->GetPosition());
