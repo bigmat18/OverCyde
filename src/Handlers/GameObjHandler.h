@@ -14,6 +14,7 @@ class GameObjHandler : public Handler<GameObj, void> {
 
         void Initialize() override;
         void Shutdown() override;
+        void Update() const override;
 
         void UpdateDeltaTime();
         float GetDeltaTime() const { return this->deltaTime; };

@@ -12,6 +12,12 @@ void GameObjHandler::Initialize() { this->ticksCount = glfwGetTime(); }
 
 void GameObjHandler::Shutdown() {}
 
+void GameObjHandler::Update() const {
+    for(auto obj : this->objs) {
+        obj->Update(this->deltaTime);
+    }
+}
+
 void GameObjHandler::UpdateDeltaTime() {
     this->deltaTime = (glfwGetTime() - this->ticksCount) / 1000.0f;
     this->ticksCount = glfwGetTime();
