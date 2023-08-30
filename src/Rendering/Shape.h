@@ -15,7 +15,7 @@ class Shape {
     public:
         Shape(){ this->VAO = new VertexArray(); };
 
-        ~Shape() {
+        virtual ~Shape() {
             delete this->VAO;
             delete this->VBO;
             delete this->EBO;

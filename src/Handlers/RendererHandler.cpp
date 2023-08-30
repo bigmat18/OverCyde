@@ -1,9 +1,9 @@
 #include "../Utils/debugging.h"
 #include "../Utils/global.h"
 #include "../Components/RendererComponent.h"
+#include "ViewMatrix.h"
 #include "RendererHandler.h"
 #include <vector>
-#include <glm/gtx/string_cast.hpp>
 
 RendererHandler::RendererHandler(ViewMatrix *view) : view(view) {
     this->projection = glm::perspective(glm::radians(ZOOM),
@@ -11,7 +11,11 @@ RendererHandler::RendererHandler(ViewMatrix *view) : view(view) {
                                         0.1f, 100.0f);
 }
 
-RendererHandler::~RendererHandler() { delete this->view; }
+RendererHandler::~RendererHandler() {
+    for (auto obj : this->objs)
+        delete obj;
+    delete this->view; 
+}
 
 GLFWwindow* RendererHandler::Initialize() {
     if (!glfwInit())
@@ -43,11 +47,23 @@ GLFWwindow* RendererHandler::Initialize() {
 
 void RendererHandler::Shutdown() { glfwTerminate(); }
 
-void RendererHandler::Update() const {
+void RendererHandler::Update() {
     glClearColor(DESTRUCT(BACKGROUND_COLOR));
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     for(auto obj : this->objs){
         obj->Draw(this->window, this->projection, this->view->GetView());
+    }
+}
+
+void RendererHandler::AddElement(RendererComponent *element) {
+    this->objs.push_back(element);
+}
+
+void RendererHandler::RemoveElement(RendererComponent *element) {
+    auto iter = std::find(this->objs.begin(), this->objs.end(), element);
+    if (iter != this->objs.end()) {
+        std::iter_swap(iter, this->objs.end() - 1);
+        this->objs.pop_back();
     }
 }

@@ -104,15 +104,19 @@ void Game::LoadData() {
     rendererMatt->SetTexture(tex2D);
     matt->SetScale(glm::vec3(1.2f, 1.2f, 1.2f));
 
+    this->m_rendererHandler->AddElement(rendererMatt);
 
     int nCubeInScreen = static_cast<int>(1.0f / side);
-    int multiple = 5;
+    int multiple = 1;
 
     for (int i = 0; i < nCubeInScreen * multiple; i++) {
         for(int j=0; j < nCubeInScreen * multiple; j++) {
             GameObj *obj = new GameObj();
-            this->m_gameObjHandler->AddElement(obj);
             RendererComponent *renderer = new RendererComponent(obj, cube3D, shader3D);
+
+            this->m_gameObjHandler->AddElement(obj);
+            this->m_rendererHandler->AddElement(renderer);
+
             renderer->SetTexture(tex3D);
             obj->SetPosition(glm::vec3((-1.0f * multiple) + side + (side * 2 * i), 0.0f, (-1.0f * multiple) + side + (side * 2 * j)));
         }

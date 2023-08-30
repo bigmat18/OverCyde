@@ -13,7 +13,7 @@ class Texture {
 
     public:
         Texture(GLuint slot);
-        ~Texture();
+        virtual ~Texture();
 
         virtual void Bind() = 0;
         virtual void Unbind() = 0;

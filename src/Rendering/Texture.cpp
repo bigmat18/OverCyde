@@ -9,7 +9,7 @@ Texture::Texture(GLuint slot) : rendererID(0),
                                 BPP(0),
                                 localBuffer(nullptr),
                                 slot(slot) {};
-Texture::~Texture(){};
+Texture::~Texture() {};
 
 void Texture::SetFlipVerticallyOnLoad(bool value) {
     stbi_set_flip_vertically_on_load(value);

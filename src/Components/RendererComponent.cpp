@@ -13,7 +13,7 @@
 RendererComponent::RendererComponent(GameObj *gameObj,
                                      Shape *shape,
                                      Shader *shader,
-                                     GLshort updateOrder) : Component(),
+                                     GLshort updateOrder) : Component(gameObj, updateOrder),
                                                             texture(nullptr),
                                                             shape(shape),
                                                             shader(shader),

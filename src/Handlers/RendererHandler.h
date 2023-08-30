@@ -1,6 +1,4 @@
 #include "Handler.h"
-#include "ViewMatrix.h"
-#include "../Components/RendererComponent.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <vector>
@@ -13,14 +11,18 @@ class RendererHandler : private Handler<class RendererComponent, GLFWwindow*> {
         RendererHandler(class ViewMatrix *view);
         ~RendererHandler();
 
+        void AddElement(class RendererComponent *element) override;
+        void RemoveElement(class RendererComponent *element) override;
+
         GLFWwindow *Initialize() override;
         void Shutdown() override;
-        void Update() const override;
+        void Update() override;
 
     private:
         glm::mat4 projection;
         class ViewMatrix *view;
         GLFWwindow *window;
+        std::vector<class RendererComponent *> objs;
 };
 
 #endif
