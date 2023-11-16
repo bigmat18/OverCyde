@@ -1,4 +1,4 @@
-#include "src/Game.h"
+#include "libs/Game.h"
 
 int main(void) {
   Game game;
@@ -7,6 +7,5 @@ int main(void) {
     game.RunLoop();
 
   game.Shutdown();
-  int a;
   return 0;
 }

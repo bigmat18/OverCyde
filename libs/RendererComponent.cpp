@@ -1,8 +1,8 @@
 #include "RendererComponent.h"
-#include "../Rendering/Shader.h"
-#include "../Rendering/Texture.h"
-#include "../Rendering/Texture2D.h"
-#include "../Rendering/Shape.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "Texture2D.h"
+#include "Shape.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>

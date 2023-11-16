@@ -1,7 +1,7 @@
 #include "GameObj.h"
-#include "../Components/Component.h"
-#include "../Components/RendererComponent.h"
-#include "../Handlers/GameObjHandler.h"
+#include "Component.h"
+#include "RendererComponent.h"
+#include "GameObjHandler.h"
 #include <typeinfo>
 
 GameObj::GameObj() : position(glm::vec3(0.0f, 0.0f, 0.0f)),

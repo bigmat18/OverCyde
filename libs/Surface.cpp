@@ -1,6 +1,6 @@
 #include "Surface.h"
 #include "VertexBuffer.h"
-#include "../Utils/debugging.h"
+#include "Utils/debugging.h"
 #include <iostream>
 
 Surface::Surface(GLfloat height, GLfloat width) : Shape(), height(height), width(width)

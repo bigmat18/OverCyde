@@ -1,8 +1,8 @@
 #include "AnimRendererComponent.h"
-#include "../Objs/GameObj.h"
-#include "../Rendering/Shader.h"
-#include "../Rendering/Texture.h"
-#include "../Rendering/Shape.h"
+#include "GameObj.h"
+#include "Shader.h"
+#include "Texture.h"
+#include "Shape.h"
 
 AnimRendererComponent::AnimRendererComponent(GameObj *gameObj,
                                              Shape *shape,

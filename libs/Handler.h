@@ -1,5 +1,5 @@
 #include <vector>
-#include "../Components/Component.h"
+#include "Component.h"
 
 #ifndef HANDLER_H
 #define HANDLER_H

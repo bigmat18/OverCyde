@@ -1,7 +1,7 @@
 #include "Texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../Utils/stb_image.h"
+#include "Utils/stb_image.h"
 
 Texture::Texture(GLuint slot) : rendererID(0),
                                 width(0),

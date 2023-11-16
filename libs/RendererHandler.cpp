@@ -1,6 +1,6 @@
-#include "../Utils/debugging.h"
-#include "../Utils/global.h"
-#include "../Components/RendererComponent.h"
+#include "Utils/debugging.h"
+#include "Utils/global.h"
+#include "RendererComponent.h"
 #include "ViewMatrix.h"
 #include "RendererHandler.h"
 #include <vector>

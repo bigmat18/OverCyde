@@ -1,5 +1,5 @@
 #include "GameObj.h"
-#include "../Rendering/FrameBuffer.h"
+#include "FrameBuffer.h"
 
 #ifndef LIGHT_OBJ_H
 #define LIGHT_OBJ_H

@@ -1,5 +1,5 @@
 #include "GameObjHandler.h"
-#include "../Objs/GameObj.h"
+#include "GameObj.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 

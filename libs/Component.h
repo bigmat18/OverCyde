@@ -1,4 +1,4 @@
-#include "../Objs/GameObj.h"
+#include "GameObj.h"
 #include <GL/glew.h>
 
 #ifndef COMPONENT_H
