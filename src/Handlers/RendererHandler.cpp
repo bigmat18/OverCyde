@@ -11,11 +11,7 @@ RendererHandler::RendererHandler(ViewMatrix *view) : view(view) {
                                         0.1f, 100.0f);
 }
 
-RendererHandler::~RendererHandler() {
-    for (auto obj : this->objs)
-        delete obj;
-    delete this->view; 
-}
+RendererHandler::~RendererHandler() { delete this->view; }
 
 GLFWwindow* RendererHandler::Initialize() {
     if (!glfwInit())

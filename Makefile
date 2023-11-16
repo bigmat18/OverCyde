@@ -1,21 +1,48 @@
-SRC_FILES := $(wildcard src/*/*.cpp)
-HEADERS := $(wildcard src/utils/*.h) $(wildcard src/Objs/*.h) $(wildcard src/Rendering/*.h) $(wildcard src/Handlers/*.h) $(wildcard src/Components/*.h) $(wildcard src/*.h)
-OBJS := $(patsubst $(SRC_FILES)/%.cpp, $(SRC_FILES)/%.o, $(SRC_FILES))
 CC = g++
+CFLAGS = -std=c++17 -Wall -g 
+LFLAGS = -lglfw -lGLEW -framework OpenGL 
 
-INCLUDE_PATHS = `pkg-config --cflags glfw3` `pkg-config --cflags glew`
-LIBRARY_PATHS = `pkg-config --static --libs glfw3` `pkg-config --static --libs glew` 
-COMPILER_FLAGS = -std=c++17 -Wall -O2 -g
+SRC_DIR = .
+LIB_DIR := ${SRC_DIR}/src
 
-EXECS = Main
+LIB_COMPONENTS_DIR = ${LIB_DIR}/Components
+LIB_HANDLERS_DIR = ${LIB_DIR}/Handlers
+LIB_OBJS_DIR = ${LIB_DIR}/Objs
 
-all: $(EXECS)
+BUILD_DIR := ${SRC_DIR}/build
 
-Main: src/Main.o src/Game.o $(OBJS)
-	$(CC) $(COMPILER_FLAGS) -o main $^ $(INCLUDE_PATHS) $(LIBRARY_PATHS) -framework OpenGL
+# ensure build directory exists
+$(shell mkdir -p $(BUILD_DIR))
 
-Main.o: src/Main.cpp $(HEADERS) 
-	$(CC) $(COMPILER_FLAGS) -c $< $(INCLUDE_PATHS) $(LIBRARY_PATHS) -framework OpenGL
+SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+LIB_FILES := $(wildcard $(LIB_DIR)/*.cpp)
+LIB_COMPONENTS_FILES := $(wildcard $(LIB_COMPONENTS_DIR)/*.cpp)
+LIB_HANDLERS_FILES := $(wildcard $(LIB_HANDLERS_DIR)/*.cpp)
+LIB_OBJS_FILES := $(wildcard $(LIB_OBJS_DIR)/*.cpp)
+
+# Generate object file names from source files
+EXE_FILES := $(patsubst $(SRC_DIR)/%.cpp, %, $(SRC_FILES))
+LIB_OBJ_FILES := $(patsubst $(LIB_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(LIB_FILES))
+
+LIB_OBJ_COMPONENTS_FILES := $(patsubst $(LIB_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(LIB_COMPONENTS_FILES))
+LIB_OBJ_HANDLERS_FILES := $(patsubst $(LIB_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(LIB_HANDLERS_FILES))
+LIB_OBJ_OBJS_FILES := $(patsubst $(LIB_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(LIB_OBJ_FILES))
+
+OBJ_NAME = main
+
+all: $(EXE_FILES)
+
+# Build executable targets
+$(EXE_FILES): % : $(BUILD_DIR)/%.o $(LIB_OBJ_FILES) $(LIB_OBJ_HANDLERS_FILES) $(LIB_OBJ_COMPONENTS_FILES) $(LIB_OBJ_OBJS_FILES)
+	$(CC) $(CFLAGS) $(LFLAGS) $^ -o $@
+
+# Build object files from source files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Build object files from library source files
+$(BUILD_DIR)/%.o: $(LIB_DIR)/%.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f src/*.o src/*.out src/Rendering/*.o src/Components/*.o src/Handlers/*.o $(EXECS)
+	rm -rf $(BUILD_DIR)/* $(EXE_FILES)
