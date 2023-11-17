@@ -1,6 +1,6 @@
 #include "GameObj.h"
-#include "Component.h"
-#include "RendererComponent.h"
+#include "Components/Component.h"
+#include "Components/RendererComponent.h"
 #include "GameObjHandler.h"
 #include <typeinfo>
 

@@ -1,16 +1,16 @@
 #include "Game.h"
 #include "RendererHandler.h"
 #include "GameObjHandler.h"
-#include "RendererComponent.h"
+#include "Components/RendererComponent.h"
 #include "GameObj.h"
 #include "Utils/debugging.h"
 #include "Utils/global.h"
-#include "Surface.h"
-#include "Cube.h"
-#include "Shader.h"
-#include "Texture2D.h"
-#include "Texture3D.h"
-#include "Camera.h"
+#include "Rendering/Surface.h"
+#include "Rendering/Cube.h"
+#include "Rendering/Shader.h"
+#include "Rendering/Texture2D.h"
+#include "Rendering/Texture3D.h"
+#include "Rendering/Camera.h"
 #include <glm/gtx/string_cast.hpp>
 
 Camera *camera = new Camera(WIDTH, HEIGHT, 45, nullptr);
@@ -78,12 +78,12 @@ void Game::Shutdown() {
 
 void Game::LoadData() {
     std::string arr[] = {
-        "sprites/texture_pietra_2_127_right.png", // Right
-        "sprites/texture_pietra_2_127_left.png",  // Left
-        "sprites/texture_pietra_2_127_up.png",    // Top
-        "sprites/black.png",                      // Bottom
-        "sprites/texture_pietra_2_127_front.png", // Front
-        "sprites/black.png"                       // Back
+        "images/texture_pietra_2_127_right.png", // Right
+        "images/texture_pietra_2_127_left.png",  // Left
+        "images/texture_pietra_2_127_up.png",    // Top
+        "images/black.png",                      // Bottom
+        "images/texture_pietra_2_127_front.png", // Front
+        "images/black.png"                       // Back
     };
     std::vector<std::string> paths(arr, arr + sizeof(arr) / sizeof(std::string));
 
@@ -91,7 +91,7 @@ void Game::LoadData() {
     float side = 0.05f;
     Cube *cube3D = new Cube(side, true);
     Surface *surface = new Surface(side*4, side*3.5);
-    Texture2D *tex2D = new Texture2D("sprites/matt.png", 0);
+    Texture2D *tex2D = new Texture2D("images/matt.png", 0);
     Texture3D *tex3D = new Texture3D(paths, 0);
 
     Shader *shader3D = new Shader("shaders/base_3d.vert", "shaders/base_3d.frag");

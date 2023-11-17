@@ -1,5 +1,5 @@
 #include "IndexBuffer.h"
-#include "Utils/debugging.h"
+#include "../Utils/debugging.h"
 #include <GL/glew.h>
 
 IndexBuffer::IndexBuffer(const GLuint* data, GLuint count) : mCount(count){

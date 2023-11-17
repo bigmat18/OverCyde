@@ -1,5 +1,5 @@
 #include "VertexBuffer.h"
-#include "Utils/debugging.h"
+#include "../Utils/debugging.h"
 #include <GL/glew.h>
 
 VertexBuffer::VertexBuffer(const void* data, GLuint size){
