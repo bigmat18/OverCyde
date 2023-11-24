@@ -4,9 +4,9 @@ LFLAGS = -lglfw -lGLEW -framework OpenGL
 
 SRC_DIR = .
 BUILD_DIR := ${SRC_DIR}/build
-LIB_DIR := ${SRC_DIR}/libs
-COMPONENT_DIR := ${SRC_DIR}/libs/Components
-RENDERING_DIR := ${SRC_DIR}/libs/Rendering
+LIB_DIR := ${SRC_DIR}/src
+COMPONENT_DIR := ${SRC_DIR}/src/Components
+RENDERING_DIR := ${SRC_DIR}/src/Rendering
 
 # ensure build directory exists
 $(shell mkdir -p $(BUILD_DIR))
