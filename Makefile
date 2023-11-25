@@ -38,8 +38,8 @@ GLEW_LIB = -lGLEW
 GLFW_LIB = -lglfw
 
 # Percorso alle librerie GLEW e GLFW
-GLEW_PATH = ${LIBS_DIR}/glew-2.1.0
-GLFW_PATH = ${LIBS_DIR}/glfw-3.3.4
+GLEW_PATH = ${LIBS_DIR}/glew
+GLFW_PATH = ${LIBS_DIR}/glfw
 GLM_PATH = ${LIBS_DIR}/glm
 
 # Aggiungi i percorsi delle librerie al compilatore e al linker
