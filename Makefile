@@ -36,18 +36,21 @@ OBJ_NAME = main
 # Configurazione delle librerie GLEW e GLFW
 GLEW_LIB = -lGLEW
 GLFW_LIB = -lglfw
+SDL_LIB = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Percorso alle librerie GLEW e GLFW
 GLEW_PATH = ${LIBS_DIR}/glew
 GLFW_PATH = ${LIBS_DIR}/glfw
 GLM_PATH = ${LIBS_DIR}/glm
+SDL_PATH = ${LIBS_DIR}/SDL
+
 
 # Aggiungi i percorsi delle librerie al compilatore e al linker
-CCFLAGS += -I$(GLEW_PATH)/include -I$(GLFW_PATH)/include -I${GLM_PATH}
-LDFLAGS += -L$(GLEW_PATH)/lib -L$(GLFW_PATH)/src -L${GLM_PATH}
+CCFLAGS += -I$(GLEW_PATH)/include -I$(GLFW_PATH)/include -I${GLM_PATH} -I/${SDL_PATH}/include
+LDFLAGS += -L$(GLEW_PATH)/lib -L$(GLFW_PATH)/src -L${GLM_PATH} -L/${SDL_PATH}
 
 # Collega le librerie GLEW e GLFW
-LDLIBS += $(GLEW_LIB) $(GLFW_LIB) -lX11 -lm -ldl -lpthread -framework OpenGL
+LDLIBS += ${SDL_LIB} $(GLEW_LIB) $(GLFW_LIB) -lX11 -lm -ldl -lpthread -framework OpenGL
 
 # Aggiungi i file sorgente delle librerie al tuo progetto
 SOURCES += $(GLEW_PATH)/src/*.c $(GLFW_PATH)/src/*.c
