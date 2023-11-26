@@ -1,6 +1,5 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <vector>
 
 #ifndef GAME_H
 #define GAME_H
