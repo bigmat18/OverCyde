@@ -1,4 +1,3 @@
-#include <vector>
 #include "Components/Component.h"
 
 #ifndef HANDLER_H

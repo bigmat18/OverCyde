@@ -43,11 +43,11 @@ GLEW_PATH = ${LIBS_DIR}/glew
 GLFW_PATH = ${LIBS_DIR}/glfw
 GLM_PATH = ${LIBS_DIR}/glm
 SDL_PATH = ${LIBS_DIR}/SDL
-
+SDL_IMAGE_PATH = ${LIBS_DIR}/SDL_image
 
 # Aggiungi i percorsi delle librerie al compilatore e al linker
-CCFLAGS += -I$(GLEW_PATH)/include -I$(GLFW_PATH)/include -I${GLM_PATH} -I${SDL_PATH}/include
-LDFLAGS += -L$(GLEW_PATH)/lib -L$(GLFW_PATH)/src -L${GLM_PATH} -L${SDL_PATH}/src
+CCFLAGS += -I$(GLEW_PATH)/include -I$(GLFW_PATH)/include -I${GLM_PATH} -I${SDL_PATH}/include -I${SDL_IMAGE_PATH}/include
+LDFLAGS += -L$(GLEW_PATH)/lib -L$(GLFW_PATH)/src -L${GLM_PATH} -L${SDL_PATH}/src -L${SDL_IMAGE_PATH}/src
 
 # Collega le librerie GLEW e GLFW
 LDLIBS += ${SDL_LIB} $(GLEW_LIB) $(GLFW_LIB) -lX11 -lm -ldl -lpthread -framework OpenGL

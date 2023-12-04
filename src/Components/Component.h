@@ -1,25 +1,26 @@
-#include "../GameObj.h"
+#include "../Entity.h"
 #include <GL/glew.h>
+#include <cstdint>
 
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
 class Component {
     public:
-        Component(class GameObj *gameObj, GLshort updateOrder = 0) : gameObj(gameObj),
-                                                                     updateOrder(updateOrder)
-        { this->gameObj->AddComponent(this); }
+        Component(Entity *entity, uint8_t updateOrder = 0) : m_entity(entity),
+                                                             m_updateOrder(updateOrder)
+        { this->m_entity->AddComponent(this); }
 
         Component() {};
 
-        virtual ~Component() { this->gameObj->RemoveComponent(this); }
+        virtual ~Component() { this->m_entity->RemoveComponent(this); }
 
         virtual void Update(int deltaTime) {};
-        int GetUpdateOrder() const { return this->updateOrder; }
+        uint8_t GetUpdateOrder() const { return this->m_updateOrder; }
 
     protected:
-        class GameObj* gameObj;
-        GLshort updateOrder;
+        Entity* m_entity;
+        uint8_t m_updateOrder;
 };
 
 #endif
