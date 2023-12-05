@@ -7,13 +7,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
 
-#include <iostream>
 #include <glm/glm.hpp>
 
-RendererComponent::RendererComponent(GameObj *gameObj,
+RendererComponent::RendererComponent(Entity *entity,
                                      Shape *shape,
                                      Shader *shader,
-                                     GLshort updateOrder) : Component(gameObj, updateOrder),
+                                     GLshort updateOrder) : Component(entity, updateOrder),
                                                             texture(nullptr),
                                                             shape(shape),
                                                             shader(shader),
@@ -26,9 +25,9 @@ RendererComponent::~RendererComponent() {
 }
 
 void RendererComponent::Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view) {
-    this->model = glm::translate(glm::mat4(1), this->gameObj->GetPosition());
-    this->model = glm::rotate(this->model, glm::radians(this->gameObj->GetRotation()), this->gameObj->GetRotationVec());
-    this->model = glm::scale(this->model, this->gameObj->GetScale());
+    this->model = glm::translate(glm::mat4(1), this->m_entity->GetPosition());
+    this->model = glm::rotate(this->model, glm::radians(this->m_entity->GetRotation()), this->m_entity->GetRotationVec());
+    this->model = glm::scale(this->model, this->m_entity->GetScale());
 
     this->shader->use();
     this->shader->setMatrix4("model", this->model);

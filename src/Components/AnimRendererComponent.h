@@ -8,7 +8,7 @@
 
 class AnimRendererComponent : public RendererComponent {
     public:
-        AnimRendererComponent(class GameObj *gameObj,
+        AnimRendererComponent(class Entity *entity,
                               class Shape *shape,
                               class Shader *shader,
                               GLshort updateOrder = 0);

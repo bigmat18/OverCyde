@@ -1,13 +1,13 @@
 #include "AnimRendererComponent.h"
-#include "../GameObj.h"
+#include "../Entity.h"
 #include "../Rendering/Shader.h"
 #include "../Rendering/Texture.h"
 #include "../Rendering/Shape.h"
 
-AnimRendererComponent::AnimRendererComponent(GameObj *gameObj,
+AnimRendererComponent::AnimRendererComponent(Entity *entity,
                                              Shape *shape,
                                              Shader *shader,
-                                             GLshort updateOrder) : RendererComponent(gameObj, shape, shader, updateOrder),
+                                             GLshort updateOrder) : RendererComponent(entity, shape, shader, updateOrder),
                                                                     currentFrame(0.0f),
                                                                     animFps(20.0f) {}
 

@@ -1,14 +1,13 @@
 #include "Component.h"
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
-#include <vector>
 
 #ifndef RENDERER_OBJ_H
 #define RENDERER_OBJ_H
 
 class RendererComponent : public Component {
     public:
-        RendererComponent(class GameObj *gameObj,
+        RendererComponent(class Entity *entity,
                           class Shape *shape,
                           class Shader *shader,
                           GLshort updateOrder = 0);

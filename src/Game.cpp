@@ -27,18 +27,18 @@ void ScrollCallBackWrapper(GLFWwindow *window, double xoffset, double yoffset){
 
 Game::Game() : m_isRunning(true) { 
     ViewMatrix *view = new ViewMatrix();
-    this->m_gameObjHandler = new ECSHandler();
+    this->m_ECSHandler = new ECSHandler();
     this->m_rendererHandler = new RendererHandler(view);
     camera->SetView(view);
 }
 
 Game::~Game() {
-    delete this->m_gameObjHandler;
+    delete this->m_ECSHandler;
     delete this->m_rendererHandler;
 }
 
 bool Game::Initialize() {
-    this->m_gameObjHandler->Initialize();
+    this->m_ECSHandler->Initialize();
     this->m_window = this->m_rendererHandler->Initialize();
     glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     this->LoadData();
@@ -48,8 +48,8 @@ bool Game::Initialize() {
 
 void Game::RunLoop() {
     while(!glfwWindowShouldClose(this->m_window) && this->m_isRunning) {
-        this->m_gameObjHandler->UpdateDeltaTime();
-        this->ProcessInput(this->m_gameObjHandler->GetDeltaTime());
+        this->m_ECSHandler->UpdateDeltaTime();
+        this->ProcessInput(this->m_ECSHandler->GetDeltaTime());
 
         this->UpdateGame();
         this->GenerateOutput();
@@ -67,13 +67,13 @@ void Game::ProcessInput(float deltaTime) {
     camera->UpdateView();
 }
 
-void Game::UpdateGame() { this->m_gameObjHandler->Update(); }
+void Game::UpdateGame() { this->m_ECSHandler->Update(); }
 
 void Game::GenerateOutput() { this->m_rendererHandler->Update(); }
 
 void Game::Shutdown() {
     this->m_rendererHandler->Shutdown();
-    this->m_gameObjHandler->Shutdown();
+    this->m_ECSHandler->Shutdown();
 }
 
 void Game::LoadData() {
@@ -114,7 +114,7 @@ void Game::LoadData() {
             Entity *obj = new Entity();
             RendererComponent *renderer = new RendererComponent(obj, cube3D, shader3D);
 
-            this->m_gameObjHandler->AddElement(obj);
+            this->m_ECSHandler->AddElement(obj);
             this->m_rendererHandler->AddElement(renderer);
 
             renderer->SetTexture(tex3D);
