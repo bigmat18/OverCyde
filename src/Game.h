@@ -1,4 +1,4 @@
-#include <GL/glew.h>
+#include "SDL_video.h"
 #include <GLFW/glfw3.h>
 #include <SDL.h>
 
@@ -11,23 +11,25 @@ public:
     Game();
     ~Game();
 
-    bool Initialize();
+    void Initialize();
     void RunLoop();
     void Shutdown();
 
 private:
-    void ProcessInput(float deltaTime);
+    void ProcessInput();
     void UpdateGame();
     void GenerateOutput();
 
     void LoadData();
     void UnLoadData();
 
-    GLFWwindow *m_window;
+    SDL_Window *m_window;
 
-    GLboolean m_isRunning;
-    class RendererHandler *m_rendererHandler;
-    class ECSHandler *m_ECSHandler;
+    bool m_isRunning;
+    class RendererSystem *m_renderer;
+    class ECSystem *m_ecs;
 };
 
 #endif
+
+

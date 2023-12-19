@@ -1,4 +1,4 @@
-#include "GameObj.h"
+#include "Entity.h"
 #include "Rendering/FrameBuffer.h"
 
 #ifndef LIGHT_OBJ_H
@@ -12,9 +12,9 @@ const GLfloat CONSTANT = 1.0f;
 const GLfloat LINEAR = 0.09f;
 const GLfloat QUADRATIC = 0.032f;
 
-class LightObj : public GameObj {
+class LightEntity : public Entity {
     public:
-        LightObj(glm::vec3 m_ambient = AMBIENT,
+        LightEntity(glm::vec3 m_ambient = AMBIENT,
                  glm::vec3 m_diffuse = DIFFUSE,
                  glm::vec3 m_specular = SPECULAR,
                  GLfloat m_constant = CONSTANT,
@@ -26,7 +26,7 @@ class LightObj : public GameObj {
                                                     m_linear(m_linear),
                                                     m_quadratic(m_quadratic) {};
 
-        ~LightObj() {};
+        ~LightEntity() {};
 
         glm::vec3 GetAmbient() const { return this->m_ambient; }
         glm::vec3 GetDiffuse() const { return this->m_diffuse; }

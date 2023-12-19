@@ -1,10 +1,9 @@
 #include "Camera.h"
 #include "ViewMatrix.h"
-#include "../Utils/global.h"
+#include "../Utils/Global.h"
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/string_cast.hpp>
-#include <iostream>
 
 Camera::Camera(const float width, const float height, const float fov, ViewMatrix *view) : Yaw(YAW),
                                                                                            Pitch(PITCH),

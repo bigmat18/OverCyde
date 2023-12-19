@@ -10,7 +10,7 @@ class ECSystem {
 
         void Initialize();
         void Shutdown();
-        void Update();
+        void Update(); 
 
         void AddElement(class Entity *element);
         void RemoveElement(class Entity *element);

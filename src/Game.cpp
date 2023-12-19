@@ -1,79 +1,57 @@
 #include "Game.h"
-#include "RendererHandler.h"
-#include "ECSHandler.h"
+#include "RendererSystem.h"
+#include "ECSystem.h"
+
 #include "Components/RendererComponent.h"
 #include "Entity.h"
-#include "Utils/debugging.h"
-#include "Utils/global.h"
+
 #include "Rendering/Surface.h"
 #include "Rendering/Cube.h"
 #include "Rendering/Shader.h"
 #include "Rendering/Texture2D.h"
 #include "Rendering/Texture3D.h"
 #include "Rendering/Camera.h"
+
 #include <glm/gtx/string_cast.hpp>
+#include <SDL.h>
 
-Camera *camera = new Camera(WIDTH, HEIGHT, 45, nullptr);
-
-void MouseCallBackWrapper(GLFWwindow *window, double xpos, double ypos){
-    if (camera)
-        return camera->MouseCallBack(xpos, ypos);
-}
-
-void ScrollCallBackWrapper(GLFWwindow *window, double xoffset, double yoffset){
-    if (camera)
-        return camera->ScrollCallBack(yoffset);
-}
 
 Game::Game() : m_isRunning(true) { 
     ViewMatrix *view = new ViewMatrix();
-    this->m_ECSHandler = new ECSHandler();
-    this->m_rendererHandler = new RendererHandler(view);
-    camera->SetView(view);
+    this->m_ecs = new ECSystem();
+    this->m_renderer = new RendererSystem(view);
 }
 
 Game::~Game() {
-    delete this->m_ECSHandler;
-    delete this->m_rendererHandler;
+    delete this->m_ecs;
+    delete this->m_renderer;
 }
 
-bool Game::Initialize() {
-    this->m_ECSHandler->Initialize();
-    this->m_window = this->m_rendererHandler->Initialize();
-    glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+void Game::Initialize() {
+    this->m_ecs->Initialize();
+    this->m_renderer->Initialize();
     this->LoadData();
-
-    return this->m_window != nullptr;
 }
 
 void Game::RunLoop() {
-    while(!glfwWindowShouldClose(this->m_window) && this->m_isRunning) {
-        this->m_ECSHandler->UpdateDeltaTime();
-        this->ProcessInput(this->m_ECSHandler->GetDeltaTime());
-
+    while(this->m_isRunning) {
+        this->m_ecs->UpdateDeltaTime();
+        this->ProcessInput();
         this->UpdateGame();
         this->GenerateOutput();
-
-        glfwSwapBuffers(this->m_window);
-        glfwPollEvents();
     }
 }
 
-void Game::ProcessInput(float deltaTime) {
-    if (glfwGetKey(this->m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(this->m_window, true);
+void Game::ProcessInput() { }
 
-    camera->ProcessInput(this->m_window, deltaTime);
-    camera->UpdateView();
-}
+void Game::UpdateGame() { this->m_ecs->Update(); }
 
-void Game::UpdateGame() { this->m_ECSHandler->Update(); }
-
-void Game::GenerateOutput() { this->m_rendererHandler->Update(); }
+void Game::GenerateOutput() { this->m_renderer->Update(); }
 
 void Game::Shutdown() {
-    this->m_rendererHandler->Shutdown();
-    this->m_ECSHandler->Shutdown();
+    this->m_renderer->Shutdown();
+    this->m_ecs->Shutdown();
+    this->UnLoadData();
 }
 
 void Game::LoadData() {
@@ -99,12 +77,12 @@ void Game::LoadData() {
     
 
     Entity *matt = new Entity();
-    this->m_ECSHandler->AddElement(matt);
+    this->m_ecs->AddElement(matt);
     RendererComponent *rendererMatt = new RendererComponent(matt, surface, shader2D);
     rendererMatt->SetTexture(tex2D);
     matt->SetScale(glm::vec3(1.2f, 1.2f, 1.2f));
 
-    this->m_rendererHandler->AddElement(rendererMatt);
+    this->m_renderer->AddElement(rendererMatt);
 
     int nCubeInScreen = static_cast<int>(1.0f / side);
     int multiple = 1;
@@ -114,8 +92,8 @@ void Game::LoadData() {
             Entity *obj = new Entity();
             RendererComponent *renderer = new RendererComponent(obj, cube3D, shader3D);
 
-            this->m_ECSHandler->AddElement(obj);
-            this->m_rendererHandler->AddElement(renderer);
+            this->m_ecs->AddElement(obj);
+            this->m_renderer->AddElement(renderer);
 
             renderer->SetTexture(tex3D);
             obj->SetPosition(glm::vec3((-1.0f * multiple) + side + (side * 2 * i), 0.0f, (-1.0f * multiple) + side + (side * 2 * j)));

@@ -1,7 +1,5 @@
 #include "Cube.h"
 #include "VertexBuffer.h"
-#include "../Utils/debugging.h"
-#include <iostream>
 
 Cube::Cube(GLfloat side, const bool is3D) : Shape(), side(side), is3D(is3D)
 { this->BuildShape(); }
