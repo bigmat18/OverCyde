@@ -28,6 +28,7 @@ private:
     bool m_isRunning;
     class RendererSystem *m_renderer;
     class ECSystem *m_ecs;
+    class Input::InputSystem *m_input;
 };
 
 #endif

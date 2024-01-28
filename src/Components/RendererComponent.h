@@ -1,6 +1,5 @@
 #include "Component.h"
 #include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
 
 #ifndef RENDERER_OBJ_H
 #define RENDERER_OBJ_H
@@ -10,11 +9,11 @@ class RendererComponent : public Component {
         RendererComponent(class Entity *entity,
                           class Shape *shape,
                           class Shader *shader,
-                          GLshort updateOrder = 0);
+                          short int updateOrder = 0);
 
         ~RendererComponent();
 
-        virtual void Draw(GLFWwindow *window, glm::mat4 projection, glm::mat4 view);
+        virtual void Draw(glm::mat4 projection, glm::mat4 view);
         void SetTexture(class Texture *texture) { this->texture = texture; };
 
     protected:

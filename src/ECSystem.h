@@ -11,6 +11,7 @@ class ECSystem {
         void Initialize();
         void Shutdown();
         void Update(); 
+        void ProcessInput(const class Input::InputState state) {};
 
         void AddElement(class Entity *element);
         void RemoveElement(class Entity *element);

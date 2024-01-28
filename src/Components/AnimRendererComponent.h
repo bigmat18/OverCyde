@@ -11,7 +11,7 @@ class AnimRendererComponent : public RendererComponent {
         AnimRendererComponent(class Entity *entity,
                               class Shape *shape,
                               class Shader *shader,
-                              GLshort updateOrder = 0);
+                              uint8_t updateOrder = 0);
 
         ~AnimRendererComponent();
 

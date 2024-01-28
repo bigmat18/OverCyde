@@ -16,6 +16,7 @@ class Entity {
         void RemoveComponent(class Component *component);
 
         void Update(float deltaTime);
+        void ProcessInput(const class InputState state);
 
         glm::vec3 GetPosition() const { return this->m_position; }
         glm::vec3 GetRotationVec() const { return this->m_rotationVec; }

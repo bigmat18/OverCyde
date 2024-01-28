@@ -7,7 +7,7 @@
 AnimRendererComponent::AnimRendererComponent(Entity *entity,
                                              Shape *shape,
                                              Shader *shader,
-                                             GLshort updateOrder) : RendererComponent(entity, shape, shader, updateOrder),
+                                             uint8_t updateOrder) : RendererComponent(entity, shape, shader, updateOrder),
                                                                     currentFrame(0.0f),
                                                                     animFps(20.0f) {}
 

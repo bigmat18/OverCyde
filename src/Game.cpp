@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "RendererSystem.h"
+#include "InputSystem.h"
 #include "ECSystem.h"
 
 #include "Components/RendererComponent.h"
@@ -20,11 +21,13 @@ Game::Game() : m_isRunning(true) {
     ViewMatrix *view = new ViewMatrix();
     this->m_ecs = new ECSystem();
     this->m_renderer = new RendererSystem(view);
+    this->m_input = new Input::InputSystem();
 }
 
 Game::~Game() {
     delete this->m_ecs;
     delete this->m_renderer;
+    delete this->m_input;
 }
 
 void Game::Initialize() {
@@ -42,7 +45,24 @@ void Game::RunLoop() {
     }
 }
 
-void Game::ProcessInput() { }
+void Game::ProcessInput() { 
+    this->m_input->PrepareForUpdate();
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+        case SDL_QUIT:
+            this->m_isRunning = false;
+            break;
+        case SDL_MOUSEWHEEL:
+            // mInputSystem->ProcessEvent(event);
+            break;
+        default:
+            break;
+        }
+    }
+    this->m_input->Update();
+    this->m_ecs->ProcessInput(this->m_input->GetState());
+}
 
 void Game::UpdateGame() { this->m_ecs->Update(); }
 
@@ -55,7 +75,7 @@ void Game::Shutdown() {
 }
 
 void Game::LoadData() {
-    std::string arr[] = {
+    /*std::string arr[] = {
         "images/texture_pietra_2_127_right.png", // Right
         "images/texture_pietra_2_127_left.png",  // Left
         "images/texture_pietra_2_127_up.png",    // Top
@@ -98,7 +118,7 @@ void Game::LoadData() {
             renderer->SetTexture(tex3D);
             obj->SetPosition(glm::vec3((-1.0f * multiple) + side + (side * 2 * i), 0.0f, (-1.0f * multiple) + side + (side * 2 * j)));
         }
-    }
+    }*/
 }
 
 void Game::UnLoadData() {}
