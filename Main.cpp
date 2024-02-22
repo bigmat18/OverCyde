@@ -1,11 +1,13 @@
-#include "src/Game.h"
+#include "src/Application.h"
+#include "src/Log.h"
 
 int main(void) {
-  Game game;
-  bool success = game.Initialize();
-  if (success)
-    game.RunLoop();
+  Core::Log::Inizialize();
+  auto app = Core::Application::GetInstance();
+  LOG_CORE_INFO("App run");
 
-  game.Shutdown();
+  app->Run();
+  delete app;
+
   return 0;
 }

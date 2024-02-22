@@ -5,61 +5,64 @@ CCFLAGS += -Wno-c++11-extensions -Wno-gnu-statement-expression
 CCFLAGS += -Wno-gnu-zero-variadic-macro-arguments -Wno-nested-anon-types
 CCFLAGS += -Wno-gnu-anonymous-struct
 
+# ensure build directory exists
+$(shell mkdir -p $(BUILD_DIR))
+
 ROOT_DIR = .
 SRC_DIR = ${ROOT_DIR}/src
 LIBS_DIR := ${ROOT_DIR}/libs
 BUILD_DIR := ${ROOT_DIR}/build
 
-COMPONENT_DIR := ${SRC_DIR}/Components
-RENDERING_DIR := ${SRC_DIR}/Rendering
+RENDERING_DIR = $(SRC_DIR)/Rendering
+EVENTS_DIR = $(SRC_DIR)/Events
+WINDOW_DIR = $(SRC_DIR)/Windows
 
-# ensure build directory exists
-$(shell mkdir -p $(BUILD_DIR))
+# DIR := $(sort $(dir $(wildcard $(SRC_DIR)/*/)))
+# FILES := $(foreach path, $(DIR), $(wildcard $(path)*.cpp))
+# OBJS_FILE := $(foreach file, $(FILES), $(patsubst $(RENDERING_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(file)))
 
 ROOT_FILES := $(wildcard ${ROOT_DIR}/*.cpp)
-SRC_FILES := $(wildcard ${SRC_DIR}/*.cpp)
 LIBS_FILES := $(wildcard $(LIBS_DIR)/*.cpp)
+SRC_FILES := $(wildcard ${SRC_DIR}/*.cpp)
 
-COMPONENT_FILES := $(wildcard $(COMPONENT_DIR)/*.cpp)
 RENDERING_FILES := $(wildcard $(RENDERING_DIR)/*.cpp)
-
+EVENTS_FILES := $(wildcard $(EVENTS_DIR)/*.cpp)
+WINDOW_FILES := $(wildcard $(WINDOW_DIR)/*.cpp)
 
 # Generate object file names from source files
 EXE_FILES := $(patsubst ${ROOT_DIR}/%.cpp, %, $(ROOT_FILES))
-
 SRC_OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC_FILES))
-COMPONENT_OBJ_FILES := $(patsubst $(COMPONENT_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(COMPONENT_FILES))
+
 RENDERING_OBJ_FILES := $(patsubst $(RENDERING_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(RENDERING_FILES))
+EVENTS_OBJ_FILES := $(patsubst $(EVENTS_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(EVENTS_FILES))
+WINDOW_OBJ_FILES := $(patsubst $(WINDOW_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(WINDOW_FILES))
 
 OBJ_NAME = main
 
 # Configurazione delle librerie GLEW e GLFW
 GLEW_LIB = -lGLEW
 GLFW_LIB = -lglfw
-SDL_LIB = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Percorso alle librerie GLEW e GLFW
 GLEW_PATH = ${LIBS_DIR}/glew
 GLFW_PATH = ${LIBS_DIR}/glfw
 GLM_PATH = ${LIBS_DIR}/glm
-SDL_PATH = ${LIBS_DIR}/SDL
-SDL_IMAGE_PATH = ${LIBS_DIR}/SDL_image
+SPDLOG_PATH = ${LIBS_DIR}/spdlog
 
 # Aggiungi i percorsi delle librerie al compilatore e al linker
-CCFLAGS += -I$(GLEW_PATH)/include -I$(GLFW_PATH)/include -I${GLM_PATH} -I${SDL_PATH}/include -I${SDL_IMAGE_PATH}/include
-LDFLAGS += -L$(GLEW_PATH)/lib -L$(GLFW_PATH)/src -L${GLM_PATH} -L${SDL_PATH}/src -L${SDL_IMAGE_PATH}/src
+CCFLAGS += -I$(GLEW_PATH)/include -I$(GLFW_PATH)/include -I${GLM_PATH} -I${SPDLOG_PATH}/include
+LDFLAGS += -L$(GLEW_PATH)/lib -L$(GLFW_PATH)/src -L${GLM_PATH} -L${SPDLOG_PATH}/src
 
 # Collega le librerie GLEW e GLFW
-LDLIBS += ${SDL_LIB} $(GLEW_LIB) $(GLFW_LIB) -lX11 -lm -ldl -lpthread -framework OpenGL
+LDLIBS += $(GLEW_LIB) $(GLFW_LIB) -lX11 -lm -ldl -lpthread -framework OpenGL
 
 # Aggiungi i file sorgente delle librerie al tuo progetto
 SOURCES += $(GLEW_PATH)/src/*.c $(GLFW_PATH)/src/*.c
 
-
 all: $(EXE_FILES)
 
 # Build executable targets
-$(EXE_FILES): % : $(BUILD_DIR)/%.o $(SRC_OBJ_FILES) $(COMPONENT_OBJ_FILES) $(RENDERING_OBJ_FILES) 
+$(EXE_FILES): % : $(BUILD_DIR)/%.o $(SRC_OBJ_FILES) $(RENDERING_OBJ_FILES) $(EVENTS_OBJ_FILES) $(WINDOW_OBJ_FILES) 
 	$(CC) $(CCFLAGS) $(LDLIBS) $^ -o $@ 
 
 # Build object files from source files
@@ -73,8 +76,13 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 $(BUILD_DIR)/%.o: $(RENDERING_DIR)/%.cpp 
 	$(CC) $(CCFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/%.o: $(COMPONENT_DIR)/%.cpp 
+$(BUILD_DIR)/%.o: $(EVENTS_DIR)/%.cpp 
+	$(CC) $(CCFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.o: $(WINDOW_DIR)/%.cpp 
 	$(CC) $(CCFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(BUILD_DIR)/* $(EXE_FILES)
+
+test: $(info [${FILES}])

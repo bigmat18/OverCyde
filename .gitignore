@@ -3,4 +3,5 @@ main.dSYM
 build
 .cache
 compile_commands.json
-libs/glew
+legacy/
+__build_time

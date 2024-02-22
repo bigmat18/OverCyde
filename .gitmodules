@@ -4,11 +4,9 @@
 [submodule "libs/glfw"]
 	path = libs/glfw
 	url = https://github.com/glfw/glfw
-[submodule "libs/SDL"]
-	path = libs/SDL
-    url = https://github.com/libsdl-org/SDL
-    branch = SDL2
-[submodule "libs/SDL_image"]
-	path = libs/SDL_image
-    url = https://github.com/libsdl-org/SDL_image
-    branch = SDL2
+[submodule "libs/glew"]
+	path = libs/glew
+	url = https://github.com/nigels-com/glew.git
+[submodule "libs/spdlog"]
+	path = libs/spdlog
+	url = https://github.com/gabime/spdlog.git
