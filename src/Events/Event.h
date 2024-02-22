@@ -1,8 +1,7 @@
 #pragma once
 #include "../Pch.h"
 #include "../Log.h"
-
-#define BIT(x) (1 << x)
+#include "../Macro.h"
 
 #define EVENT_CLASS_TYPE(type)                                                  \
     static EventType GetStaticType() { return EventType::type; }                \

@@ -1,6 +1,6 @@
 #include "../OpenGL/OpenGLContext.h"
 #include "DefaultWindow.h"
-#include "../Utils.h"
+#include "../Macro.h"
 #include "../Events/ApplicationEvent.h"
 #include "../Events/KeyEvent.h"
 #include "../Events/MouseEvent.h"
