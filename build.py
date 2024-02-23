@@ -7,6 +7,9 @@ import datetime
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
+if os.name == 'nt': _ = "\\"
+else: _ = "/"
+
 class __LastBuildTime():
     build_time_file_name : str = "__build_time"
     __LAST_BUILD_TIME = None
@@ -50,6 +53,21 @@ def __modifid(file: str) -> bool:
 def __exists(file: str) -> bool:
     return os.path.exists(file)
 
+def __get_files_recursive(path : str) -> list[str]:
+    result = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file.endswith(".cpp"):
+                result.append(os.path.join(root, file))
+    return result
+
+def __get_files(path: str) -> list[str]:
+    result = []
+    for file in os.listdir(path):
+        if file.endswith(".cpp"):
+            result.append(os.path.join(path, file))
+    return result
+
 
 CC = "clang++"
 CCFLAGS = "-std=c++20 -stdlib=libc++ -O1 -g -Wall -Wextra -Wpedantic "
@@ -59,40 +77,40 @@ CCFLAGS += "-Wno-gnu-zero-variadic-macro-arguments -Wno-nested-anon-types "
 CCFLAGS += "-Wno-gnu-anonymous-struct "
 
 ROOT_DIR = "."
-SRC_DIR = f"{ROOT_DIR}/src"
-LIBS_DIR = f"{ROOT_DIR}/libs"
-BUILD_DIR = f"{ROOT_DIR}/build"
+SRC_DIR = f"{ROOT_DIR}{_}src"
+LIBS_DIR = f"{ROOT_DIR}{_}libs"
+BUILD_DIR = f"{ROOT_DIR}{_}build"
 
 OBJ_NAME = "main"
 
 GLEW_LIB = "-lGLEW"
 GLFW_LIB = "-lglfw"
 
-GLEW_PATH = f"{LIBS_DIR}/glew"
-GLFW_PATH = f"{LIBS_DIR}/glfw"
-GLM_PATH = f"{LIBS_DIR}/glm"
-SPDLOG_PATH = f"{LIBS_DIR}/spdlog"
-NOESIS_PATH = f"{LIBS_DIR}/noesis"
+GLEW_PATH = f"{LIBS_DIR}{_}glew"
+GLFW_PATH = f"{LIBS_DIR}{_}glfw"
+GLM_PATH = f"{LIBS_DIR}{_}glm"
+SPDLOG_PATH = f"{LIBS_DIR}{_}spdlog"
+NOESIS_PATH = f"{LIBS_DIR}{_}noesis"
 
-CCFLAGS += f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PATH}/include "
-LDFLAGS = f"-L{GLEW_PATH}/lib -L{GLFW_PATH}/src -L{GLM_PATH} -L{SPDLOG_PATH}/src -L{NOESIS_PATH}/include"
+CCFLAGS += f"-I{GLEW_PATH}{_}include -I{GLFW_PATH}{_}include -I{GLM_PATH} -I{SPDLOG_PATH}{_}include "
+LDFLAGS = f"-L{GLEW_PATH}{_}lib -L{GLFW_PATH}{_}src -L{GLM_PATH} -L{SPDLOG_PATH}{_}src -L{NOESIS_PATH}{_}include"
 
 LDLIBS = f"{GLEW_LIB} {GLFW_LIB} -lX11 -lm -ldl -lpthread -framework OpenGL"
 
 
 def clear():
-    __execute(f"rm -rf {BUILD_DIR}/* {OBJ_NAME} {__LastBuildTime.build_time_file_name}")
+    __execute(f"rm -rf {BUILD_DIR}{_}* {OBJ_NAME} {__LastBuildTime.build_time_file_name}")
 
 def all():
-    exe_files = [el [2:] for el in __execute(f"find {ROOT_DIR} -maxdepth 1 -type f -name '*.cpp'").split("\n")[:-1]]
-    src_files = [el[2:] for el in __execute(f"find {SRC_DIR} -type f -name '*.cpp'").split("\n")[:-1]]
-    objs_files = [f"{BUILD_DIR[2:]}/{el.split('/')[-1].replace('.cpp', '.o')}" for el in src_files]
+    exe_files = [el [2:] for el in __get_files(f"{ROOT_DIR}")]
+    src_files = [el[2:] for el in __get_files_recursive(f"{SRC_DIR}")]
+    objs_files = [f"{BUILD_DIR[2:]}{_}{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
 
     src_files += exe_files
-    objs_files += [f"{BUILD_DIR[2:]}/{el.replace('.cpp', '.o')}" for el in exe_files]
-    
+    objs_files += [f"{BUILD_DIR[2:]}{_}{el.replace('.cpp', '.o')}" for el in exe_files]
+
     for idx, el in enumerate(src_files):
-        if __modifid(f"./{el}") or not __exists(f"./{objs_files[idx]}"):
+        if __modifid(f".{_}{el}") or not __exists(f"./{objs_files[idx]}"):
             __execute(f"{CC} {CCFLAGS} -c {el} -o {objs_files[idx]}")
 
     for el in exe_files:
