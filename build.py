@@ -90,10 +90,9 @@ GLEW_PATH = f"{LIBS_DIR}{_}glew"
 GLFW_PATH = f"{LIBS_DIR}{_}glfw"
 GLM_PATH = f"{LIBS_DIR}{_}glm"
 SPDLOG_PATH = f"{LIBS_DIR}{_}spdlog"
-NOESIS_PATH = f"{LIBS_DIR}{_}noesis"
 
 CCFLAGS += f"-I{GLEW_PATH}{_}include -I{GLFW_PATH}{_}include -I{GLM_PATH} -I{SPDLOG_PATH}{_}include "
-LDFLAGS = f"-L{GLEW_PATH}{_}lib -L{GLFW_PATH}{_}src -L{GLM_PATH} -L{SPDLOG_PATH}{_}src -L{NOESIS_PATH}{_}include"
+LDFLAGS = f"-L{GLEW_PATH}{_}lib -L{GLFW_PATH}{_}src -L{GLM_PATH} -L{SPDLOG_PATH}{_}src"
 
 LDLIBS = f"{GLEW_LIB} {GLFW_LIB} -lX11 -lm -ldl -lpthread -framework OpenGL"
 
@@ -102,6 +101,9 @@ def clear():
     __execute(f"rm -rf {BUILD_DIR}{_}* {OBJ_NAME} {__LastBuildTime.build_time_file_name}")
 
 def all():
+    if os.path.isdir("build"):
+        os.mkdir("build")
+    
     exe_files = [el [2:] for el in __get_files(f"{ROOT_DIR}")]
     src_files = [el[2:] for el in __get_files_recursive(f"{SRC_DIR}")]
     objs_files = [f"{BUILD_DIR[2:]}{_}{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
