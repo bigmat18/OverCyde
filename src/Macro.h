@@ -11,11 +11,11 @@
 
 #define BIT(x) (1 << x)
 
-#define HEX_COLOR(hex)             \ 
+#define HEX_COLOR(hex)             \
         ((hex) >> (3 * 8)) & 0xFF, \
         ((hex) >> (2 * 8)) & 0xFF, \
         ((hex) >> (1 * 8)) & 0xFF, \
-        ((hex) >> (0 * 8)) & 0xFF
+        ((hex) >> (0 * 8)) & 0xFF  \
 
 #define CORE_ASSERT(x, ...)                                       \
     {                                                             \

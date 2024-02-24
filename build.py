@@ -85,25 +85,28 @@ OBJ_NAME = "main"
 
 GLEW_LIB = "-lGLEW"
 GLFW_LIB = "-lglfw"
+SPDLOG_LIB = "-lspdlog"
 
 GLEW_PATH = f"{LIBS_DIR}{_}glew"
 GLFW_PATH = f"{LIBS_DIR}{_}glfw"
 GLM_PATH = f"{LIBS_DIR}{_}glm"
 SPDLOG_PATH = f"{LIBS_DIR}{_}spdlog"
 
-CCFLAGS += f"-I{GLEW_PATH}{_}include -I{GLFW_PATH}{_}include -I{GLM_PATH} -I{SPDLOG_PATH}{_}include "
-LDFLAGS = f"-L{GLEW_PATH}{_}lib -L{GLFW_PATH}{_}src -L{GLM_PATH} -L{SPDLOG_PATH}{_}src"
+CCFLAGS += f"-I{GLEW_PATH}{_}include -I{GLFW_PATH}{_}include -I{GLM_PATH} -I{SPDLOG_PATH}{_}include"
+LDFLAFS = f"-L{ROOT_DIR}/bin"
 
-LDLIBS = f"{GLEW_LIB} {GLFW_LIB} -lX11 -lm -ldl -lpthread -framework OpenGL"
+LDLIBS = f"{GLEW_LIB} {GLFW_LIB} -lX11 -lm -ldl -lpthread -framework OpenGL -Wl,-rpath,./bin"
 
+def init():
+    if not os.path.isdir("build"):
+        os.mkdir("build")
+    if not os.path.isdir("bin"):
+        os.mkdir("bin")
 
 def clear():
     __execute(f"rm -rf {BUILD_DIR}{_}* {OBJ_NAME} {__LastBuildTime.build_time_file_name}")
 
 def all():
-    if os.path.isdir("build"):
-        os.mkdir("build")
-    
     exe_files = [el [2:] for el in __get_files(f"{ROOT_DIR}")]
     src_files = [el[2:] for el in __get_files_recursive(f"{SRC_DIR}")]
     objs_files = [f"{BUILD_DIR[2:]}{_}{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
@@ -116,7 +119,7 @@ def all():
             __execute(f"{CC} {CCFLAGS} -c {el} -o {objs_files[idx]}")
 
     for el in exe_files:
-        __execute(f"{CC} {CCFLAGS} {LDLIBS} {' '.join(objs_files)} -o {OBJ_NAME}")
+        __execute(f"{CC} {CCFLAGS} {LDFLAFS} {LDLIBS} {' '.join(objs_files)} -o {OBJ_NAME}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
