@@ -5,6 +5,7 @@ import logging
 import os
 import datetime
 import shutil
+import sys
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
@@ -139,6 +140,9 @@ def all():
         __execute(f"{CC} {CCFLAGS} {LDFLAFS} {LDLIBS} {' '.join(objs_files)} -o {OBJ_NAME}")
 
 if __name__ == "__main__":
+    if not os.path.isfile("__build_time"):
+        logging.error("File __build_time non trovato")
+        sys.exit(0)
     parser = argparse.ArgumentParser()
     parser.add_argument("action", type=str, default="all", nargs="?")
     args = parser.parse_args()
