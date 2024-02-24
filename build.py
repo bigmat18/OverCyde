@@ -4,6 +4,7 @@ import subprocess
 import logging
 import os
 import datetime
+import shutil
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
@@ -42,9 +43,9 @@ class __LastBuildTime():
             file.close()
 
 
-def __execute(command: str) -> str:
+def __execute(command : str, dir : str = ".") -> str:
     logging.info(command)
-    return subprocess.check_output(command, shell=True)\
+    return subprocess.check_output(command, cwd=dir, shell=True)\
                      .decode("utf-8")
 
 def __modifid(file: str) -> bool:
@@ -102,6 +103,22 @@ def init():
         os.mkdir("build")
     if not os.path.isdir("bin"):
         os.mkdir("bin")
+        
+    print(__execute("cmake -DBUILD_SHARED_LIBS=ON .", dir=f".{_}libs{_}glfw"))
+    print(__execute("make", dir=f".{_}libs{_}glfw"))
+    
+    print(__execute("make", dir=f".{_}libs{_}glew{_}auto"))
+    print(__execute("make", dir=f".{_}libs{_}glew"))
+    
+    print(__execute("cmake . -DSPDLOG_BUILD_SHARED=ON", dir=f".{_}libs{_}spdlog"))
+    print(__execute("make", dir=f".{_}libs{_}spdlog"))
+    
+    for el in [f".{_}libs{_}glfw" ,f".{_}libs{_}glew", f".{_}libs{_}spdlog"]:
+        for root, directory, files in os.walk(el):
+            for name in files:
+                if name.endswith(".dylib") or name.endswith(".dll") or name.endswith(".so") or name.endswith(".a"):
+                    path = os.path.join(root, name)
+                    shutil.move(path, f".{_}bin")
 
 def clear():
     __execute(f"rm -rf {BUILD_DIR}{_}* {OBJ_NAME} {__LastBuildTime.build_time_file_name}")
@@ -129,3 +146,4 @@ if __name__ == "__main__":
     if args.action in funs: funs[args.action]()
     else: logging.error(f"Action '{args.action}' doesn't declared")
     __LastBuildTime.update()
+
