@@ -8,4 +8,3 @@ __build_time
 .venv
 bin/
 main
-libs/*
