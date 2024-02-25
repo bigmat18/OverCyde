@@ -12,7 +12,7 @@ namespace Core {
 
     class WindowResizeEvent : public Event {
         public:
-            WindowResizeEvent(u_int32_t width, uint32_t height) 
+            WindowResizeEvent(uint32_t width, uint32_t height) 
                 : m_Width(width), m_Height(height) {}; 
 
             EVENT_CLASS_TYPE(WindowResize);

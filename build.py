@@ -4,7 +4,6 @@ import subprocess
 import logging
 import os
 import datetime
-import shutil
 import sys
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
@@ -79,70 +78,71 @@ CCFLAGS += "-Wno-gnu-zero-variadic-macro-arguments -Wno-nested-anon-types "
 CCFLAGS += "-Wno-gnu-anonymous-struct "
 
 ROOT_DIR = "."
-SRC_DIR = f"{ROOT_DIR}{_}src"
-LIBS_DIR = f"{ROOT_DIR}{_}libs"
-BUILD_DIR = f"{ROOT_DIR}{_}build"
+SRC_DIR = f"{ROOT_DIR}/src"
+LIBS_DIR = f"{ROOT_DIR}/libs"
+BUILD_DIR = f"{ROOT_DIR}/build"
+BIN_DIR = f"{ROOT_DIR}/bin"
 
-OBJ_NAME = "main"
+OBJ_NAME = "main"                   if not os.name == "nt" else f"{BIN_DIR}/main"
+GLEW_LIB = "-lGLEW"                 if not os.name == 'nt' else "-lglew32"
+GLFW_LIB = "-lglfw"                 if not os.name == 'nt' else "-lglfw3"
+OPENGL_LIB = "-framework OpenGL"    if not os.name == 'nt' else "-lopengl32"
+SPDLOG_LIB = "-lspdlog"             if not os.name == 'nt' else ""
 
-GLEW_LIB = "-lGLEW"
-GLFW_LIB = "-lglfw"
-SPDLOG_LIB = "-lspdlog"
+GLEW_PATH = f"{LIBS_DIR}/glew"
+GLFW_PATH = f"{LIBS_DIR}/glfw"
+GLM_PATH = f"{LIBS_DIR}/glm"
+SPDLOG_PATH = f"{LIBS_DIR}/spdlog"
 
-GLEW_PATH = f"{LIBS_DIR}{_}glew"
-GLFW_PATH = f"{LIBS_DIR}{_}glfw"
-GLM_PATH = f"{LIBS_DIR}{_}glm"
-SPDLOG_PATH = f"{LIBS_DIR}{_}spdlog"
+CCFLAGS += f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PATH}/include"
+LDFLAGS = f"-L{GLM_PATH} -L{SPDLOG_PATH}/src"
+LDLIBS = f"{GLEW_LIB} {GLFW_LIB} {SPDLOG_LIB} -lm -lpthread {OPENGL_LIB}"
 
-CCFLAGS += f"-I{GLEW_PATH}{_}include -I{GLFW_PATH}{_}include -I{GLM_PATH} -I{SPDLOG_PATH}{_}include"
-LDFLAFS = f"-L{ROOT_DIR}/bin -L{SPDLOG_PATH}/src"
-
-LDLIBS = f"{GLEW_LIB} {GLFW_LIB} -lX11 -lm -ldl -lpthread -framework OpenGL -Wl,-rpath,./bin"
-
-def init():
-    if not os.path.isdir("build"):
-        os.mkdir("build")
-    if not os.path.isdir("bin"):
-        os.mkdir("bin")
-        
-    print(__execute("cmake -DBUILD_SHARED_LIBS=ON .", dir=f".{_}libs{_}glfw"))
-    print(__execute("make", dir=f".{_}libs{_}glfw"))
-    
-    print(__execute("make", dir=f".{_}libs{_}glew{_}auto"))
-    print(__execute("make", dir=f".{_}libs{_}glew"))
-    
-    # print(__execute("cmake . -DSPDLOG_BUILD_SHARED=ON", dir=f".{_}libs{_}spdlog"))
-    # print(__execute("make", dir=f".{_}libs{_}spdlog"))
-    
-    for el in [f".{_}libs{_}glfw" ,f".{_}libs{_}glew"]:
-        for root, directory, files in os.walk(el):
-            for name in files:
-                if name.endswith(".dylib") or name.endswith(".dll") or name.endswith(".so") or name.endswith(".a"):
-                    path = os.path.join(root, name)
-                    shutil.move(path, f".{_}bin")
+if os.name == 'nt': LDFLAGS += f" -L{BIN_DIR}"
 
 def clear():
-    __execute(f"rm -rf {BUILD_DIR}{_}* {OBJ_NAME} {__LastBuildTime.build_time_file_name}")
-
+    for file in os.listdir(f"./{BUILD_DIR}"):
+        os.remove(os.path.join(f"./{BUILD_DIR}", file))
+        
+    if os.path.isfile("main"):
+        os.remove("main")
+        
+    if os.path.isfile("bin/main.exe"):
+        os.remove("bin/main.exe")
+        
+    if os.path.isfile(f"{__LastBuildTime.build_time_file_name}"):
+        os.remove(f"{__LastBuildTime.build_time_file_name}")
+    
 def all():
     exe_files = [el [2:] for el in __get_files(f"{ROOT_DIR}")]
     src_files = [el[2:] for el in __get_files_recursive(f"{SRC_DIR}")]
-    objs_files = [f"{BUILD_DIR[2:]}{_}{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
+    objs_files = [f"{BUILD_DIR[2:]}/{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
 
     src_files += exe_files
-    objs_files += [f"{BUILD_DIR[2:]}{_}{el.replace('.cpp', '.o')}" for el in exe_files]
+    objs_files += [f"{BUILD_DIR[2:]}/{el.replace('.cpp', '.o')}" for el in exe_files]
 
     for idx, el in enumerate(src_files):
-        if __modifid(f".{_}{el}") or not __exists(f"./{objs_files[idx]}"):
+        if __modifid(f"./{el}") or not __exists(f"./{objs_files[idx]}"):
             __execute(f"{CC} {CCFLAGS} -c {el} -o {objs_files[idx]}")
 
     for el in exe_files:
-        __execute(f"{CC} {CCFLAGS} {LDFLAFS} {LDLIBS} {' '.join(objs_files)} -o {OBJ_NAME}")
+        __execute(f"{CC} {CCFLAGS} {LDFLAGS} {LDLIBS} {' '.join(objs_files)} -o {OBJ_NAME}")
+
+
 
 if __name__ == "__main__":
     if not os.path.isfile("__build_time"):
         logging.error("File __build_time non trovato")
         sys.exit(0)
+        
+    if not os.path.exists(f"{BUILD_DIR}"):
+        logging.error(f"Cartella {BUILD_DIR} non trovato")
+        sys.exit(0)
+        
+    if not os.path.exists(f"{BIN_DIR}"):
+        logging.error(f"Cartella {BIN_DIR} non trovato")
+        sys.exit(0)
+        
     parser = argparse.ArgumentParser()
     parser.add_argument("action", type=str, default="all", nargs="?")
     args = parser.parse_args()

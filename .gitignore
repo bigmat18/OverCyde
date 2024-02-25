@@ -6,5 +6,5 @@ compile_commands.json
 legacy/
 __build_time
 .venv
-bin/
 main
+main.exe

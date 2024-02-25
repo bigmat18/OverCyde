@@ -9,6 +9,7 @@ int main(void) {
 
   // app->Run();
   // delete app;
+
   CORE_ASSERT(false, "ciao!");
 
   return 0;
