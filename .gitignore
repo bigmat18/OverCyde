@@ -1,0 +1,10 @@
+main.dSYM
+.vscode
+build
+.cache
+compile_commands.json
+legacy/
+__build_time
+.venv
+bin/
+main
