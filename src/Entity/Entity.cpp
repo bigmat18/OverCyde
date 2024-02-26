@@ -3,9 +3,9 @@
 #include "ECSystem.h"
 
 namespace OverCyde {
-    Entity::Entity() : m_position(glm::vec3(0.0f, 0.0f, 0.0f)),
-                       m_rotationVec(glm::vec3(1.0f, 1.0f, 1.0f)),
-                       m_scale(glm::vec3(1.0f, 1.0f, 1.0f)),
+    Entity::Entity() : m_position(Vec3f(0.0f, 0.0f, 0.0f)),
+                       m_rotationVec(Vec3f(1.0f, 1.0f, 1.0f)),
+                       m_scale(Vec3f(1.0f, 1.0f, 1.0f)),
                        m_rotation(0.0f) {} 
 
     Entity::~Entity() { 

@@ -1,7 +1,7 @@
 #pragma once
 #include "../Pch.h"
+#include "../Types.h"
 #include <GL/glew.h>
-#include <glm/glm.hpp>
 
 namespace OverCyde { 
     class Entity {
@@ -15,22 +15,22 @@ namespace OverCyde {
             void Update(float deltaTime);
             void ProcessInput(const class InputState state);
 
-            glm::vec3 GetPosition() const { return this->m_position; }
-            glm::vec3 GetRotationVec() const { return this->m_rotationVec; }
-            glm::vec3 GetScale() const { return this->m_scale; }
+            Vec3f GetPosition() const { return this->m_position; }
+            Vec3f GetRotationVec() const { return this->m_rotationVec; }
+            Vec3f GetScale() const { return this->m_scale; }
             float GetRotation() const { return this->m_rotation; }
 
 
-            void SetPosition(glm::vec3 position) { this->m_position = position; }
-            void SetRotationVec(glm::vec3 rotationVec) { this->m_rotationVec = rotationVec; }
-            void SetScale(glm::vec3 scale) { this->m_scale = scale; }
+            void SetPosition(Vec3f position) { this->m_position = position; }
+            void SetRotationVec(Vec3f rotationVec) { this->m_rotationVec = rotationVec; }
+            void SetScale(Vec3f scale) { this->m_scale = scale; }
             void SetRotation(float_t rotation) { this->m_rotation = rotation; }
 
         private:
             std::vector<class Component*> m_components;
-            glm::vec3 m_position;
-            glm::vec3 m_rotationVec;
-            glm::vec3 m_scale;
+            Vec3f m_position;
+            Vec3f m_rotationVec;
+            Vec3f m_scale;
             float m_rotation;
     };
 }

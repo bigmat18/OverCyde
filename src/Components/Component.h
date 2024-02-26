@@ -7,7 +7,7 @@ namespace OverCyde {
     class Component {
         public:
             Component(Entity *entity, uint8_t updateOrder = 0) : m_entity(entity),
-                                                                m_updateOrder(updateOrder)
+                                                                 m_updateOrder(updateOrder)
             { this->m_entity->AddComponent(this); }
 
             Component() {};

@@ -71,7 +71,7 @@ def __get_files(path: str) -> list[str]:
 
 
 CC = "clang++"
-CCFLAGS = "-std=c++20 -stdlib=libc++ -O1 -g -Wall -Wextra -Wpedantic "
+CCFLAGS = "-std=c++20 -stdlib=libc++ -O3 -g -Wall -Wextra -Wpedantic "
 CCFLAGS += "-Wno-c99-extensions -Wno-unused-parameter -Wno-vla-extension "
 CCFLAGS += "-Wno-c++11-extensions -Wno-gnu-statement-expression "
 CCFLAGS += "-Wno-gnu-zero-variadic-macro-arguments -Wno-nested-anon-types "

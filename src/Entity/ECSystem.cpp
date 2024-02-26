@@ -4,7 +4,7 @@
 
 namespace OverCyde {
   ECSystem::ECSystem() : m_ticksCount(0.0f), 
-                        m_deltaTime(0.0f) {}
+                         m_deltaTime(0.0f) {}
 
   ECSystem::~ECSystem() {
     for (auto obj : this->m_entitys)
