@@ -4,7 +4,7 @@
 typedef glm::vec1   Vec1f;
 typedef glm::vec2   Vec2f;
 typedef glm::vec3   Vec3f;
-typedef glm::vec3   Vec4f;
+typedef glm::vec4   Vec4f;
 
 typedef glm::mat2   Mat2f;
 typedef glm::mat3   Mat3f;

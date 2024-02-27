@@ -6,8 +6,8 @@
 namespace Core {
     VertexArray* VertexArray::Create() {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None:     LOG_CORE_ERROR("RendereAPI::None in not supported");
-            case RendererAPI::OpenGL:   return new OpenGLVertexArray();
+            case RendererAPI::API::None:     LOG_CORE_ERROR("RendereAPI::None in not supported");
+            case RendererAPI::API::OpenGL:   return new OpenGLVertexArray();
         }
         return nullptr;
     }

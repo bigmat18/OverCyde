@@ -1,10 +1,12 @@
-#include <GLFW/glfw3.h>
 #include "Application.h"
 #include "Log.h"
+#include "Macro.h"
+#include "Renderer/RenderCommand.h"
 #include "Layers/ExampleLayer.h"
+#include "Events/KeyCode.h"
 
 #define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
-#define BLACK_COLOR 0, 0, 0, 0
+#define BLACK_COLOR 0x0000FFFF
 
 namespace Core {
     Application *Application::s_Instance = nullptr;
@@ -26,9 +28,6 @@ namespace Core {
 
     void Application::Run() {
         while(this->m_Running){
-            glClearColor(BLACK_COLOR);
-            glClear(GL_COLOR_BUFFER_BIT);
-
             this->ProcessEvents();
             this->Update();
             this->GenerateOutput();
@@ -56,7 +55,8 @@ namespace Core {
     }
 
     void Application::GenerateOutput() {
-        //
+        RenderCommand::SetClearColor({HEX_COLOR(BLACK_COLOR)});
+        RenderCommand::Clear();
     }
     
     void Application::PushLayer(Layer *layer) {
@@ -73,7 +73,15 @@ namespace Core {
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_FUN(Application::OnWindowClose));
         dispatcher.Dispatch<WindowResizeEvent>(BIND_FUN(Application::OnWindowResize));
+        dispatcher.Dispatch<KeyPressedEvent>(BIND_FUN(Application::OnKeyPressed));
         this->m_EventStack.push_back(&e);
+    }
+
+    bool Application::OnKeyPressed(KeyPressedEvent& e){
+        switch (e.GetKeyCode()) {
+            case Key::Escape: this->m_Running = false;
+        }
+        return true;
     }
 
     bool Application::OnWindowClose(WindowCloseEvent& e){

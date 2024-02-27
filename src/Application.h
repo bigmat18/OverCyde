@@ -2,6 +2,7 @@
 #include "Window/Window.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
+#include "Events/KeyEvent.h"
 #include "Layers/LayerStack.h"
 #include "Layers/Layer.h"
 #include "Pch.h"
@@ -25,6 +26,7 @@ namespace Core {
             Application();
             bool OnWindowClose(WindowCloseEvent &e);
             bool OnWindowResize(WindowResizeEvent &e);
+            bool OnKeyPressed(KeyPressedEvent &e);
 
             static Application* s_Instance;
 
