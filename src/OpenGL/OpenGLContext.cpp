@@ -2,8 +2,8 @@
 #include "../Macro.h"
 
 namespace Core {
-    OpenGLContext::OpenGLContext(GLFWwindow* windowHandle) 
-        : m_WindowHandle(windowHandle) {}
+    OpenGLContext::OpenGLContext(void* windowHandle)
+        : m_WindowHandle((GLFWwindow*)windowHandle) {}
 
     void OpenGLContext::Initialize() {
         glfwMakeContextCurrent(this->m_WindowHandle);

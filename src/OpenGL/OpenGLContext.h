@@ -6,7 +6,7 @@
 namespace Core {
     class OpenGLContext : public GraphicsContext {
         public:
-            OpenGLContext(GLFWwindow* windowHandle);
+            OpenGLContext(void* windowHandle);
 
             virtual void Initialize() override;
             virtual void SwapBuffers() override;

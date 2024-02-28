@@ -1,4 +1,4 @@
-#include "../OpenGL/OpenGLContext.h"
+#include "../Renderer/GraphicsContext.h"
 #include "DefaultWindow.h"
 #include "../Macro.h"
 #include "../Events/ApplicationEvent.h"
@@ -36,7 +36,7 @@ namespace Core {
                                           nullptr, 
                                           nullptr);
 
-        this->m_Context = new OpenGLContext(this->m_Window);
+        this->m_Context = GraphicsContext::Create(this->m_Window);
         this->m_Context->Initialize();
 
         glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
