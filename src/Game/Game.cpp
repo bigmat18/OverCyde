@@ -1,14 +1,25 @@
+#define ENGINE_PLATFORM
 #include <Engine.h>
+#include <EntryPoint.h>
 
-class Sandbox : public Core::Application {};
+#define BACKGROUND_COLOR 0x0000FFFF
 
-int main(void) {
-    Core::Log::Inizialize();
-    auto game = Sandbox::GetInstance();
+class Game : public Core::Application {
+    friend class Core::Application;
 
-    LOG_INFO("App running...");
-    game->Run();
-    delete game;
+    private:
+        virtual void GenerateOutput() override {
+            Core::RenderCommand::SetClearColor({HEX_COLOR(BACKGROUND_COLOR)});
+            Core::RenderCommand::Clear();
+        }
 
-    return 0;
+        Game(const Core::WindowProps& props) : Application(props) {}
+};
+
+Core::Application* Core::Application::Create() {
+    WindowProps props;
+    props.Title = "Game";
+    props.Width = 1280;
+    props.Height = 720;
+    return Core::Application::SetInstance(new Game(props));
 }

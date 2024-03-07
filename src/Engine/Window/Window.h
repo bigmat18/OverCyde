@@ -9,7 +9,7 @@ namespace Core {
         uint32_t Width;
         uint32_t Height;
 
-        WindowProps(const std::string& title = "OverCyde", 
+        WindowProps(const std::string& title = "Engine", 
                     uint32_t width = 1280, 
                     uint32_t height = 720)
             : Title(title), Width(width), Height(height) {}
@@ -28,6 +28,6 @@ namespace Core {
 
             virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
 
-            static Window *Create(const WindowProps &props = WindowProps());
+            static Window *Create(const WindowProps &props);
     };
 }

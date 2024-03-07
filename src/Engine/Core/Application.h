@@ -14,17 +14,21 @@ namespace Core {
         public:
             Application(Application &value) = delete;
             void operator=(const Application &) = delete;
-            virtual ~Application();
+            virtual ~Application() = default;
 
-            static Application *GetInstance();
+            static Application *Create();
+
             void OnEvent(Event& e);
             void PushLayer(class Layer *layer);
             void PushOverlay(class Layer *layer);
 
             void Run();
 
+        protected:
+            Application(const WindowProps& props = WindowProps());
+            static Application *SetInstance(Application *instance);
+
         private:
-            Application();
             bool OnWindowClose(WindowCloseEvent &e);
             bool OnWindowResize(WindowResizeEvent &e);
             bool OnKeyPressed(KeyPressedEvent &e);
@@ -32,8 +36,8 @@ namespace Core {
             static Application* s_Instance;
 
             void ProcessEvents();
-            void Update();
-            void GenerateOutput();
+            virtual void Update() {};
+            virtual void GenerateOutput() {};
 
             bool m_Running = true;
             bool m_Minimized = false;

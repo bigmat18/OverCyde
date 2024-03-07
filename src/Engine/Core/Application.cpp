@@ -4,24 +4,23 @@
 #include "../Events/KeyCode.h"
 
 #define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
-#define BLACK_COLOR 0x0000FFFF
 
 namespace Core {
     Application *Application::s_Instance = nullptr;
 
-    Application *Application::GetInstance() {
+    Application *Application::SetInstance(Application *instance) {
         if (s_Instance == nullptr)
-            s_Instance = new Application();
-        return s_Instance;
-    };
+            s_Instance = instance;
+        else
+            delete instance;
 
-
-    Application::Application() {
-        this->m_Window = std::unique_ptr<Window>(Window::Create());
-        this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
+        return Application::s_Instance;
     }
 
-    Application::~Application() {}
+    Application::Application(const WindowProps& props) {
+        this->m_Window = std::unique_ptr<Window>(Window::Create(props));
+        this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
+    }
 
     void Application::Run() {
         while(this->m_Running){
@@ -43,15 +42,6 @@ namespace Core {
         }
         this->m_EventStack.clear();
     }
-
-    void Application::Update() {
-        //
-    }
-
-    void Application::GenerateOutput() {
-        RenderCommand::SetClearColor({HEX_COLOR(BLACK_COLOR)});
-        RenderCommand::Clear();
-    }
     
     void Application::PushLayer(Layer *layer) {
         this->m_LayerStack.PushLayer(layer);
@@ -66,7 +56,6 @@ namespace Core {
     void Application::OnEvent(Event& e){
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_FUN(Application::OnWindowClose));
-        dispatcher.Dispatch<WindowResizeEvent>(BIND_FUN(Application::OnWindowResize));
         dispatcher.Dispatch<KeyPressedEvent>(BIND_FUN(Application::OnKeyPressed));
         this->m_EventStack.push_back(&e);
     }
@@ -80,10 +69,6 @@ namespace Core {
 
     bool Application::OnWindowClose(WindowCloseEvent& e){
         this->m_Running = false;
-        return true;
-    }
-
-    bool Application::OnWindowResize(WindowResizeEvent& e){
         return true;
     }
 
