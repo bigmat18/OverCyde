@@ -8,9 +8,6 @@ import sys
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
-if os.name == 'nt': _ = "\\"
-else: _ = "/"
-
 class __LastBuildTime():
     build_time_file_name : str = "__build_time"
     __LAST_BUILD_TIME = None
@@ -149,7 +146,7 @@ def engine(spec : str):
     __LastBuildTime.build_time_file_name = f"{ENGINE_BUILD_DIR}/__build_time"
     
     src_files = [el[2:] for el in __get_files_recursive(f"{ENGINE_DIR}")]
-    objs_files = [f"{ENGINE_BUILD_DIR[2:]}/{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
+    objs_files = [f"{ENGINE_BUILD_DIR[2:]}/{el.split("/")[-1].replace('.cpp', '.o')}" for el in src_files]
 
     for idx, el in enumerate(src_files):
         if __modifid(f"./{el}") or not __exists(f"./{objs_files[idx]}"):
@@ -164,7 +161,7 @@ def game(spec : str):
     __LastBuildTime.build_time_file_name = f"{GAME_BUILD_DIR}/__build_time"
 
     src_files = [el[2:] for el in __get_files_recursive(f"{GAME_DIR}")]
-    objs_files = [f"{GAME_BUILD_DIR[2:]}/{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
+    objs_files = [f"{GAME_BUILD_DIR[2:]}/{el.split("/")[-1].replace('.cpp', '.o')}" for el in src_files]
 
     for idx, el in enumerate(src_files):
         if __modifid(f"./{el}") or not __exists(f"./{objs_files[idx]}"):
