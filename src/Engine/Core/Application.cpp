@@ -1,7 +1,6 @@
 #include "Application.h"
 #include "Log.h"
 #include "../Renderer/RenderCommand.h"
-#include "../Layers/ExampleLayer.h"
 #include "../Events/KeyCode.h"
 
 #define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
@@ -20,7 +19,6 @@ namespace Core {
     Application::Application() {
         this->m_Window = std::unique_ptr<Window>(Window::Create());
         this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
-        this->PushLayer(new ExampleLayer());
     }
 
     Application::~Application() {}
@@ -30,17 +28,14 @@ namespace Core {
             this->ProcessEvents();
             this->Update();
             this->GenerateOutput();
-
             this->m_Window->OnUpdate();
         }
     }
 
     void Application::ProcessEvents() {
-        for (auto e : this->m_EventStack)
-        {
+        for (auto e : this->m_EventStack){
             LOG_CORE_INFO("Event {0}", e->ToString());
-            for (auto l : this->m_LayerStack)
-            {
+            for (auto l : this->m_LayerStack){
                 if (!e->IsHandled())
                     l->OnEvent(*e);
             }
