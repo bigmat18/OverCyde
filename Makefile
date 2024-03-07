@@ -1,5 +1,27 @@
-BIN_DIR = ./bin
-OBJ_NAME = main
+ROOT_DIR = .
+BIN_DIR = $(ROOT_DIR)/bin
 
-all:
+ifeq ($(OS),Windows_NT)
+	OBJ_NAME = main.exe
+else
+	OBJ_NAME = main
+endif
+
+run:
 	$(BIN_DIR)/$(OBJ_NAME)
+
+build: build_engine build_game
+
+build_engine:
+	./build.py engine
+
+build_game:
+	./build.py game
+
+clear_all: clear_engine clear_game
+
+clear_engine:
+	./build.py clear engine 
+
+clear_game:
+	./build.py clear game 

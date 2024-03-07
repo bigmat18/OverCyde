@@ -1,4 +1,5 @@
 Cose da fare per il MattEngine:
+ - [X] Separa Core da Game
  - [] Gestione della camera
  - [] Astrazione degli Uniforms per gli shader
  - [] Refs, Scope, Smart pointers
@@ -6,5 +7,4 @@ Cose da fare per il MattEngine:
  - [] Implementa prima versione di Renderer2D (con ottimizzazioni)
  - [] Implementa prima versione di Renderer3D
  - [] Aggiungi Layer di debugging con ImGUI e profiling
- - [] Separa Core da Game
  - [] Sistema ECS
