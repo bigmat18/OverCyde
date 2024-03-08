@@ -91,7 +91,7 @@ LIBS_DIR = f"{ROOT_DIR}/libs"
 BUILD_DIR = f"{ROOT_DIR}/build"
 BIN_DIR = f"{ROOT_DIR}/bin"
 
-OBJ_NAME = f"main"
+OBJ_NAME = "main"
 DLL_NAME = "libengine.dylib"        if not os.name == 'nt' else "libengine.dll"
 GLEW_LIB = "-lGLEW"                 if not os.name == 'nt' else "-lglew32"
 GLFW_LIB = "-lglfw"                 if not os.name == 'nt' else "-lglfw3"
@@ -102,9 +102,10 @@ GLEW_PATH = f"{LIBS_DIR}/glew"
 GLFW_PATH = f"{LIBS_DIR}/glfw"
 GLM_PATH = f"{LIBS_DIR}/glm"
 SPDLOG_PATH = f"{LIBS_DIR}/spdlog"
+STB_PATH = f"{LIBS_DIR}/stb"
 
-LDLIBS = f"-L{GLM_PATH} -L{SPDLOG_PATH}/src"
-ILIBS = f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PATH}/include"
+LDLIBS = f"-L{GLM_PATH} -L{SPDLOG_PATH}/src -L{STB_PATH}"
+ILIBS = f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PATH}/include -I{STB_PATH}"
 
 DLLFLAGS = "-dynamiclib" if not os.name == 'nt' else "-shared"
 LDFLAGS= f"{GLEW_LIB} {GLFW_LIB} {SPDLOG_LIB} -lm -lpthread {OPENGL_LIB}" 
@@ -112,7 +113,7 @@ if os.name == 'nt':
     LDFLAGS += f" -L{BIN_DIR}"
 
 def clear(spec : str):
-    BUILD_CLEAR = f""
+    BUILD_CLEAR = ""
     if spec == "all" or spec == "":
         BUILD_CLEAR = f"{BUILD_DIR}"
     elif spec == "engine":
