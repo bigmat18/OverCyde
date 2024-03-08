@@ -1,19 +1,16 @@
 #define ENGINE_PLATFORM
 #include <Engine.h>
 #include <EntryPoint.h>
+#include "GameLayer.h"
 
-#define BACKGROUND_COLOR 0x0000FFFF
+#define CUSTOM_COLOR 0xFF00FFFF
 
-class Game : public Engine::Application {
+class Game : public Engine::Application {  
     friend class Engine::Application;
 
     private:
-        virtual void GenerateOutput() override {
-            Engine::RenderCommand::SetClearColor({HEX_COLOR(BACKGROUND_COLOR)});
-            Engine::RenderCommand::Clear();
+        Game(const Engine::WindowProps& props) : Application(props) {
         }
-
-        Game(const Engine::WindowProps& props) : Application(props) {}
 };
 
 Engine::Application* Engine::Application::Create() {
@@ -21,5 +18,6 @@ Engine::Application* Engine::Application::Create() {
     props.Title = "Game";
     props.Width = 1280;
     props.Height = 720;
+    props.BackgroundColor = {HEX_COLOR(CUSTOM_COLOR)};
     return Engine::Application::SetInstance(new Game(props));
 }

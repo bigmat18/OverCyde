@@ -7,8 +7,8 @@
 #include "../Layers/Layer.h"
 #include "Macro.h"
 
-namespace Engine {
-
+namespace Engine {    
+     
     class ENGINE_API Application {
         public:
             Application(Application &value) = delete;
@@ -35,8 +35,8 @@ namespace Engine {
             static Application* s_Instance;
 
             void ProcessEvents();
-            virtual void Update() {};
-            virtual void GenerateOutput() {};
+            void Update();
+            void GenerateOutput();
 
             bool m_Running = true;
             bool m_Minimized = false;

@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include "Window.h"
 #include "../Renderer/GraphicsContext.h"
+#include "../Core/Types.h"
 
 namespace Engine {
     class DefaultWindow : public Window {
@@ -13,6 +14,7 @@ namespace Engine {
 
             uint32_t GetWidth() const override { return m_Data.Width; }
             uint32_t GetHeight() const override { return m_Data.Height; }
+            Vec4f GetBGColor() const override { return m_Data.BackgroundColor; }
 
             void SetEventCallback(const EventCallbackFn &callback) override { m_Data.EventCallback = callback; }
 
@@ -31,8 +33,8 @@ namespace Engine {
             struct WindowData {
                 std::string Title;
                 unsigned int Width, Height;
-                bool VSync;
-
+                Vec4f BackgroundColor;
+                
                 EventCallbackFn EventCallback;
             };
 

@@ -1,6 +1,8 @@
-#include "Application.h"
+#include "Application.h"  
 #include "Log.h"
 #include "../Events/KeyCode.h"
+#include "../Renderer/RenderCommand.h"
+#include "Macro.h"
 
 #define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
 
@@ -29,6 +31,7 @@ namespace Engine {
             this->m_Window->OnUpdate();
         }
     }
+    
 
     void Application::ProcessEvents() {
         for (auto e : this->m_EventStack){
@@ -40,6 +43,17 @@ namespace Engine {
             delete e;
         }
         this->m_EventStack.clear();
+    }
+
+    void Application::Update() {}
+    
+    void Application::GenerateOutput() {
+        RenderCommand::SetClearColor(this->m_Window->GetBGColor());
+        RenderCommand::Clear();
+
+        for (auto l : this->m_LayerStack) {
+            l->OnUpdate();
+        }
     }
     
     void Application::PushLayer(Layer *layer) {

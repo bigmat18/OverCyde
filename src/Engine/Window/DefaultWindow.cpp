@@ -19,8 +19,7 @@ namespace Engine {
         this->m_Data.Title = props.Title;
         this->m_Data.Width = props.Width;
         this->m_Data.Height = props.Height;
-        this->m_Data.VSync = false;
-
+        this->m_Data.BackgroundColor = props.BackgroundColor;
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

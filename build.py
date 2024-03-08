@@ -104,7 +104,7 @@ GLM_PATH = f"{LIBS_DIR}/glm"
 SPDLOG_PATH = f"{LIBS_DIR}/spdlog"
 STB_PATH = f"{LIBS_DIR}/stb"
 
-LDLIBS = f"-L{GLM_PATH} -L{SPDLOG_PATH}/src -L{STB_PATH}"
+LDLIBS = f"-L{GLM_PATH} -L{SPDLOG_PATH}/src"
 ILIBS = f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PATH}/include -I{STB_PATH}"
 
 DLLFLAGS = "-dynamiclib" if not os.name == 'nt' else "-shared"
