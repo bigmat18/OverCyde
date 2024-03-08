@@ -2,7 +2,7 @@
 #include "Layer.h"
 #include "../Core/Pch.h"
 
-namespace Core {
+namespace Engine {
     class LayerStack {
         public:
             LayerStack();

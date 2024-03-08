@@ -1,11 +1,10 @@
 #include "Application.h"
 #include "Log.h"
-#include "../Renderer/RenderCommand.h"
 #include "../Events/KeyCode.h"
 
 #define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
 
-namespace Core {
+namespace Engine {
     Application *Application::s_Instance = nullptr;
 
     Application *Application::SetInstance(Application *instance) {

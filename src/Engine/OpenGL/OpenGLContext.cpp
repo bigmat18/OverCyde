@@ -1,7 +1,7 @@
 #include "OpenGLContext.h"
 #include "../Core/Macro.h"
 
-namespace Core {
+namespace Engine {
     OpenGLContext::OpenGLContext(void* windowHandle)
         : m_WindowHandle((GLFWwindow*)windowHandle) {}
 

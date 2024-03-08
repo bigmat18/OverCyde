@@ -1,8 +1,7 @@
 #pragma once
 #include "RendererAPI.h"
 
-namespace Core {
-
+namespace Engine {
     class Renderer {
         public: 
             static void BeginScene();

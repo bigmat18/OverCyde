@@ -1,6 +1,6 @@
 #include "LayerStack.h"
 
-namespace Core {
+namespace Engine {
     
     LayerStack::LayerStack() {
         m_LayerInsert = this->m_Layers.begin();

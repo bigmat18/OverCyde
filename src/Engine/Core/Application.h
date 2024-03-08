@@ -6,9 +6,8 @@
 #include "../Layers/LayerStack.h"
 #include "../Layers/Layer.h"
 #include "Macro.h"
-#include "Pch.h"
 
-namespace Core {
+namespace Engine {
 
     class ENGINE_API Application {
         public:

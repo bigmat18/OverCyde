@@ -5,7 +5,7 @@
 #include "../Renderer/Shader.h"
 #include "../Core/Pch.h"
 
-namespace Core {
+namespace Engine {
     class OpenGLShader : public Shader {
         public:
             OpenGLShader(const std::string &vertexPath, const std::string &fragmentPath);

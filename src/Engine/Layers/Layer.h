@@ -2,7 +2,7 @@
 #include "../Core/Pch.h"
 #include "../Events/Event.h"
 
-namespace Core {
+namespace Engine {
     class Layer {
         public:
             Layer(const std::string &name = "Layer") : m_DebugName(name) {};

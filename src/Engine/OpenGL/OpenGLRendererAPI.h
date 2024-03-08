@@ -1,7 +1,7 @@
 #pragma once
 #include "../Renderer/RendererAPI.h"
 
-namespace Core {
+namespace Engine {
     class OpenGLRendererAPI : public RendererAPI {
         public:
             virtual void Clear() override;

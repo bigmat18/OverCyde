@@ -8,8 +8,10 @@ import sys
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
-if os.name == 'nt': _ = "\\"
-else: _ = "/"
+if os.name == 'nt':
+    _ = "\\"
+else: 
+    _ = "/"
 
 class __LastBuildTime():
     build_time_file_name : str = "__build_time"
@@ -17,7 +19,7 @@ class __LastBuildTime():
 
     @classmethod
     def time(cls) -> str:
-        if cls.__LAST_BUILD_TIME == None:
+        if cls.__LAST_BUILD_TIME is None:
             cls.__get_last_build_time()
 
         if not cls.__LAST_BUILD_TIME:
@@ -106,7 +108,8 @@ ILIBS = f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PAT
 
 DLLFLAGS = "-dynamiclib" if not os.name == 'nt' else "-shared"
 LDFLAGS= f"{GLEW_LIB} {GLFW_LIB} {SPDLOG_LIB} -lm -lpthread {OPENGL_LIB}" 
-if os.name == 'nt': LDFLAGS += f" -L{BIN_DIR}"
+if os.name == 'nt': 
+    LDFLAGS += f" -L{BIN_DIR}"
 
 def clear(spec : str):
     BUILD_CLEAR = f""

@@ -1,8 +1,7 @@
 #pragma once
-#include "../Core/Pch.h"
 #include "../Events/Event.h"
  
-namespace Core {
+namespace Engine {
 
     struct WindowProps {
         std::string Title;

@@ -1,8 +1,8 @@
 #include "Renderer.h"
 #include "RenderCommand.h"
 
-namespace Core {
-    
+namespace Engine {
+
     void Renderer::BeginScene() {
 
     }

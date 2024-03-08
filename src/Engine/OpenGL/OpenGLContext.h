@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "../Renderer/GraphicsContext.h"
 
-namespace Core {
+namespace Engine {
     class OpenGLContext : public GraphicsContext {
         public:
             OpenGLContext(void* windowHandle);

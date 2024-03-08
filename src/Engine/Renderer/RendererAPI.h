@@ -3,7 +3,7 @@
 #include "../Core/Types.h"
 #include "VertexArray.h"
 
-namespace Core {
+namespace Engine {
     class RendererAPI {
         public:
             enum class API

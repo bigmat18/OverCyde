@@ -3,7 +3,7 @@
 #include "../Core/Log.h"
 #include "../OpenGL/OpenGLBuffer.h"
 
-namespace Core {
+namespace Engine {
     VertexBuffer* VertexBuffer::Create(float *vertices, uint32_t size) {
         switch (RendererAPI::GetAPI()) {
             case RendererAPI::API::None:     LOG_CORE_ERROR("RendereAPI::None in not supported");

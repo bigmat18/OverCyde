@@ -1,7 +1,7 @@
 #include "OpenGLShader.h"
 #include "../Core/Log.h"
 
-namespace Core {
+namespace Engine {
     namespace Debugging {
 
         static inline bool CheckShader(uint32_t ID) {

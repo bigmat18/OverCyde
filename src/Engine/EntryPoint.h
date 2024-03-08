@@ -5,10 +5,10 @@
 #ifdef ENGINE_PLATFORM
 
 int main(void) {
-    Core::Log::Inizialize();
+    Engine::Log::Inizialize();
 
     LOG_CORE_INFO("Created application");
-    auto app = Core::Application::Create();
+    auto app = Engine::Application::Create();
 
     LOG_CORE_INFO("App runnig");
     app->Run();

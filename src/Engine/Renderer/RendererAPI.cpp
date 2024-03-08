@@ -2,7 +2,7 @@
 #include "../OpenGL/OpenGLRendererAPI.h"
 #include "../Core/Macro.h"
 
-namespace Core {
+namespace Engine {
     RendererAPI::API RendererAPI::s_API = RendererAPI::API::OpenGL;
 
 	RendererAPI* RendererAPI::Create() {

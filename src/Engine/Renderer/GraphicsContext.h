@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Core {
+namespace Engine {
     class GraphicsContext {
         public:
             virtual ~GraphicsContext() = default;

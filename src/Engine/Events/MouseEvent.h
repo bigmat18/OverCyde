@@ -2,7 +2,7 @@
 #include "Event.h"
 #include "MouseCode.h"
 
-namespace Core {
+namespace Engine {
     class MouseMovedEvent : public Event {
         public:
             MouseMovedEvent(const float x, const float y)

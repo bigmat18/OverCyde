@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
 #include "OpenGLRendererAPI.h"
 
-namespace Core {
+namespace Engine {
     void OpenGLRendererAPI::Clear() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }

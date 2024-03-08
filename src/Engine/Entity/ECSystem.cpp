@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include <GLFW/glfw3.h>
 
-namespace Core {
+namespace Engine {
   ECSystem::ECSystem() : m_ticksCount(0.0f), 
                          m_deltaTime(0.0f) {}
 

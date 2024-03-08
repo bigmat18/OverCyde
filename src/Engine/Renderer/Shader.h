@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Pch.h"
 
-namespace Core {
+namespace Engine {
     class Shader {
         public:
             virtual ~Shader() = default;

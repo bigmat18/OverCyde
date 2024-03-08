@@ -5,7 +5,7 @@
 #define CLIENT_NAME "CLIENT"
 #define FORMATTING "%^[%T] %n: %v%$"
 
-namespace Core {
+namespace Engine {
     std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
     std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
 

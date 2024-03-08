@@ -2,7 +2,7 @@
 #include "Buffer.h"
 #include "../Core/Pch.h"
 
-namespace Core {
+namespace Engine {
     class VertexArray {
         public:
             virtual ~VertexArray() = default;

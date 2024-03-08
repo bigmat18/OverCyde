@@ -5,7 +5,7 @@
 #include "../Events/KeyEvent.h"
 #include "../Events/MouseEvent.h"
 
-namespace Core {
+namespace Engine {
 
     Window *Window::Create(const WindowProps &props) {
         return new DefaultWindow(props);

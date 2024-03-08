@@ -1,7 +1,7 @@
 #pragma once
 #include "RendererAPI.h"
 
-namespace Core {
+namespace Engine {
     class RenderCommand {
         public:
             inline static void SetClearColor(const Vec4f color) {

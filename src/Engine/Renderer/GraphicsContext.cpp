@@ -2,7 +2,7 @@
 #include "RendererAPI.h"
 #include "../OpenGL/OpenGLContext.h"
 
-namespace Core {
+namespace Engine {
     GraphicsContext* GraphicsContext::Create(void* window) {
         
         switch (RendererAPI::GetAPI()) {

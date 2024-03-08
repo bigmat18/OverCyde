@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include "OpenGLVertexArray.h"
 
-namespace Core {
+namespace Engine {
     OpenGLVertexArray::OpenGLVertexArray() {
         glCreateVertexArrays(1, &this->m_ID);
     }

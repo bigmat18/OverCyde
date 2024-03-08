@@ -2,7 +2,7 @@
 #include "Event.h"
 #include "KeyCode.h"
 
-namespace Core {
+namespace Engine {
     class KeyEvent : public Event {
         public:
             KeyCode GetKeyCode() const { return this->m_Keycode; };

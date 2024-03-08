@@ -3,7 +3,7 @@
 #include "../Core/Pch.h"
 #include <GL/glew.h>
 
-namespace Core {
+namespace Engine {
     class Component {
         public:
             Component(Entity *entity, uint8_t updateOrder = 0) : m_entity(entity),

@@ -1,11 +1,9 @@
 #pragma once
 #include <GLFW/glfw3.h>
 #include "Window.h"
-#include "../Core/Pch.h"
 #include "../Renderer/GraphicsContext.h"
 
-namespace Core {
-
+namespace Engine {
     class DefaultWindow : public Window {
         public:
             DefaultWindow(const WindowProps &props);

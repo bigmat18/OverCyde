@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Core {
+namespace Engine {
 	using KeyCode = uint16_t;
 	
 	namespace Key {

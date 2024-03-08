@@ -4,22 +4,22 @@
 
 #define BACKGROUND_COLOR 0x0000FFFF
 
-class Game : public Core::Application {
-    friend class Core::Application;
+class Game : public Engine::Application {
+    friend class Engine::Application;
 
     private:
         virtual void GenerateOutput() override {
-            Core::RenderCommand::SetClearColor({HEX_COLOR(BACKGROUND_COLOR)});
-            Core::RenderCommand::Clear();
+            Engine::RenderCommand::SetClearColor({HEX_COLOR(BACKGROUND_COLOR)});
+            Engine::RenderCommand::Clear();
         }
 
-        Game(const Core::WindowProps& props) : Application(props) {}
+        Game(const Engine::WindowProps& props) : Application(props) {}
 };
 
-Core::Application* Core::Application::Create() {
+Engine::Application* Engine::Application::Create() {
     WindowProps props;
     props.Title = "Game";
     props.Width = 1280;
     props.Height = 720;
-    return Core::Application::SetInstance(new Game(props));
+    return Engine::Application::SetInstance(new Game(props));
 }

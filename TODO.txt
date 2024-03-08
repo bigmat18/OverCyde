@@ -1,6 +1,6 @@
 Cose da fare per il MattEngine:
  - [X] Separa Core da Game
- - [] Astrazione degli Uniforms per gli shader
+ - [X] Astrazione degli Uniforms per gli shader
  - [] Refs, Scope, Smart pointers
  - [] Gestione texture
  - [] Implementa prima versione di Renderer2D (con ottimizzazioni)

@@ -1,7 +1,7 @@
 #pragma once
 #include "../Renderer/Buffer.h"
 
-namespace Core {    
+namespace Engine {    
     class OpenGLVertexBuffer : public VertexBuffer {
         public:
             OpenGLVertexBuffer(float *vertices, uint32_t size);

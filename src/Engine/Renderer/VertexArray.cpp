@@ -3,7 +3,7 @@
 #include "../Core/Pch.h"
 #include "../OpenGL/OpenGLVertexArray.h"
 
-namespace Core {
+namespace Engine {
     VertexArray* VertexArray::Create() {
         switch (RendererAPI::GetAPI()) {
             case RendererAPI::API::None:     LOG_CORE_ERROR("RendereAPI::None in not supported");

@@ -1,7 +1,7 @@
 #pragma once
 #include "Event.h"
 
-namespace Core {
+namespace Engine {
     class WindowCloseEvent : public Event {
         public:
             WindowCloseEvent() = default;

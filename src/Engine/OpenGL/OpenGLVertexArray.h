@@ -1,8 +1,9 @@
 #pragma once
 #include "../Renderer/VertexArray.h"
 #include <GLFW/glfw3.h>
+#define GL_BOOL 0x8B56
 
-namespace Core {
+namespace Engine {
     static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
         switch (type) {
             case ShaderDataType::Float:    return GL_FLOAT;
@@ -33,10 +34,10 @@ namespace Core {
             virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer) override;
             virtual void SetIndexBuffer(const std::shared_ptr<IndexBuffer> &indexBuffer) override;
 
-            virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const {
+            virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const override {
                 return this->m_VertexBuffers;
             };
-            virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const {
+            virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const override {
                 return this->m_IndexBuffers;
             };
 

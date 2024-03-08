@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-namespace Core {
+namespace Engine {
 	using MouseCode = uint16_t;
 
 	namespace Mouse {

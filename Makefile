@@ -7,6 +7,8 @@ else
 	OBJ_NAME = main
 endif
 
+all: build
+
 run:
 	$(BIN_DIR)/$(OBJ_NAME)
 

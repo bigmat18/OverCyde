@@ -3,7 +3,7 @@
 #include "../Core/Types.h"
 #include <GL/glew.h>
 
-namespace Core { 
+namespace Engine { 
     class Entity {
         public:
             Entity();

@@ -2,7 +2,7 @@
 #include "ECSystem.h"
 #include "../Components/Component.h"
 
-namespace Core {
+namespace Engine {
     Entity::Entity() : m_position(Vec3f(0.0f, 0.0f, 0.0f)),
                        m_rotationVec(Vec3f(1.0f, 1.0f, 1.0f)),
                        m_scale(Vec3f(1.0f, 1.0f, 1.0f)),
