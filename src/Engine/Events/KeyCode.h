@@ -1,4 +1,5 @@
 #pragma once
+#include "../Core/Pch.h"
 
 namespace Engine {
 	using KeyCode = uint16_t;

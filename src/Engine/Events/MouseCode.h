@@ -1,5 +1,5 @@
 #pragma once
-#include <stdint.h>
+#include "../Core/Pch.h"
 
 namespace Engine {
 	using MouseCode = uint16_t;

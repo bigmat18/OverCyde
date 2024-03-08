@@ -29,7 +29,7 @@ namespace Engine {
                 glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         #endif
 
-        CORE_ASSERT(glfwInit(), "Could not initialize GLFW!");
+        ENGINE_ASSERT(glfwInit(), "Could not initialize GLFW!");
         this->m_Window = glfwCreateWindow(static_cast<int>(props.Width),
                                           static_cast<int>(props.Height),
                                           props.Title.c_str(), 

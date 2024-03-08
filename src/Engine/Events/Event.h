@@ -37,6 +37,8 @@ namespace Engine {
             virtual const char* GetName() const = 0;
             virtual int GetCategoryFlags() const = 0;
 
+            virtual ~Event() = default;
+
             inline bool IsInCategory(EventCategory category) {
                 return this->GetCategoryFlags() & category;
             }
@@ -61,7 +63,7 @@ namespace Engine {
             bool Dispatch(EventFn<T> fun){
                 if(this->m_Event.GetEventType() == T::GetStaticType()){
                     this->m_Event.m_Handled = fun(*(T*)&this->m_Event);
-                    LOG_CORE_INFO("Distach event {0}", this->m_Event.ToString());
+                    LOG_ENGINE_INFO("Distach event {0}", this->m_Event.ToString());
                     return true;
                 }
                 return false;

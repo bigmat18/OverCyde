@@ -1,5 +1,6 @@
 #pragma once
 #include "Event.h"
+#include "../Core/Pch.h"
 
 namespace Engine {
     class WindowCloseEvent : public Event {
@@ -17,7 +18,12 @@ namespace Engine {
 
             EVENT_CLASS_TYPE(WindowResize);
             EVENT_CLASS_CATEGORY(EventCategoryApplication);
-
+            
+            virtual std::string ToString() const override { 
+                std::stringstream ss;
+                ss << "WindowResizeEvent: " << this->m_Width << ", " << this->m_Height;
+                return ss.str();
+            } 
         private:
             uint32_t m_Width, m_Height;
     };

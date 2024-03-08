@@ -161,6 +161,7 @@ def engine(spec : str):
     __execute(f"{CC} {DLLFLAGS} {CCFLAGS} {ILIBS} {LDFLAGS} {LDLIBS} {' '.join(objs_files)} -o {BIN_DIR}/{DLL_NAME}")
     __LastBuildTime.update()
 
+
 def game(spec : str):
     GAME_DIR = f"{SRC_DIR}/Game"
     GAME_BUILD_DIR = f"{BUILD_DIR}/Game"
@@ -176,6 +177,7 @@ def game(spec : str):
     __execute(f"{CC} {CCFLAGS} -I./src/Engine -L./bin -lengine {' '.join(objs_files)} -o {BIN_DIR}/{OBJ_NAME}")
     __LastBuildTime.update()
 
+
 if __name__ == "__main__":
     if not os.path.exists(f"{BUILD_DIR}/Engine"):
         logging.error(f"Cartella {BUILD_DIR}/Engine non trovato")
@@ -190,6 +192,8 @@ if __name__ == "__main__":
     parser.add_argument("spec", type=str, default="", nargs="?")
     args = parser.parse_args()
     funs = locals()
-    if args.action in funs: funs[args.action](args.spec)
-    else: logging.error(f"Action '{args.action}' doesn't declared")
+    if args.action in funs: 
+        funs[args.action](args.spec)
+    else: 
+        logging.error(f"Action '{args.action}' doesn't declared")
 

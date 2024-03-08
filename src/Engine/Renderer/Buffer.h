@@ -1,4 +1,5 @@
 #pragma once
+#include "../Core/Pch.h"
 #include "../Core/Macro.h"
 
 namespace Engine {
@@ -8,7 +9,7 @@ namespace Engine {
 
     static uint32_t ShaderDataTypeSize(ShaderDataType type) {
         switch (type){
-            case ShaderDataType::None:      LOG_CORE_ERROR("ShaderDataType::None not supported");
+            case ShaderDataType::None:      LOG_ENGINE_ERROR("ShaderDataType::None not supported");
             case ShaderDataType::Float:     return 4;
             case ShaderDataType::Float2:    return 4 * 2;
             case ShaderDataType::Float3:    return 4 * 3;
@@ -21,7 +22,7 @@ namespace Engine {
             case ShaderDataType::Int4:      return 4 * 4;
             case ShaderDataType::Bool:      return 1;
         }
-        CORE_ASSERT(false, "Unknow shader data type");
+        ENGINE_ASSERT(false, "Unknow shader data type");
         return 0;
     }
 
@@ -39,7 +40,7 @@ namespace Engine {
 
         uint32_t GetComponentCount() const {
             switch (Type) {
-                case ShaderDataType::None:      LOG_CORE_ERROR("ShaderDataType::None not supported");
+                case ShaderDataType::None:      LOG_ENGINE_ERROR("ShaderDataType::None not supported");
                 case ShaderDataType::Float:     return 1;
                 case ShaderDataType::Float2:    return 2;
                 case ShaderDataType::Float3:    return 3;
@@ -52,7 +53,7 @@ namespace Engine {
                 case ShaderDataType::Int4:      return 4;
                 case ShaderDataType::Bool:      return 1;
             }
-            CORE_ASSERT(false, "Unknow shader data type");
+            ENGINE_ASSERT(false, "Unknow shader data type");
             return 0;
         }
     };
@@ -99,7 +100,7 @@ namespace Engine {
             virtual void Bind() const = 0;
             virtual void Unbind() const = 0;
 
-            virtual const void SetLayout(const VertexBufferLayout& layout) = 0;
+            virtual void SetLayout(const VertexBufferLayout& layout) = 0;
             virtual const VertexBufferLayout& GetLayout() const = 0; 
 
             static VertexBuffer *Create(float *vertices, uint32_t size);

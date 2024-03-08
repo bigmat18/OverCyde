@@ -32,7 +32,7 @@ namespace Engine {
 
     void Application::ProcessEvents() {
         for (auto e : this->m_EventStack){
-            LOG_CORE_INFO("Event {0}", e->ToString());
+            LOG_ENGINE_INFO("Event {0}", e->ToString());
             for (auto l : this->m_LayerStack){
                 if (!e->IsHandled())
                     l->OnEvent(*e);

@@ -6,11 +6,11 @@ namespace Engine {
     GraphicsContext* GraphicsContext::Create(void* window) {
         
         switch (RendererAPI::GetAPI()) {
-            case RendererAPI::API::None:     LOG_CORE_ERROR("RendereAPI::None in not supported");
+            case RendererAPI::API::None:     LOG_ENGINE_ERROR("RendereAPI::None in not supported");
             case RendererAPI::API::OpenGL:   return new OpenGLContext(window);
         }
 
-        CORE_ASSERT(false, "Unknown RendererAPI!");
+        ENGINE_ASSERT(false, "Unknown RendererAPI!");
         return nullptr;
     }
 }

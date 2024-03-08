@@ -17,9 +17,10 @@ namespace Engine {
             case ShaderDataType::Int3:     return GL_INT;
             case ShaderDataType::Int4:     return GL_INT;
             case ShaderDataType::Bool:     return GL_BOOL;
+            default:                       ENGINE_ASSERT(false, "Unknown type None");
         }
 
-        CORE_ASSERT(false, "Unknown ShaderDataType!");
+        ENGINE_ASSERT(false, "Unknown ShaderDataType!");
         return 0;
     }
 

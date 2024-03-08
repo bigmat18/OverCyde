@@ -7,7 +7,7 @@ namespace Engine {
 
     void OpenGLContext::Initialize() {
         glfwMakeContextCurrent(this->m_WindowHandle);
-        CORE_ASSERT(glewInit() == GLEW_OK, "Error to init glew");
+        ENGINE_ASSERT(glewInit() == GLEW_OK, "Error to init glew");
     }
 
     void OpenGLContext::SwapBuffers() {

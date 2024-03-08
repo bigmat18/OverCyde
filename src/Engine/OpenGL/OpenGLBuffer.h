@@ -1,4 +1,5 @@
 #pragma once
+#include "../Core/Pch.h"
 #include "../Renderer/Buffer.h"
 
 namespace Engine {    
@@ -10,7 +11,7 @@ namespace Engine {
             virtual void Bind() const override;
             virtual void Unbind() const override;
 
-            virtual const void SetLayout(const VertexBufferLayout &layout) override {
+            virtual void SetLayout(const VertexBufferLayout &layout) override {
                 this->m_Layout = layout;
             };
             
@@ -31,7 +32,7 @@ namespace Engine {
             virtual void Bind() const override;
             virtual void Unbind() const override;
 
-            virtual uint32_t GetCount() const { return this->m_Count; }
+            virtual uint32_t GetCount() const override { return this->m_Count; }
 
         private:
             uint32_t m_ID; // EBO

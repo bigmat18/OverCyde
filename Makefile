@@ -12,7 +12,7 @@ all: build
 run:
 	$(BIN_DIR)/$(OBJ_NAME)
 
-build: build_engine build_game
+build_all: build_engine build_game
 
 build_engine:
 	./build.py engine

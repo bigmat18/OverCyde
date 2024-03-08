@@ -13,7 +13,7 @@ namespace Engine {
             if (parameter > 0) {
                 buffer.resize(parameter);
                 glGetShaderInfoLog(ID, parameter, &maxLength, &buffer[0]);
-                LOG_CORE_ERROR("{0}", buffer.data());
+                LOG_ENGINE_ERROR("{0}", buffer.data());
                 return false;
             }
             return true;
@@ -24,19 +24,19 @@ namespace Engine {
 
             glValidateProgram(ID);
             glGetProgramiv(ID, GL_VALIDATE_STATUS, &result);
-            LOG_CORE_INFO("validation of program {0} {0}", ID, result);
+            LOG_ENGINE_INFO("validation of program {0} {0}", ID, result);
 
             glGetProgramiv(ID, GL_LINK_STATUS, &result);
-            LOG_CORE_INFO("linking of program {0} {0}", ID, result);
+            LOG_ENGINE_INFO("linking of program {0} {0}", ID, result);
 
             glGetProgramiv(ID, GL_ACTIVE_ATTRIBUTES, &result);
-            LOG_CORE_INFO("active attribute of program {0} {0}", ID, result);
+            LOG_ENGINE_INFO("active attribute of program {0} {0}", ID, result);
 
             glGetProgramiv(ID, GL_ACTIVE_UNIFORMS, &result);
-            LOG_CORE_INFO("active uniform  of program {0} {0}", ID, result);
+            LOG_ENGINE_INFO("active uniform  of program {0} {0}", ID, result);
 
             glGetProgramiv(ID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &result);
-            LOG_CORE_INFO("active uniform Max Length of programm {0} {0}", ID, result);
+            LOG_ENGINE_INFO("active uniform Max Length of programm {0} {0}", ID, result);
 
             return result == 1;
         }
@@ -100,8 +100,9 @@ namespace Engine {
             file.close();
             return stream.str();
         }catch(std::ifstream::failure e){
-            LOG_CORE_ERROR("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");
+            LOG_ENGINE_ERROR("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");
         }
+        return "";
     }
 
     void OpenGLShader::Bind() const { 
@@ -141,6 +142,5 @@ namespace Engine {
     }
 
 }
-
 
 
