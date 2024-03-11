@@ -35,8 +35,7 @@ namespace Engine {
             static Application* s_Instance;
 
             void ProcessEvents();
-            void Update();
-            void GenerateOutput();
+            float CalculateDeltaTime();        
 
             bool m_Running = true;
             bool m_Minimized = false;

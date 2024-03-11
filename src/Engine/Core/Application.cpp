@@ -1,7 +1,7 @@
 #include "Application.h"  
-#include "Log.h"
 #include "../Events/KeyCode.h"
 #include "../Renderer/RenderCommand.h"
+#include "Log.h"
 #include "Macro.h"
 
 #define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
@@ -24,18 +24,22 @@ namespace Engine {
     }
 
     void Application::Run() {
+        float deltaTime = this->CalculateDeltaTime();
+
         while(this->m_Running){
             this->ProcessEvents();
-            this->Update();
-            this->GenerateOutput();
+            RenderCommand::SetClearColor(this->m_Window->GetBGColor());
+            RenderCommand::Clear();
+
+            for (auto layer : this->m_LayerStack) {
+                layer->OnUpdate(deltaTime);
+            }
             this->m_Window->OnUpdate();
         }
-    }
-    
+    } 
 
     void Application::ProcessEvents() {
         for (auto e : this->m_EventStack){
-            LOG_ENGINE_INFO("Event {0}", e->ToString());
             for (auto l : this->m_LayerStack){
                 if (!e->IsHandled())
                     l->OnEvent(*e);
@@ -45,15 +49,11 @@ namespace Engine {
         this->m_EventStack.clear();
     }
 
-    void Application::Update() {}
-    
-    void Application::GenerateOutput() {
-        RenderCommand::SetClearColor(this->m_Window->GetBGColor());
-        RenderCommand::Clear();
-
-        for (auto l : this->m_LayerStack) {
-            l->OnUpdate();
-        }
+    float Application::CalculateDeltaTime() {
+        float currentTime = this->m_Window->GetTime();
+        float deltaTime = currentTime - this->m_LastFrameTime;
+        this->m_LastFrameTime = currentTime;
+        return deltaTime; 
     }
     
     void Application::PushLayer(Layer *layer) {

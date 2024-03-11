@@ -16,7 +16,7 @@ namespace Engine {
         WindowProps(const std::string& title = "Engine", 
                     uint32_t width = 1280, 
                     uint32_t height = 720,
-                    Vec4f backgroundColor = {HEX_COLOR(BACKGROUND_COLOR)})
+                    const Vec4f &backgroundColor = Vec4f(HEX_COLOR(BACKGROUND_COLOR)))
             : Title(title), 
               Width(width), 
               Height(height), 
@@ -27,14 +27,15 @@ namespace Engine {
         public:
             using EventCallbackFn = std::function<void(Event &)>;
 
-            virtual ~Window() {};
+            virtual ~Window() = default;
             
             virtual void OnUpdate() = 0;
 
+            virtual float GetTime() const = 0;
             virtual uint32_t GetWidth() const = 0;
             virtual uint32_t GetHeight() const = 0;
-            virtual Vec4f GetBGColor() const = 0;
-
+            virtual const Vec4f GetBGColor() const = 0;    
+        
             virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
 
             static Window *Create(const WindowProps &props);

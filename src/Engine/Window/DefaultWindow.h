@@ -12,9 +12,10 @@ namespace Engine {
 
             void OnUpdate() override;
 
+            float GetTime() const override { return glfwGetTime(); }
             uint32_t GetWidth() const override { return m_Data.Width; }
             uint32_t GetHeight() const override { return m_Data.Height; }
-            Vec4f GetBGColor() const override { return m_Data.BackgroundColor; }
+            const Vec4f GetBGColor() const override { return m_Data.BackgroundColor; }
 
             void SetEventCallback(const EventCallbackFn &callback) override { m_Data.EventCallback = callback; }
 

@@ -5,5 +5,5 @@ class GameLayer : public Engine::Layer {
     public:
         GameLayer() = default;
         
-        void OnUpdate() {}
+        void OnUpdate(float deltaTime) override {}
 };
