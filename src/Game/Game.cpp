@@ -1,10 +1,9 @@
-#include "Core/Types.h"
 #define ENGINE_PLATFORM
 #include <Engine.h>
 #include <EntryPoint.h>
 #include "GameLayer.h"
 
-#define CUSTOM_COLOR 0xFF00FFFF
+#define CUSTOM_COLOR 0xBF00FFFF
 
 class Game : public Engine::Application {  
     friend class Engine::Application;
@@ -23,3 +22,4 @@ Engine::Application* Engine::Application::Create() {
     props.BackgroundColor = Vec4f(HEX_COLOR(CUSTOM_COLOR));
     return Engine::Application::SetInstance(new Game(props));
 }
+
