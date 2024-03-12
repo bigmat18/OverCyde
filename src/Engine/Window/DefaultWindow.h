@@ -10,7 +10,7 @@ namespace Engine {
             DefaultWindow(const WindowProps &props);
             virtual ~DefaultWindow();
 
-            void OnUpdate() override;
+            void OnUpdate() override; 
 
             float GetTime() const override { return glfwGetTime(); }
             uint32_t GetWidth() const override { return m_Data.Width; }

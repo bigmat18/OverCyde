@@ -9,7 +9,7 @@ class Game : public Engine::Application {
     friend class Engine::Application;
 
     private:
-        Game(const Engine::WindowProps& props) : Application(props) {
+        Game(const Engine::WindowProps& props) : Engine::Application(props) {
             this->PushLayer(new GameLayer());
         }
 };
@@ -19,7 +19,6 @@ Engine::Application* Engine::Application::Create() {
     props.Title = "Game";
     props.Width = 1280;
     props.Height = 720;
-    props.BackgroundColor = Vec4f(HEX_COLOR(CUSTOM_COLOR));
     return Engine::Application::SetInstance(new Game(props));
 }
 

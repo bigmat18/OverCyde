@@ -98,7 +98,6 @@ namespace Engine {
             std::stringstream stream;
             stream << file.rdbuf();
             file.close();
-            std::cout << stream.str() << std::endl;
             return stream.str();
         }catch(std::ifstream::failure e){
             LOG_ENGINE_ERROR("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");

@@ -7,6 +7,6 @@ uniform mat4 u_Transform;
 uniform vec4 u_Color;
 
 void main(void) { 
-    gl_Position = model * vec4(aPosition, 1.0);
+    gl_Position = u_Transform * vec4(a_Position, 1.0);
     out_Color = u_Color;
 }

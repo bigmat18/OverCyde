@@ -3,7 +3,7 @@
 
 namespace Engine {
     OpenGLVertexArray::OpenGLVertexArray() {
-        glCreateVertexArrays(1, &this->m_ID);
+        glGenVertexArrays(1, &this->m_ID);
     }
 
     void OpenGLVertexArray::Bind() const {

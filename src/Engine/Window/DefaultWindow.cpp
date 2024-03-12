@@ -4,6 +4,7 @@
 #include "../Events/ApplicationEvent.h"
 #include "../Events/KeyEvent.h"
 #include "../Events/MouseEvent.h"
+#include <GLFW/glfw3.h>
 
 namespace Engine {
 
@@ -21,6 +22,8 @@ namespace Engine {
         this->m_Data.Height = props.Height;
         this->m_Data.BackgroundColor = props.BackgroundColor;
 
+
+        ENGINE_ASSERT(glfwInit(), "Could not initialize GLFW!");
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -28,7 +31,6 @@ namespace Engine {
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         #endif
 
-        ENGINE_ASSERT(glfwInit(), "Could not initialize GLFW!");
         this->m_Window = glfwCreateWindow(static_cast<int>(props.Width),
                                           static_cast<int>(props.Height),
                                           props.Title.c_str(), 

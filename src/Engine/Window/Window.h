@@ -3,7 +3,7 @@
 #include "../Core/Macro.h"
 #include "../Core/Types.h"
 
-#define BACKGROUND_COLOR 0xFF0000FF
+#define BACKGROUND_COLOR 0x000000FF
 
 namespace Engine {
 
