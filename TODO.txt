@@ -1,0 +1,19 @@
+Cose da fare per il MattEngine:
+ - [X] Separa Core da Game
+ - [X] Refs, Scope, Smart pointers
+ - [] Astrazione degli Uniforms per gli shader
+    - [X] Creazione classe per Shader
+    - [] Gestione sistema di building con multi-files
+    - [] Gestione di una lib (sia per texture che per shader)
+
+ - [] Gestione texture
+    - [X] Creare classe per Texture2D
+    - [] Gestione effetto blinding 
+
+ - [] Implementa prima versione di Renderer2D (con ottimizzazioni)
+    - [] Rendering di un Cubo/Rettangolo
+
+ - [] Sistema ECS
+ - [] Gestione della camera
+ - [] Aggiungi Layer di debugging con ImGUI e profiling
+ - [] Implementa prima versione di Renderer3D
