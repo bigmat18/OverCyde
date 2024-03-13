@@ -17,13 +17,13 @@ namespace Engine {
         else
             delete instance;
 
-        return Application::s_Instance;
+        return Application::s_Instance; 
     }
 
     Application::Application(const WindowProps& props) {
         this->m_Window = std::unique_ptr<Window>(Window::Create(props));
         this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
-        Renderer::Inizialize();
+        Renderer::Inizialize(Renderer::RendererType::Renderer2D);
     }
 
     void Application::Run() {

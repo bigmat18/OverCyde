@@ -1,37 +1,27 @@
 #pragma once
 #include "../Core/Types.h"
+#include "Renderer.h"
 #include "Shader.h"
 #include "VertexArray.h"
 #include <map>
 
 namespace Engine {
     class Renderer2D {
-        
-        public:
+        friend class Renderer;     
+
+        protected:
             static void Inizialize();
             static void Shutdown();
            
-            static void DrawTriangle(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), 
-                                     Vec3f size = Vec3f(1.0f, 1.0f, 1.0f), 
-                                     Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
-                                     Vec3f degree = Vec3f(0.0f, 0.0f, 0.0f));
+            static void DrawTriangle(Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
      
-            static void DrawSquare(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), 
-                                   Vec3f size = Vec3f(1.0f, 1.0f, 1.0f), 
-                                   Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
-                                   Vec3f degree = Vec3f(0.0f, 0.0f, 0.0f));
+            static void DrawSquare(Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
 
-            static void DrawCircle(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), 
-                                   float radius = 1.0f, 
-                                   Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
-                                   Vec3f degree = Vec3f(0.0f, 0.0f, 0.0f));
+            static void DrawCircle(float radius, Vec3f position, Vec4f color, Vec3f degree);
 
-            static void DrawPolyhedron(ui32 sides, 
-                                       Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), 
-                                       Vec3f size = Vec3f(1.0f, 1.0f, 1.0f), 
-                                       Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
-                                       Vec3f degree = Vec3f(0.0f, 0.0f, 0.0f)); 
+            static void DrawPolyhedron(ui32 sides, Vec3f position, Vec3f size, Vec4f color, Vec3f degree); 
 
+        public:
             struct Renderer2DData {
                 Ref<VertexArray> SquareVertexArray;
                 Ref<VertexArray> TriangleVertexArray;
@@ -42,6 +32,7 @@ namespace Engine {
             };
             
         private:
+
             static void InitTriangle();
             static void InitSquare();
             static void InitCircle();
@@ -49,6 +40,6 @@ namespace Engine {
 
             static void Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
 
-            static Renderer2DData m_Data;
+            static Renderer2DData s_Data;
     };
 }

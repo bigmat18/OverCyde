@@ -1,6 +1,6 @@
 #include "Renderer2D.h"
 #include "Buffer.h"
-#include "Renderer.h"
+#include "RenderCommand.h"
 #include "VertexArray.h"
 #include "../Core/Types.h"
 #include "../Core/Pch.h"
@@ -16,7 +16,7 @@
 
 namespace Engine {
 
-    Renderer2D::Renderer2DData s_Data = Renderer2D::Renderer2DData();
+    Renderer2D::Renderer2DData Renderer2D::s_Data = Renderer2D::Renderer2DData();
 
     void Renderer2D::Inizialize() {
         s_Data.BaseShader = Ref<Shader>(Shader::Create("./assets/shaders/base_shader.vert", 
@@ -26,11 +26,7 @@ namespace Engine {
         Renderer2D::InitCircle();
     }
 
-    void Renderer2D::Shutdown() {
-        s_Data.TriangleVertexArray.reset();
-        s_Data.SquareVertexArray.reset();
-        // TODO: finisci Shutdown
-    }
+    void Renderer2D::Shutdown() {}
             
     void Renderer2D::DrawTriangle(Vec3f position, Vec3f size, Vec4f color, Vec3f degree) {
         Renderer2D::Draw(s_Data.TriangleVertexArray, position, size, color, degree);
@@ -40,7 +36,7 @@ namespace Engine {
         Renderer2D::Draw(s_Data.SquareVertexArray, position, size, color, degree);
     }
 
-    void Renderer2D::DrawCircle(Vec3f position, float radius, Vec4f color, Vec3f degree) {
+    void Renderer2D::DrawCircle(float radius, Vec3f position, Vec4f color, Vec3f degree) {
         Renderer2D::Draw(s_Data.CircleVertexArray, position, Vec3f(radius, radius, 0.0f), color, degree);
     }
  
@@ -65,7 +61,7 @@ namespace Engine {
         std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetVec4("u_Color", color);
         
         s_Data.BaseShader->Bind();
-        Renderer::Submit(VA); 
+        RenderCommand::DrawIndex(VA); 
     }
 
     void Renderer2D::InitTriangle() {

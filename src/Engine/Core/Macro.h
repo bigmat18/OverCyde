@@ -14,6 +14,11 @@
     #define ENGINE_API 
 #endif
 
+/**
+ * Return 32 bit value with x value ad 1.
+ * Example BIT(3) = 000...0300
+ * @param x: unsigned integer
+*/
 #define BIT(x) (1 << x)
 
 #define HEX_COLOR(hex)             \
