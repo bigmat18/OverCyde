@@ -17,7 +17,7 @@ class Game : public Engine::Application {
 Engine::Application* Engine::Application::Create() {
     WindowProps props = WindowProps();
     props.Title = "Game";
-    props.Width = 1280;
+    props.Width = 720;
     props.Height = 720;
     return Engine::Application::SetInstance(new Game(props));
 }

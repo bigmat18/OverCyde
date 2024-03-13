@@ -33,7 +33,7 @@ namespace Engine {
                                        Vec3f degree = Vec3f(0.0f, 0.0f, 0.0f)); 
 
             struct Renderer2DData {
-                Ref<VertexArray> QuadVertexArray;
+                Ref<VertexArray> SquareVertexArray;
                 Ref<VertexArray> TriangleVertexArray;
                 Ref<VertexArray> CircleVertexArray;
 
@@ -46,6 +46,8 @@ namespace Engine {
             static void InitSquare();
             static void InitCircle();
             static void InitPolyhedron(ui32 sides);
+
+            static void Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
 
             static Renderer2DData m_Data;
     };

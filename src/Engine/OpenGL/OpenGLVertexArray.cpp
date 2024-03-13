@@ -8,14 +8,16 @@ namespace Engine {
 
     void OpenGLVertexArray::Bind() const {
         glBindVertexArray(this->m_ID);
+        this->m_VertexBuffer->Bind();
+        this->m_IndexBuffer->Bind();
     }
 
     void OpenGLVertexArray::Unbind() const {
         glBindVertexArray(0);
     }
 
-    void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer) {
-        this->Bind();
+    void OpenGLVertexArray::SetVertexBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer) {
+        glBindVertexArray(this->m_ID);
         vertexBuffer->Bind();
         uint32_t index = 0;
         const auto& layout = vertexBuffer->GetLayout();
@@ -24,17 +26,17 @@ namespace Engine {
             glVertexAttribPointer(index, 
                                   element.GetComponentCount(),
                                   ShaderDataTypeToOpenGLBaseType(element.Type),
-                                  element.Normalized,
+                                  element.Normalized ? GL_TRUE : GL_FALSE,
                                   layout.GetStride(),
                                   (const void*)element.Offset);
             index++;
         }
-        this->m_VertexBuffers.push_back(vertexBuffer);
+        this->m_VertexBuffer = vertexBuffer;
     }
 
     void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> &indexBuffer) {
-        this->Bind();
+        glBindVertexArray(this->m_ID);
         indexBuffer->Bind();
-        this->m_IndexBuffers = indexBuffer;
+        this->m_IndexBuffer = indexBuffer;
     }
 }
