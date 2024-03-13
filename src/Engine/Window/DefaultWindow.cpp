@@ -119,10 +119,10 @@ namespace Engine {
 	    const GLubyte* version		= glGetString(GL_VERSION);
 	    const GLubyte* glslVersion	= glGetString(GL_SHADING_LANGUAGE_VERSION);
 
-	    std::cout << "GL Vendor            :" << vendor << std::endl;
-	    std::cout << "GL Renderer          :" << renderer << std::endl;
-	    std::cout << "GL Version (string)  :" << version << std::endl;
-    	std::cout << "GLSL Version         :" << glslVersion << std::endl;
+	    LOG_ENGINE_INFO("GL Vendor            : {0}", reinterpret_cast<const char*>(vendor));
+	    LOG_ENGINE_INFO("GL Renderer          : {0}", reinterpret_cast<const char*>(renderer));
+	    LOG_ENGINE_INFO("GL Version (string)  : {0}", reinterpret_cast<const char*>(version));
+    	LOG_ENGINE_INFO("GLSL Version         : {0}", reinterpret_cast<const char*>(glslVersion));
     }
 
     void DefaultWindow::Shutdown() {

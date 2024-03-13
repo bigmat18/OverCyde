@@ -4,11 +4,10 @@
 
 class GameLayer : public Engine::Layer {
     public:
-        GameLayer() : m_Time(0.0f), m_Speed(0.2) {};
+        GameLayer() : m_Time(0.0f) {};
         
         void OnUpdate(float deltaTime) override;
 
     private:
         float m_Time;
-        float m_Speed;
 };
