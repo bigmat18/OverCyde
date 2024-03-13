@@ -17,9 +17,17 @@ namespace Engine {
 
             static Application *Create();
 
-            void OnEvent(Event& e);
-            void PushLayer(class Layer *layer);
-            void PushOverlay(class Layer *layer);
+            /**
+             * Adding layer at the end of layer stack
+             * @param layer the layer to add
+             */
+            void PushLayer(Layer *layer);
+
+            /**
+             * Adding layer at the top of layer stack
+             * @param layer the layer to add
+             */
+            void PushOverlay(Layer *layer);
 
             void Run();
 
@@ -35,6 +43,7 @@ namespace Engine {
             static Application* s_Instance;
 
             void ProcessEvents();
+            void OnEvent(Event& e);
             float CalculateDeltaTime();        
 
             bool m_Running = true;

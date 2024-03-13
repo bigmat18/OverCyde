@@ -21,12 +21,22 @@
 */
 #define BIT(x) (1 << x)
 
+/**
+ * Get a unsigned integer at 32 bit (hex format) and convert it to x, y, z, w
+ * @param hex: ess. 0x01FF0200
+ * @return 1, 15, 2, 0
+*/
 #define HEX_COLOR(hex)             \
         ((hex) >> (3 * 8)) & 0xFF, \
         ((hex) >> (2 * 8)) & 0xFF, \
         ((hex) >> (1 * 8)) & 0xFF, \
         ((hex) >> (0 * 8)) & 0xFF  \
 
+/**
+ * Engine assert to interrupt exe when x is false
+ * @param x: a condition that must be true
+ * @param __VA_ARGS__: the output string if x is false
+*/
 #define ENGINE_ASSERT(x, ...)                                       \
     {                                                               \
         if (!(x))                                                   \
@@ -36,6 +46,11 @@
         }                                                           \
     }
 
+/**
+ * Client assert to interrupt exe when x is false
+ * @param x: a condition that must be true
+ * @param __VA_ARGS__: the output string if x is false
+ */
 #define CLIENT_ASSERT(x, ...)                                       \
     {                                                               \
         if (!(x))                                                   \
