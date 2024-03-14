@@ -1,11 +1,41 @@
-# OverCyde
-OverCyde game engine made from scratch in c++ with Opengl to support the game OverCyde. This engine was build to manage multiple rendering API and mutliple platform. 
+# OverCyde Engine (not official name)
+OverCyde game engine made from scratch in c++ with OpenGL to support the deploy of OverCyde's game. 
 
-To buid the project you must have in libs the glew, glfw, glm and spdlog reposity. I user clang to compile. Run follow command.
+## Installation
+
+### Clonning
+For firt clone the reposiory with submodule with:
 ```
-.\build.py 
+git clone --recurse-submodules https://github.com/bigmat18/OverCyde.git
 ```
-And to clean up the build use:
+In the repo there are the .dll and .dylib of GLFW and GLEW libs and re submodules of spdlib, glm and stl.
+
+### Building
+
+#### Makefile
+To build all project (engine and game)
 ```
-.\build.py clear
+make buid_all
+```
+Build only engine (this ceate .dylib or .dll):
+```
+make buid_engine
+```
+Build only game:
+```
+make buid_game
+```
+
+#### Python script
+To build all project (engine and game)
+```
+python ./build.py engine && python ./build.py game 
+```
+Build only engine (this ceate .dylib or .dll):
+```
+python ./build.py engine
+```
+Build only game:
+```
+python ./build.py game
 ```
