@@ -3,7 +3,6 @@
 #include "Core/Macro.h"
 #include "Core/Types.h"
 #include "Renderer/Renderer2D.h"
-#include "glm/trigonometric.hpp"
 
 void GameLayer::OnUpdate(float deltaTime) {
     this->m_Time += deltaTime * 0.02;

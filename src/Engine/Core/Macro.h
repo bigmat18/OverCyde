@@ -16,10 +16,16 @@
 
 /**
  * Return 32 bit value with x value ad 1.
- * Example BIT(3) = 000...0300
+ * Example BIT(3) = 000...3000
  * @param x: unsigned integer
 */
 #define BIT(x) (1 << x)
+
+/**
+ * Execut the std::bin for x. Example: BIND_FUN(myFunction)
+ * @param x the function to bind
+*/
+#define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
 
 /**
  * Get a unsigned integer at 32 bit (hex format) and convert it to x, y, z, w

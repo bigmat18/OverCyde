@@ -130,11 +130,6 @@ namespace Engine {
             else
                 indices.push_back(1);
         }
-        for(ui32 i = 0;  i < vertices.size(); i+=3)
-            LOG_ENGINE_WARN("Vertices ({0}): {1} {2} {3}", sides, vertices[i], vertices[i+1], vertices[i+2]);
-
-        for(ui32 i = 0;  i < indices.size(); i+=3)
-            LOG_ENGINE_WARN("Indices ({0}): {1} {2} {3}", sides, indices[i], indices[i+1], indices[i+2]);
 
         Ref<VertexBuffer> polyhedronVertices = Ref<VertexBuffer>(VertexBuffer::Create(&vertices[0], vertices.size() * sizeof(float)));
         Ref<IndexBuffer> polyhedronIndices = Ref<IndexBuffer>(IndexBuffer::Create(&indices[0], indices.size()));

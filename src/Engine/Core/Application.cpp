@@ -5,9 +5,6 @@
 #include "Log.h"
 #include "Macro.h"
 
-
-#define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
-
 namespace Engine {
     Application *Application::s_Instance = nullptr;
 
@@ -20,10 +17,10 @@ namespace Engine {
         return Application::s_Instance; 
     }
 
-    Application::Application(const WindowProps& props) {
-        this->m_Window = std::unique_ptr<Window>(Window::Create(props));
+    Application::Application(const ApplicationProps& props) : m_Props(props) {
+        this->m_Window = std::unique_ptr<Window>(Window::Create(this->m_Props.WProps));
         this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
-        Renderer::Inizialize(Renderer::RendererType::Renderer2D);
+        Renderer::Inizialize(this->m_Props.RType);
     }
 
     void Application::Run() {
@@ -31,7 +28,7 @@ namespace Engine {
 
         while(this->m_Running){
             this->ProcessEvents();
-            RenderCommand::SetClearColor(this->m_Window->GetBGColor());
+            RenderCommand::SetClearColor(this->m_Props.BGColor);
             RenderCommand::Clear();
 
             for (auto layer : this->m_LayerStack) {

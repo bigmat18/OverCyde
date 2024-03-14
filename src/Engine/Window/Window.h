@@ -3,24 +3,28 @@
 #include "../Core/Macro.h"
 #include "../Core/Types.h"
 
-#define BACKGROUND_COLOR 0x000000FF
-
 namespace Engine {
 
+    /**
+     * The props of window
+    */
     struct WindowProps {
+        /** The title of window (defualt = "Default Window")*/
         std::string Title;
-        uint32_t Width;
-        uint32_t Height;
-        Vec4f BackgroundColor;
 
-        WindowProps(const std::string& title = "Engine", 
-                    uint32_t width = 1280, 
-                    uint32_t height = 720,
-                    const Vec4f &backgroundColor = Vec4f(HEX_COLOR(BACKGROUND_COLOR)))
-            : Title(title), 
-              Width(width), 
-              Height(height), 
-              BackgroundColor(backgroundColor) {}
+        /** The width of window (default = 1280)*/
+        uint32_t Width;
+
+        /** The height of windowc (default = 720)*/
+        uint32_t Height;
+
+        /** Constructor for WindowProps with default: Title = "Default Window", Width = 1280, Height = 720 */
+        WindowProps(const std::string &title = "Default Window",
+                    uint32_t width = 1280,
+                    uint32_t height = 720)
+            : Title(title),
+              Width(width),
+              Height(height) {}
     };
 
     class Window {
