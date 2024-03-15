@@ -1,6 +1,6 @@
 # OverCyde Engine (not official name)
-<div><img src="doc/logo.jpg" alt="drawing" width="300"/></div>
 OverCyde game engine made from scratch in c++ with OpenGL to support the deploy of OverCyde's game. 
+<div><img src="doc/logo.jpg" alt="drawing" width="300"/></div>
 
 ## Installation
 
@@ -241,13 +241,13 @@ Engine::Renderer::Draw2DPolyhedron(sides, position, size, color, rotate);
 ## Logging
 This will be a way to log events so the engine can communicate with the user. The goal is for the application to be the most client-facing possible. Because of that, it is nice to use a color code to differenciate the severity of the messages. It is also good to know where the log is coming from. Because of the extension of this work, an external library is used for printing messages.
 ```c++
-LOG_CLIENT_TRACE("{0} {1}", var0, var1)
+LOG_CLIENT_TRACE("{0} {1}", var0, var1);
 
-LOG_CLIENT_INFO("{0} {1}", var0, var1)
+LOG_CLIENT_INFO("{0} {1}", var0, var1);
 
-LOG_CLIENT_WARN("{0} {1}", var0, var1)
+LOG_CLIENT_WARN("{0} {1}", var0, var1);
 
-LOG_CLIENT_ERROR("{0} {1}", var0, var1)
+LOG_CLIENT_ERROR("{0} {1}", var0, var1);
 
-LOG_CLIENT_CRITICAL("{0} {1}", var0, var1)
+LOG_CLIENT_CRITICAL("{0} {1}", var0, var1);
 ```
