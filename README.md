@@ -91,8 +91,15 @@ Engine::Application* Engine::Application::Create() {
 ```
 In this function you should execute the pre-creation instance scripts and than you must call the ```Engine::Application::SetInstance()``` to setup the Application, and pass your Application class' instance.
 
-Now if you build code you should see the following window:
-
+Now you can [build](##Building) the code and execute it with
+```
+make run
+```
+or
+```
+./bin/main.exe
+```
+and you can see this blanck window:
 <div><img src="doc/default-window.png" alt="drawing" width="500"/></div>
 
 The Background color, the title, height and the width can be changed using the ApplicationProps struct in the following wey:
@@ -199,7 +206,7 @@ OnWindowClose(WindowCloseEvent& e)
 
 ## Renderer2D
 Renders the 2D graphics on the screen.
-- **Maths**: this is the first step in building the rendering system. Aiming to have an optmized library quickly, glm will be used instead of creating a math library from scratch.
+- **Maths**: this is the first step in building the rendering system. Aiming to have an optmized library quickly, [glm](https://github.com/g-truc/glm) will be used instead of creating a math library from scratch.
 
 To init Renderer2D you must adding this line when init props in Create function:
 ```c++
@@ -213,12 +220,25 @@ Engine::Renderer::Draw2DTriangle(position, size, color, rotate);
 ```
 <div><img src="doc/triangle.png" alt="drawing" width="150"/></div>
 
+> **_NOTE:_** Every system of coordinate is manage with Engine type: Vec2f, Vec3f, Vec4f and they was in normalized space. For example:
+```c++
+Engine::Renderer::Draw2DTriangle(Engine::Vec2f(0.25f, 0.0f),
+                                 Engine::Vec2f(0.125f, 0.125f),
+                                 Engine::Vec4f(0.0f, 0.0f, 1.0f, 1.0f),
+                                 45.0f);
+```
+This for example create a triangle in (x,y) = (0.25f, 0.0f), scale it for (x,y) = (0.125f, 0.125f) the color is (r, g, b, a) = (0.0f, 0.0f, 1.0f, 1.0f) and rotate of 45.0f.
+
+> **_WARN:_** rotate is in degree.
+
 ### Draw2DSquare
 Draw a square in a 2D space. You can change the position, size, color and rotate the shape.
 ```c++
 Engine::Renderer::Draw2DSquare(position, size, color, rotate);
 ```
 <div><img src="doc/square.png" alt="drawing" width="150"/></div>
+
+> **_WARN:_** rotate is in degree.
 
 ### Draw2DCircle
 Draw a circle in a 2D space. You can change the position, radius, color and rotate the shape.
@@ -228,6 +248,7 @@ Engine::Renderer::Draw2DCircle(position, radius, color, rotate);
 <div><img src="doc/circle.png" alt="drawing" width="150"/></div>
 
 > **_WARN:_** the radius must be positive.
+> **_WARN:_** rotate is in degree.
 
 ### Draw2DPolyhedron
 Draw a polyhedron in a 2D space.
@@ -237,6 +258,7 @@ Engine::Renderer::Draw2DPolyhedron(sides, position, size, color, rotate);
 <div><img src="doc/polyhedron.png" alt="drawing" width="150"/></div>
 
 > **_WARN:_** the sides param must be greater than or equal to 5.
+> **_WARN:_** rotate is in degree.
 
 ## Logging
 This will be a way to log events so the engine can communicate with the user. The goal is for the application to be the most client-facing possible. Because of that, it is nice to use a color code to differenciate the severity of the messages. It is also good to know where the log is coming from. Because of the extension of this work, an external library is used for printing messages.
