@@ -19,7 +19,7 @@ Engine::Application* Engine::Application::Create() {
     props.WProps.Title = "Game";
     props.WProps.Width = 720;
     props.WProps.Height = 720;
-    props.BGColor = glm::normalize(Vec4f(HEX_COLOR(CUSTOM_COLOR)));
+    // props.BGColor = Vec4f(HEX_COLOR(0xBF00FFFF));
     props.RType = Renderer::RendererType::Renderer2D;
 
     return Engine::Application::SetInstance(new Game(props));

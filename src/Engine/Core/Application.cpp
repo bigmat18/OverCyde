@@ -28,7 +28,7 @@ namespace Engine {
 
         while(this->m_Running){
             this->ProcessEvents();
-            RenderCommand::SetClearColor(this->m_Props.BGColor);
+            RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
             RenderCommand::Clear();
 
             for (auto layer : this->m_LayerStack) {
