@@ -68,21 +68,21 @@ In Game/Game.cpp there is the base of game. For first things import the library:
 
 > **_WARN:_** ```#define ENGINE_PLATFORM``` is necessary to start engine without issues.
 
-After that you should be create your Application class in the following wey:
+After that you should be create your Application class in the following way:
 ```c++
 class Game : public Engine::Application {  
     friend class Engine::Application;
 };
 ```
-In the class you must declare Engine::Application like [friend class](https://cplusplus.com/doc/tutorial/inheritance/#google_vignette) to access protected methods.<br/>
-Now you must create the [constructor](https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170) to execute operation (like adding layer) when Game instance was created.
+In the class you must declare Engine::Application as a [friend class](https://cplusplus.com/doc/tutorial/inheritance/#google_vignette) to access protected methods.<br/>
+Now you must create the [constructor](https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170) to execute operations (like adding layers) when Game instance was created.
 ```c++
 private:
     Game() : Engine::Application() {}
 ```
 > **_NOTE:_** You must set the constructor private because the Application class (and sub-classes) are [Singleton Class](https://it.wikipedia.org/wiki/Singleton_(informatica)).
 
-Now the most importat part to start application, you must define Application::Create() function in the following wey:
+Now the most importat part to start application, you must define Application::Create() function in the following way:
 ```c++
 Engine::Application* Engine::Application::Create() {
     /* Execute code...*/
