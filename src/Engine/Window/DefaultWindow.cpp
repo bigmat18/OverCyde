@@ -21,7 +21,6 @@ namespace Engine {
         this->m_Data.Width = props.Width;
         this->m_Data.Height = props.Height;
 
-
         ENGINE_ASSERT(glfwInit(), "Could not initialize GLFW!");
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -120,6 +119,11 @@ namespace Engine {
 	    LOG_ENGINE_INFO("GL Vendor            : {0}", reinterpret_cast<const char*>(vendor));
 	    LOG_ENGINE_INFO("GL Renderer          : {0}", reinterpret_cast<const char*>(renderer));
 	    LOG_ENGINE_INFO("GL Version (string)  : {0}", reinterpret_cast<const char*>(version));
+
+        #ifdef __APPLE__
+            const GLubyte *glslVersion = glGetString(GL_SHADING_LANGUAGE_VERSION);
+            LOG_ENGINE_INFO("GLSL Version         : {0}", reinterpret_cast<const char *>(glslVersion));
+        #endif
     }
 
     void DefaultWindow::Shutdown() {

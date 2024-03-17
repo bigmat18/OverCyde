@@ -75,14 +75,16 @@ class Game : public Engine::Application {
 };
 ```
 In the class you must declare Engine::Application as a [friend class](https://cplusplus.com/doc/tutorial/inheritance/#google_vignette) to access protected methods.<br/>
-Now you must create the [constructor](https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170) to execute operations (like adding layers) when Game instance was created.
+Now, in your class you must create the [constructor](https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170) to execute operations (like adding layers) when Game instance was created.
 ```c++
+// ...
 private:
     Game() : Engine::Application() {}
+// ...
 ```
 > **_NOTE:_** You must set the constructor private because the Application class (and sub-classes) are [Singleton Class](https://it.wikipedia.org/wiki/Singleton_(informatica)).
 
-Now the most importat part to start application, you must define Application::Create() function in the following way:
+Now the most importat part to start application, you must define Application::Create() function outside your class in the following way:
 ```c++
 Engine::Application* Engine::Application::Create() {
     /* Execute code...*/
@@ -102,7 +104,7 @@ or
 and you can see this blanck window:
 <div><img src="doc/default-window.png" alt="drawing" width="500"/></div>
 
-The Background color, the title, height and the width can be changed using the ApplicationProps struct in the following wey:
+The Background color, the title, height and the width can be changed using the ApplicationProps [struct](https://learn.microsoft.com/it-it/cpp/cpp/struct-cpp?view=msvc-170) in the following wey:
 
 ```c++
 class Game : public Engine::Application {  
@@ -135,14 +137,20 @@ Layers in a game engine is similar to layers in Photoshop, for example. This lay
 - ecc.
 
 ### Create your own layer
-To create your own layer you should create a different file, for example MyLayer.h, in his file include the base Engine dependency and declare your layer that inheritance base Layer class
+To create your own layer you should create a different file, for example MyLayer.h (for .h/.cpp pattern see [this](https://stackoverflow.com/questions/333889/why-have-header-files-and-cpp-files)), in this file include the base Engine dependency and declare your layer that inheritance base Layer class
 ```c++
-class GameLayer : public Engine::Layer {}
+class YourLayer : public Engine::Layer {
+    public:
+        YourLayer() : Layer("Name of your layer") {}
+}
 ```
+In this example we have create a custom constructor that call the Layer constructor, it take a param that indicate the layer name, it's used for debug porpouse.
+
 From ```Engine::Layer``` you can override four method:
 
 #### OnAttach
 ```c++
+// public
 void OnAttach() override;
 ```
 This method is called when Layer is added to LayerStack. <br/>
@@ -150,6 +158,7 @@ For example create base instace of other classes.
 
 #### OnDetach
 ```c++
+// public
 void OnDetach() override;
 ```
 This method is called when Layer is removed from LayerStack. <br/>
@@ -157,6 +166,7 @@ For example dealloc all the memory allocate.
 
 #### OnUpdate
 ```c++
+// public
 void OnUpdate(float deltaTime) override;
 ```
 This method is called every iteration of engine loop, in this method you should write the logic of layer. <br/><br/>
@@ -164,14 +174,15 @@ For example, in a game where a PG run continuely, in this method you can calcult
 
 #### OnEvent
 ```c++
+// public
 void OnEvent(Event& event) override;
 ```
-This method is called when the events stack is processed, every layer is called in order and Application sends an event to the OnEvent method. In this method you can write the event callback using the event dispatcer (see [Event](##Events) section).
+This method is called when the events stack is processed, this is the first operation in [game loop](https://gameprogrammingpatterns.com/game-loop.html). Every layer is called in order and Application sends an event to the OnEvent method. In this method you can write the event callback using the event dispatcer (see [Event](#events) section).
 
-For example in a game where the PG can jump with space key, in OnEvent you can check if key is pressed and execute a callable function.
+**Example**. In a game where the PG can jump with space key, in OnEvent you can check if key is pressed and execute a callable function.
 
 ### Adding layer to Application
-To add yout own layer to Application you can call one of this two method in the constructor of yout custom application class:
+To add your own layer to Application you can call one of this two method in the constructor of yout custom application class:
 
 #### PushLayer
 ```c++
@@ -190,38 +201,70 @@ Application needs to receive events to dispatch them to layers. The Window class
 
 The event system was implemented for application, mouse, key, and window events
 
-To process events you must use the EventDispatech class, to use it create an instance (for example in OnEvent method in a [layer](####OnEvent))
+To process events you must use the EventDispatech class, to use it create an instance (for example in OnEvent method in a [layer](#onevent))
 ```c++
-EventDispatcher dispatcher = EventDispatcher(e);
+EventDispatcher dispatcher = EventDispatcher(YourEvent);
 ```
 Where e is the event to dispatch.<br>
 To choose which function processes each event call ```Dispatch``` method and use ```BIND_FUN``` to execute the binding.
 ```c++
-dispatcher.Dispatch<WindowCloseEvent>(BIND_FUN(OnWindowClose));
+dispatcher.Dispatch<YourEventType>(BIND_FUN(YourFunction));
 ```
 In this example if event is of type WindowCloseEvent the dispatch send it to OnWindowClose, this function has this signature:
 ```c++
-bool OnWindowClose(WindowCloseEvent& e)
+bool YourFunction(YourEventType& e)
 ```
 > **_NOTE:_** When dispatech dispatch event to function it set it Handled, no other dispatech can handled it.
 
-## Renderer2D
-Renders the 2D graphics on the screen.
-- **Maths**: this is the first step in building the rendering system. Aiming to have an optmized library quickly, [glm](https://github.com/g-truc/glm) will be used instead of creating a math library from scratch.
+### Events list
+Application events:
+- **WindowCloseEvent**: When the window close button is pressed.
+- **WindowResizeEvent**: When the window is resized.
+- **WindowFocusEvent**: When there is a window focus.
+- **WindowLostFocusEvent**: When there isn't window focus.
+- **WindowMovedEvent**: When the window is moved.
 
-To init Renderer2D you have to add this line when initializing the props in Create function:
+Key events:
+- **KeyEvent**: Generic key event.
+- **KeyPressedEvent**: When a key is pressed.
+- **KeyReleasedEvent**: When a key is released.
+- **KeyTypedEvent**: When a key is typed.
+
+Mouse events:
+- **MouseMovedEvent**: When the mouse is moved.
+- **MouseScrolledEvent**: When the mouse wheel is scrolled.
+- **MouseButtonPressedEvent**: When a mouse button is pressed.
+- **MouseButtonReleasedEvent**: When a mouse button is released.
+
+### Key and mouse code
+Key code (list in src/Engine/Events/KeyCode.h file):
+```c++
+Engine::Key::TheKeyName
+```
+
+Mouse code ((list in src/Engine/Events/MouseCode.h file)):
+```c++
+Engine::Mouse::TheKeyName
+```
+
+## Renderer2D
+Renders the 2D graphics on the screen. To init Renderer2D you have to add this line when initializing the props in Create function:
 ```c++
 props.RType = Renderer::RendererType::Renderer2D;
 ```
 
-### Draw2DTriangle
-Draw a triangle in a 2D space. You can change the position, size, color and rotate the shape.
-```c++
-Engine::Renderer::Draw2DTriangle(position, size, color, rotate);
-```
-<div><img src="doc/triangle.png" alt="drawing" width="150"/></div>
+### Math and trasformations
+This is the first step in building the rendering system. Aiming to have an optmized library quickly, [glm](https://github.com/g-truc/glm) will be used instead of creating a math library from scratch. 
+The Renderer space is [normalize](https://www.ncl.ucar.edu/Document/Graphics/ndc.shtml):
+<div><img src="doc/norm-space.png" alt="drawing" width="300"/></div>
 
-> **_NOTE:_** Every system of coordinate is manage with Engine type: Vec2f, Vec3f, Vec4f and they was in normalized space. For example:
+> **_NOTE:_** Every system of coordinate is manage with Engine type: Vec2f, Vec3f, Vec4f.
+```c++
+Engine::Vec2f(0.25f, 0.0f),
+Engine::Vec3f(0.125f, 0.125f),
+Engine::Vec4f(0.0f, 0.0f, 1.0f, 1.0f),
+```
+**Example:**
 ```c++
 Engine::Renderer::Draw2DTriangle(Engine::Vec2f(0.25f, 0.0f),
                                  Engine::Vec2f(0.125f, 0.125f),
@@ -229,48 +272,63 @@ Engine::Renderer::Draw2DTriangle(Engine::Vec2f(0.25f, 0.0f),
                                  45.0f);
 ```
 This for example create a triangle in (x,y) = (0.25f, 0.0f), scale it for (x,y) = (0.125f, 0.125f) the color is (r, g, b, a) = (0.0f, 0.0f, 1.0f, 1.0f) and rotate of 45.0f.
+> **_WARN:_** Every rotation in the renderer is in degree.
 
-> **_WARN:_** rotate is in degree.
+### Draw2DTriangle
+Draw a triangle in a 2D space. You can change the position, size, color and rotate the shape.
+```c++
+void Engine::Renderer::Draw2DTriangle(Vec2f position = Vec2f(0.0f, 0.0f), 
+                                      Vec2f size = Vec2f(1.0f, 1.0f), 
+                                      Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
+                                      float degree = 0.0f);
+```
+<div><img src="doc/triangle.png" alt="drawing" width="150"/></div>
 
 ### Draw2DSquare
 Draw a square in a 2D space. You can change the position, size, color and rotate the shape.
 ```c++
-Engine::Renderer::Draw2DSquare(position, size, color, rotate);
+void Engine::Renderer::Draw2DSquare(Vec2f position = Vec2f(0.0f, 0.0f), 
+                                    Vec2f size = Vec2f(1.0f, 1.0f), 
+                                    Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
+                                    float degree = 0.0f);
 ```
 <div><img src="doc/square.png" alt="drawing" width="150"/></div>
-
-> **_WARN:_** rotate is in degree.
 
 ### Draw2DCircle
 Draw a circle in a 2D space. You can change the position, radius, color and rotate the shape.
 ```c++
-Engine::Renderer::Draw2DCircle(position, radius, color, rotate);
+void Engine::Renderer::Draw2DCircle(float radius = 1.0f,
+                                    Vec2f position = Vec2f(0.0f, 0.0f), 
+                                    Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
+                                    float degree = 0.0f);
 ```
 <div><img src="doc/circle.png" alt="drawing" width="150"/></div>
 
 > **_WARN:_** the radius must be positive.
-> **_WARN:_** rotate is in degree.
 
 ### Draw2DPolyhedron
 Draw a polyhedron in a 2D space.
 ```c++
-Engine::Renderer::Draw2DPolyhedron(sides, position, size, color, rotate);
+void Engine::Renderer::Draw2DPolyhedron(ui32 sides,
+                                        Vec2f position = Vec2f(0.0f, 0.0f), 
+                                        Vec2f size = Vec2f(1.0f, 1.0f), 
+                                        Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
+                                        float degree = 0.0f);
 ```
 <div><img src="doc/polyhedron.png" alt="drawing" width="150"/></div>
 
 > **_WARN:_** the sides param must be greater than or equal to 5.
-> **_WARN:_** rotate is in degree.
 
 ## Logging
 This will be a way to log events so the engine can communicate with the user. The goal is for the application to be the most client-facing possible. Because of that, it is nice to use a color code to differenciate the severity of the messages. It is also good to know where the log is coming from. Because of the extension of this work, an external library is used for printing messages.
 ```c++
-LOG_CLIENT_TRACE("{0} {1}", var0, var1);
+LOG_CLIENT_TRACE("{0} {1}", var0, var1); // Grey color
 
-LOG_CLIENT_INFO("{0} {1}", var0, var1);
+LOG_CLIENT_INFO("{0} {1}", var0, var1); // Grean color
 
-LOG_CLIENT_WARN("{0} {1}", var0, var1);
+LOG_CLIENT_WARN("{0} {1}", var0, var1); // Yellow color
 
-LOG_CLIENT_ERROR("{0} {1}", var0, var1);
+LOG_CLIENT_ERROR("{0} {1}", var0, var1); // Red color
 
-LOG_CLIENT_CRITICAL("{0} {1}", var0, var1);
+LOG_CLIENT_CRITICAL("{0} {1}", var0, var1); // Dark red color
 ```

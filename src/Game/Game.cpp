@@ -1,27 +1,27 @@
 #define ENGINE_PLATFORM
 #include <Engine.h>
 #include <EntryPoint.h>
-#include "MainLayer.h"
+#include "GameLayer.h"
 
-using namespace Engine;
+#define CUSTOM_COLOR 0x000000FF
 
-class Game : public Application {  
-    friend class Application;
+class Game : public Engine::Application {  
+    friend class Engine::Application;
 
-    private: 
-        Game(ApplicationProps& props) : Application(props) {
-            PushLayer(new MainLayer());
+    private:
+        Game(const Engine::ApplicationProps& props) : Engine::Application(props) {
+            this->PushLayer(new GameLayer());
         }
 };
 
-Application* Application::Create() {
-    ApplicationProps props = ApplicationProps();
-
-    props.WProps.Title = "ColziGame";
-    props.WProps.Width = 360;
-    props.WProps.Height = 360;
-    props.BGColor = Vec4f(HEX_COLOR(0xBF00FFFF));
+Engine::Application* Engine::Application::Create() {
+    Engine::ApplicationProps props = Engine::ApplicationProps();
+    props.WProps.Title = "Game";
+    props.WProps.Width = 720;
+    props.WProps.Height = 720;
+    props.BGColor = Vec4f(HEX_COLOR(CUSTOM_COLOR));
     props.RType = Renderer::RendererType::Renderer2D;
 
-    return Application::SetInstance(new Game(props));
+    return Engine::Application::SetInstance(new Game(props));
 }
+
