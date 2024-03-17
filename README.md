@@ -68,21 +68,21 @@ In Game/Game.cpp there is the base of game. For first things import the library:
 
 > **_WARN:_** ```#define ENGINE_PLATFORM``` is necessary to start engine without issues.
 
-After that you should be create your Application class in the following wey:
+After that you should be create your Application class in the following way:
 ```c++
 class Game : public Engine::Application {  
     friend class Engine::Application;
 };
 ```
-In the class you must declare Engine::Application like [friend class](https://cplusplus.com/doc/tutorial/inheritance/#google_vignette) to access protected methods.<br/>
-Now you must create the [constructor](https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170) to execute operation (like adding layer) when Game instance was created.
+In the class you must declare Engine::Application as a [friend class](https://cplusplus.com/doc/tutorial/inheritance/#google_vignette) to access protected methods.<br/>
+Now you must create the [constructor](https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170) to execute operations (like adding layers) when Game instance was created.
 ```c++
 private:
     Game() : Engine::Application() {}
 ```
 > **_NOTE:_** You must set the constructor private because the Application class (and sub-classes) are [Singleton Class](https://it.wikipedia.org/wiki/Singleton_(informatica)).
 
-Now the most importat part to start application, you must define Application::Create() function in the following wey:
+Now the most importat part to start application, you must define Application::Create() function in the following way:
 ```c++
 Engine::Application* Engine::Application::Create() {
     /* Execute code...*/
@@ -135,7 +135,7 @@ Layers in a game engine is similar to layers in Photoshop, for example. This lay
 - ecc.
 
 ### Create your own layer
-To create your own layer you should create a differte file, for example MyLayer.h, in his file include the base Engine dependency and declare your layer that inheritance base Layer class
+To create your own layer you should create a different file, for example MyLayer.h, in his file include the base Engine dependency and declare your layer that inheritance base Layer class
 ```c++
 class GameLayer : public Engine::Layer {}
 ```
@@ -145,28 +145,28 @@ From ```Engine::Layer``` you can override four method:
 ```c++
 void OnAttach() override;
 ```
-This method is call when Layer is added to LayerStack. <br/>
+This method is called when Layer is added to LayerStack. <br/>
 For example create base instace of other classes.
 
 #### OnDetach
 ```c++
 void OnDetach() override;
 ```
-This method is call when Layer is removed from LayerStack. <br/>
+This method is called when Layer is removed from LayerStack. <br/>
 For example dealloc all the memory allocate.
 
 #### OnUpdate
 ```c++
 void OnUpdate(float deltaTime) override;
 ```
-This method is call every iteration of engine loop, in this method you should write the logic of layer. <br/><br/>
+This method is called every iteration of engine loop, in this method you should write the logic of layer. <br/><br/>
 For example, in a game where a PG run continuely, in this method you can calculte the coordinate every frame.
 
 #### OnEvent
 ```c++
 void OnEvent(Event& event) override;
 ```
-This method was call when the events stack is proceded, every layer is called in order and Application send event to OnEvent method. In this method you can be write the event callback using the event dispatcer (see [Event](##Events) section).
+This method is called when the events stack is processed, every layer is called in order and Application sends an event to the OnEvent method. In this method you can write the event callback using the event dispatcer (see [Event](##Events) section).
 
 For example in a game where the PG can jump with space key, in OnEvent you can check if key is pressed and execute a callable function.
 
@@ -190,17 +190,18 @@ Application needs to receive events to dispatch them to layers. The Window class
 
 The event system was implemented for application, mouse, key, and window events
 
-To preocess events you must use the EventDispatech class, to use it create an instace (for example in OnEvent method in a [layer](####OnEvent))
+To process events you must use the EventDispatech class, to use it create an instance (for example in OnEvent method in a [layer](####OnEvent))
 ```c++
 EventDispatcher dispatcher = EventDispatcher(e);
 ```
-Where e is the event to dispatch. To choose which function proccess each event call ```Dispatch``` method and use ```BIND_FUN``` to execute the bindding. 
+Where e is the event to dispatch.<br>
+To choose which function processes each event call ```Dispatch``` method and use ```BIND_FUN``` to execute the binding.
 ```c++
 dispatcher.Dispatch<WindowCloseEvent>(BIND_FUN(OnWindowClose));
 ```
 In this example if event is of type WindowCloseEvent the dispatch send it to OnWindowClose, this function has this signature:
 ```c++
-OnWindowClose(WindowCloseEvent& e)
+bool OnWindowClose(WindowCloseEvent& e)
 ```
 > **_NOTE:_** When dispatech dispatch event to function it set it Handled, no other dispatech can handled it.
 
@@ -208,7 +209,7 @@ OnWindowClose(WindowCloseEvent& e)
 Renders the 2D graphics on the screen.
 - **Maths**: this is the first step in building the rendering system. Aiming to have an optmized library quickly, [glm](https://github.com/g-truc/glm) will be used instead of creating a math library from scratch.
 
-To init Renderer2D you must adding this line when init props in Create function:
+To init Renderer2D you have to add this line when initializing the props in Create function:
 ```c++
 props.RType = Renderer::RendererType::Renderer2D;
 ```

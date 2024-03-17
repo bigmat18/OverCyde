@@ -77,12 +77,12 @@ namespace Engine {
         switch (e.GetKeyCode()) {
             case Key::Escape: this->m_Running = false;
         }
-        return true;
+        return false;
     }
 
     bool Application::OnWindowClose(WindowCloseEvent& e){
         this->m_Running = false;
-        return true;
+        return false;
     }
 
 }

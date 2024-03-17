@@ -108,7 +108,7 @@ LDLIBS = f"-L{GLM_PATH} -L{SPDLOG_PATH}/src"
 ILIBS = f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PATH}/include -I{STB_PATH}"
 
 DLLFLAGS = "-dynamiclib" if not os.name == 'nt' else "-shared"
-LDFLAGS= f"{GLEW_LIB} {GLFW_LIB} {SPDLOG_LIB} -lm -ldl -lpthread {OPENGL_LIB}" 
+LDFLAGS= f"{GLEW_LIB} {GLFW_LIB} {SPDLOG_LIB} -lm -lpthread {OPENGL_LIB}" 
 if os.name == 'nt': 
     LDFLAGS += f" -L{BIN_DIR}"
 

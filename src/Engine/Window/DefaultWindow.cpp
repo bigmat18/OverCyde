@@ -20,7 +20,6 @@ namespace Engine {
         this->m_Data.Title = props.Title;
         this->m_Data.Width = props.Width;
         this->m_Data.Height = props.Height;
-        this->m_Data.BackgroundColor = props.BackgroundColor;
 
 
         ENGINE_ASSERT(glfwInit(), "Could not initialize GLFW!");
@@ -117,12 +116,10 @@ namespace Engine {
     	const GLubyte* renderer		= glGetString(GL_RENDERER);
 	    const GLubyte* vendor		= glGetString(GL_VENDOR);
 	    const GLubyte* version		= glGetString(GL_VERSION);
-	    const GLubyte* glslVersion	= glGetString(GL_SHADING_LANGUAGE_VERSION);
 
 	    LOG_ENGINE_INFO("GL Vendor            : {0}", reinterpret_cast<const char*>(vendor));
 	    LOG_ENGINE_INFO("GL Renderer          : {0}", reinterpret_cast<const char*>(renderer));
 	    LOG_ENGINE_INFO("GL Version (string)  : {0}", reinterpret_cast<const char*>(version));
-    	LOG_ENGINE_INFO("GLSL Version         : {0}", reinterpret_cast<const char*>(glslVersion));
     }
 
     void DefaultWindow::Shutdown() {

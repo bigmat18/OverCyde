@@ -22,7 +22,7 @@
 #define BIT(x) (1 << x)
 
 /**
- * Execut the std::bin for x. Example: BIND_FUN(myFunction)
+ * Execute the std::bin for x. Example: BIND_FUN(myFunction)
  * @param x the function to bind
 */
 #define BIND_FUN(x) std::bind(&x, this, std::placeholders::_1)
