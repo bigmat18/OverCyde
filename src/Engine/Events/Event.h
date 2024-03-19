@@ -102,10 +102,6 @@ namespace Engine {
         using EventFn = std::function<bool(T&)>;
 
         public:
-            /**
-             * EventDispatcher constructor
-             * @param event: is a reference to the event to dispatch
-            */
             EventDispatcher(Event &event) : m_Event(event) {};
             ~EventDispatcher() {};
 

@@ -4,10 +4,6 @@
 namespace Engine {
     class Layer {
         public:
-            /**
-             * The Layer constructor
-             * @param name the name of layer, it's used for debug porpouse
-            */
             Layer(const std::string &name = "Layer") : m_DebugName(name) {};
             virtual ~Layer() = default;
 
@@ -35,10 +31,6 @@ namespace Engine {
              */
             virtual void OnEvent(Event& event) {};
 
-            /**
-             * Get the name of layer
-             * @return return a std::string referecne to name
-            */
             inline const std::string& GetName() const { return m_DebugName; }
 
         private:
