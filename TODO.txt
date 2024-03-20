@@ -10,8 +10,8 @@ Cose da fare per il MattEngine:
     - [X] Creare classe per Texture2D
     - [] Gestione effetto blinding 
 
- - [] Implementa prima versione di Renderer2D (con ottimizzazioni)
-    - [] Rendering di un Cubo/Rettangolo
+ - [X] Implementa prima versione di Renderer2D (con ottimizzazioni)
+    - [X] Rendering di un Cubo/Rettangolo
 
  - [] Sistema ECS
  - [] Gestione della camera
