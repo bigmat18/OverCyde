@@ -8,4 +8,6 @@ __build_time
 .venv
 main
 main.exe
-Example
+
+#To remove when testing is done
+src/Game/*
