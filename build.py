@@ -18,7 +18,7 @@ class __LastBuildTime():
     __LAST_BUILD_TIME = None
 
     @classmethod
-    def time(cls) -> str:
+    def time(cls):
         if cls.__LAST_BUILD_TIME is None:
             cls.__get_last_build_time()
 
