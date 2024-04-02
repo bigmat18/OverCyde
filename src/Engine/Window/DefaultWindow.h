@@ -16,10 +16,10 @@ namespace Engine {
             uint32_t GetWidth() const override { return m_Data.Width; }
             uint32_t GetHeight() const override { return m_Data.Height; }
             const Vec4f GetBGColor() const override { return m_Data.BackgroundColor; }
+            virtual void *GetNativeWindow() const override { return m_Window; }
 
             void SetEventCallback(const EventCallbackFn &callback) override { m_Data.EventCallback = callback; }
 
-            virtual void *GetNativeWindow() const { return m_Window; }
 
             static Window *Create(const WindowProps &props = WindowProps());
 

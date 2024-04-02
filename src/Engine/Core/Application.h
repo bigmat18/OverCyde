@@ -6,6 +6,7 @@
 #include "../Layers/LayerStack.h"
 #include "../Layers/Layer.h"
 #include "Macro.h"
+#include <memory>
 
 #define BACKGROUND_COLOR 0x000000FF
 
@@ -47,6 +48,8 @@ namespace Engine {
             void operator=(const Application &) = delete;
             virtual ~Application() = default;
 
+            static Application& Get() { return *s_Instance; }
+
             /**
              * Method to overwrite to create the application and return it.
              * Inside this method you can setup ApplicationProps or any pre start config, 
@@ -67,6 +70,8 @@ namespace Engine {
             void PushOverlay(Layer *layer);
 
             void Run();
+
+            Window& GetWindow() const { return *this->m_Window; }
 
         protected:
             /**

@@ -6,6 +6,7 @@
 #include "Core/Macro.h"
 
 #include "Layers/Layer.h"
+#include "Layers/ImGuiLayer.h"
 #include "Window/Window.h"
 
 #include "Events/Event.h"

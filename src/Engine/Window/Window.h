@@ -38,7 +38,8 @@ namespace Engine {
             virtual float GetTime() const = 0;
             virtual uint32_t GetWidth() const = 0;
             virtual uint32_t GetHeight() const = 0;
-            virtual const Vec4f GetBGColor() const = 0;    
+            virtual const Vec4f GetBGColor() const = 0;
+            virtual void *GetNativeWindow() const = 0;
         
             virtual void SetEventCallback(const EventCallbackFn &callback) = 0;
 

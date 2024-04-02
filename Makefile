@@ -20,6 +20,9 @@ build_engine:
 build_game:
 	./build.py game
 
+build_imgui:
+	./build.py imgui
+
 clear_all: clear_engine clear_game
 
 clear_engine:

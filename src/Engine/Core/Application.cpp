@@ -2,6 +2,7 @@
 #include "../Events/KeyCode.h"
 #include "../Renderer/RenderCommand.h"
 #include "../Renderer/Renderer.h"
+#include "../Layers/ImGuiLayer.h"
 #include "Log.h"
 #include "Macro.h"
 
@@ -18,6 +19,7 @@ namespace Engine {
     }
 
     Application::Application(const ApplicationProps& props) : m_Props(props) {
+        this->SetInstance(this);
         this->m_Window = std::unique_ptr<Window>(Window::Create(this->m_Props.WProps));
         this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
         Renderer::Inizialize(this->m_Props.RType);

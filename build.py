@@ -92,10 +92,13 @@ BUILD_DIR = f"{ROOT_DIR}/build"
 BIN_DIR = f"{ROOT_DIR}/bin"
 
 OBJ_NAME = "main"
-DLL_NAME = "libengine.dylib"        if not os.name == 'nt' else "libengine.dll"
-GLEW_LIB = "-lGLEW"                 if not os.name == 'nt' else "-lglew32"
-GLFW_LIB = "-lglfw"                 if not os.name == 'nt' else "-lglfw3"
-OPENGL_LIB = "-framework OpenGL"    if not os.name == 'nt' else "-lopengl32"
+DLL_NAME = "libengine.dylib"            if not os.name == 'nt' else "libengine.dll"
+GLEW_LIB = "-lGLEW"                     if not os.name == 'nt' else "-lglew32"
+GLFW_LIB = "-lglfw"                     if not os.name == 'nt' else "-lglfw3"
+OPENGL_LIB = "-framework OpenGL     \
+             -framework Cocoa       \
+             -framework IOKit       \
+             -framework CoreVideo"      if not os.name == 'nt' else "-lgdi32 -lopengl32 -limm32"
 
 GLEW_PATH = f"{LIBS_DIR}/glew"
 GLFW_PATH = f"{LIBS_DIR}/glfw"
@@ -104,14 +107,11 @@ SPDLOG_PATH = f"{LIBS_DIR}/spdlog"
 STB_PATH = f"{LIBS_DIR}/stb"
 IMGUI_PATH = f"{LIBS_DIR}/imgui"
 
-LDLIBS = f"-L{SPDLOG_PATH}/src -L{IMGUI_PATH}"
+LDLIBS = f"-L{SPDLOG_PATH}/src -L{BIN_DIR}"
 ILIBS = f"-I{GLEW_PATH}/include -I{GLFW_PATH}/include -I{GLM_PATH} -I{SPDLOG_PATH}/include -I{STB_PATH} -I{IMGUI_PATH}"
 
 DLLFLAGS = "-dynamiclib" if not os.name == 'nt' else "-shared"
-LDFLAGS= f"{GLEW_LIB} {GLFW_LIB} -lm -lpthread {OPENGL_LIB}" 
-
-if os.name == 'nt': 
-    LDFLAGS += f" -L{BIN_DIR}"
+LDFLAGS = f"{GLEW_LIB} {GLFW_LIB} {OPENGL_LIB} -lm -lpthread -limgui"
 
 def clear(spec : str):
     BUILD_CLEAR = ""
@@ -180,6 +180,22 @@ def game(spec : str):
     __LastBuildTime.update()
 
 
+def imgui(spec: str):
+    IMGUI_BUILD_DIR = f"{IMGUI_PATH}/build"
+
+    if not os.path.isdir(IMGUI_BUILD_DIR):
+        os.makedirs(IMGUI_BUILD_DIR)
+
+    src_files = [el[2:] for el in __get_files_recursive(f"{IMGUI_PATH}")]
+    objs_files = [f"{IMGUI_BUILD_DIR[2:]}/{el.split(_)[-1].replace('.cpp', '.o')}" for el in src_files]
+
+    for idx, el in enumerate(src_files):
+        __execute(f"{CC} {CCFLAGS} -c {el} -o {objs_files[idx]}")
+
+    extension = "dylib" if not os.name == "ot" else "dll"
+    __execute(f"{CC} {DLLFLAGS} {CCFLAGS} -I{GLFW_PATH}/include {GLFW_LIB} {OPENGL_LIB} {' '.join(objs_files)} -o {BIN_DIR}/libimgui.{extension}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("action", type=str, default="all", nargs="?")
@@ -190,4 +206,3 @@ if __name__ == "__main__":
         funs[args.action](args.spec)
     else: 
         logging.error(f"Action '{args.action}' doesn't declared")
-
