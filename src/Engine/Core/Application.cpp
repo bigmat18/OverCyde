@@ -28,25 +28,26 @@ namespace Engine {
     void Application::Run() {
         float deltaTime = this->CalculateDeltaTime();
 
-        while(this->m_Running){
+        while(this->m_Running){ 
             this->ProcessEvents();
             RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
             RenderCommand::Clear();
 
-            for (auto layer : this->m_LayerStack) {
-                layer->OnUpdate(deltaTime);
+            auto layers = this->m_LayerStack.GetLayers();
+            for (int i = layers.size() - 1; i >= 0; i--) {
+                layers[i]->OnUpdate(deltaTime);
             }
             this->m_Window->OnUpdate();
         }
     } 
 
     void Application::ProcessEvents() {
-        for (auto e : this->m_EventStack){
-            for (auto l : this->m_LayerStack){
-                if (!e->IsHandled())
-                    l->OnEvent(*e);
+        for (auto event : this->m_EventStack){
+            for (auto layer : this->m_LayerStack){
+                if (!event->IsHandled())
+                    layer->OnEvent(*event);
             }
-            delete e;
+            delete event;
         }
         this->m_EventStack.clear();
     }

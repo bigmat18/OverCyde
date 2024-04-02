@@ -85,6 +85,8 @@ namespace Engine {
             */
             inline bool IsHandled() const { return this->m_Handled; }
 
+            void SetHandled(bool handled) { this->m_Handled = handled; }
+
             /**
              * Print the event (base is GetName())
             */
