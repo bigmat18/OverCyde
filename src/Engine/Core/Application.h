@@ -5,6 +5,7 @@
 #include "../Events/KeyEvent.h"
 #include "../Layers/LayerStack.h"
 #include "../Layers/Layer.h"
+#include "../Layers/ImGuiLayer.h"
 #include "Macro.h"
 #include <memory>
 
@@ -104,6 +105,8 @@ namespace Engine {
             float m_LastFrameTime = 0.0f;
             std::unique_ptr<Window> m_Window;
             std::vector<Event*> m_EventStack;
+
+            ImGuiLayer* m_ImGuiLayer;
             LayerStack m_LayerStack;
             ApplicationProps m_Props;
     };

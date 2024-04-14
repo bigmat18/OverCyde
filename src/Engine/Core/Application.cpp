@@ -23,29 +23,39 @@ namespace Engine {
         this->m_Window = std::unique_ptr<Window>(Window::Create(this->m_Props.WProps));
         this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
         Renderer::Inizialize(this->m_Props.RType);
+
+        this->m_ImGuiLayer = new ImGuiLayer();
+        this->m_LayerStack.PushOverlay(m_ImGuiLayer);
     }
 
     void Application::Run() {
-        float deltaTime = this->CalculateDeltaTime();
 
         while(this->m_Running){ 
             this->ProcessEvents();
+            float deltaTime = this->CalculateDeltaTime();
+            
             RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
             RenderCommand::Clear();
 
-            auto layers = this->m_LayerStack.GetLayers();
-            for (int i = layers.size() - 1; i >= 0; i--) {
-                layers[i]->OnUpdate(deltaTime);
+            for (Layer* layer : m_LayerStack) {
+                layer->OnUpdate(deltaTime);
             }
+
+            m_ImGuiLayer->Begin();
+            for (Layer* layer : m_LayerStack) {
+                layer->OnImGuiRender();
+            }
+            m_ImGuiLayer->End();
+
             this->m_Window->OnUpdate();
         }
     } 
 
     void Application::ProcessEvents() {
         for (auto event : this->m_EventStack){
-            for (auto layer : this->m_LayerStack){
+            for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it){
                 if (!event->IsHandled())
-                    layer->OnEvent(*event);
+                    (*it)->OnEvent(*event);
             }
             delete event;
         }

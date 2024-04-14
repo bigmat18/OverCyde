@@ -5,7 +5,7 @@
 namespace Engine {
     class LayerStack {
         public:
-            LayerStack();
+            LayerStack() = default;
             ~LayerStack();
 
             /**
@@ -28,13 +28,13 @@ namespace Engine {
             */
             void PopOverlay(Layer* overlay);
 
-            std::vector<Layer*> GetLayers() const { return this->m_Layers; }
-
             std::vector<Layer*>::iterator begin() { return this->m_Layers.begin(); }
             std::vector<Layer*>::iterator end() { return this->m_Layers.end(); }
+            std::vector<Layer*>::reverse_iterator rbegin() { return this->m_Layers.rbegin(); }
+            std::vector<Layer*>::reverse_iterator rend() { return this->m_Layers.rend(); }
 
         private:
             std::vector<Layer*> m_Layers;
-            std::vector<Layer*>::iterator m_LayerInsert;
+            unsigned int m_LayerInsertIndex = 0;
     };
 }

@@ -35,6 +35,9 @@ namespace Engine {
              */
             virtual void OnEvent(Event& event) {};
 
+
+            virtual void OnImGuiRender() {};
+
             /**
              * Get the name of layer
              * @return return a std::string referecne to name

@@ -9,11 +9,14 @@ namespace Engine {
             
             void OnAttach() override;
             void OnDetach() override;
-            
-            void OnUpdate(float deltaTime) override;
+
+            void OnImGuiRender() override;
             void OnEvent(Event& event) override;
 
             void BlockEvents(bool block) { m_BlockEvents = block; }
+
+            void Begin();
+            void End();
 
         private:
             float m_Time;
