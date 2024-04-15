@@ -5,15 +5,12 @@
 
 #include "ImGuiLayer.h"
 #include "../Core/Application.h"
+#include "../Core/Profiling.h"
 
 namespace Engine {
-    ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {
+    ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
 
-    }
-
-    ImGuiLayer::~ImGuiLayer() {
-
-    }
+    ImGuiLayer::~ImGuiLayer() {}
     
     void ImGuiLayer::OnAttach() {
         IMGUI_CHECKVERSION();
@@ -88,6 +85,13 @@ namespace Engine {
 
         ImGui::Begin("FPS");
         ImGui::Text("%d", (int)(1 / this->m_Time));
+        ImGui::End();
+
+        ImGui::Begin("Profiling");
+        for(auto data : Profiling::GetData()) {
+            ImGui::Text("%s: %f ms", data.Name, data.Time);
+        }
+        Profiling::ClearData();
         ImGui::End();
     }
 }

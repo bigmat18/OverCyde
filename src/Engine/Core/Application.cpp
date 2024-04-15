@@ -5,6 +5,7 @@
 #include "../Layers/ImGuiLayer.h"
 #include "Log.h"
 #include "Macro.h"
+#include "Profiling.h"
 
 namespace Engine {
     Application *Application::s_Instance = nullptr;
@@ -31,23 +32,27 @@ namespace Engine {
     void Application::Run() {
 
         while(this->m_Running){ 
-            this->ProcessEvents();
-            float deltaTime = this->CalculateDeltaTime();
-            
-            RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
-            RenderCommand::Clear();
+            {
+                PROFILE_SCOPE("Application::Run()");
+                this->ProcessEvents();
+        
+                float deltaTime = this->CalculateDeltaTime();
+                
+                RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
+                RenderCommand::Clear();
 
-            for (Layer* layer : m_LayerStack) {
-                layer->OnUpdate(deltaTime);
+                for (Layer* layer : m_LayerStack) {
+                    layer->OnUpdate(deltaTime);
+                }
+
+                m_ImGuiLayer->Begin();
+                for (Layer* layer : m_LayerStack) {
+                    layer->OnImGuiRender();
+                }
+                m_ImGuiLayer->End();
+
+                this->m_Window->OnUpdate();
             }
-
-            m_ImGuiLayer->Begin();
-            for (Layer* layer : m_LayerStack) {
-                layer->OnImGuiRender();
-            }
-            m_ImGuiLayer->End();
-
-            this->m_Window->OnUpdate();
         }
     } 
 
