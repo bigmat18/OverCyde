@@ -11,6 +11,7 @@ namespace Engine {
             void OnDetach() override;
 
             void OnImGuiRender() override;
+            void OnUpdate(float deltaTime) override;
             void OnEvent(Event& event) override;
 
             void BlockEvents(bool block) { m_BlockEvents = block; }

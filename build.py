@@ -176,7 +176,7 @@ def game(spec : str):
         if __modifid(f"./{el}") or not __exists(f"./{objs_files[idx]}"):
             __execute(f"{CC} {CCFLAGS} -I./src/Engine {ILIBS} -c {el} -o {objs_files[idx]}")
 
-    __execute(f"{CC} {CCFLAGS} -I./src/Engine -L./bin -lengine {' '.join(objs_files)} -o {BIN_DIR}/{OBJ_NAME}")
+    __execute(f"{CC} {CCFLAGS} -I{IMGUI_PATH} -I./src/Engine -L./bin -lengine -limgui {' '.join(objs_files)} -o {BIN_DIR}/{OBJ_NAME}")
     __LastBuildTime.update()
 
 

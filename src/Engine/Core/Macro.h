@@ -38,6 +38,11 @@
         ((hex) >> (1 * 8)) & 0xFF, \
         ((hex) >> (0 * 8)) & 0xFF  \
 
+
+#define FPS_TO_FLOAT(fps) 1 / fps
+
+#define FLOAT_TO_FPS(n) 1 / n
+
 /**
  * Engine assert to interrupt exe when x is false
  * @param x: a condition that must be true

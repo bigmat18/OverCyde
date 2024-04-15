@@ -53,6 +53,10 @@ namespace Engine {
         }
     }
 
+    void ImGuiLayer::OnUpdate(float deltaTime) { 
+        this->m_Time = deltaTime; 
+    }
+
     void ImGuiLayer::Begin() {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -78,7 +82,12 @@ namespace Engine {
     }
 
     void ImGuiLayer::OnImGuiRender() {
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
+        static bool showDemoWindow = false;
+        if (showDemoWindow)
+            ImGui::ShowDemoWindow(&showDemoWindow);
+
+        ImGui::Begin("FPS");
+        ImGui::Text("%d", (int)(1 / this->m_Time));
+        ImGui::End();
     }
 }

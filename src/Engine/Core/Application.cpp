@@ -63,9 +63,15 @@ namespace Engine {
     }
 
     float Application::CalculateDeltaTime() {
-        float currentTime = this->m_Window->GetTime();
-        float deltaTime = currentTime - this->m_LastFrameTime;
+        float currentTime, deltaTime;
+
+        do {
+            currentTime = this->m_Window->GetTime();
+            deltaTime = currentTime - this->m_LastFrameTime;
+        } while (deltaTime < FPS_TO_FLOAT(120.0f));
+
         this->m_LastFrameTime = currentTime;
+
         return deltaTime; 
     }
     
