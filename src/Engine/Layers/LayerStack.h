@@ -9,22 +9,22 @@ namespace Engine {
             ~LayerStack();
 
             /**
-             * Append element to the stack (begining of vector).
+             * Append element to last position (without overlay)
             */
             void PushLayer(Layer* layer);
 
             /**
-             * Appends a new element to the end of the stack.
+             * Appends a new element to the top to the stack (position size).
              */
             void PushOverlay(Layer* overlay);
 
             /**
-             * Remove the last element.
+             * Remove the first element.
             */
             void PopLayer(Layer* layer);
 
             /**
-             * Remove the first element.
+             * Remove the last element.
             */
             void PopOverlay(Layer* overlay);
 

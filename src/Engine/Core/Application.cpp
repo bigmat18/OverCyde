@@ -46,7 +46,7 @@ namespace Engine {
                     for (Layer* layer : m_LayerStack) {
                         layer->OnUpdate(deltaTime);
                     }
-
+                    
                     m_ImGuiLayer->Begin();
                     for (Layer* layer : m_LayerStack) {
                         layer->OnImGuiRender();
