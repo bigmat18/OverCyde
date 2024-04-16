@@ -1,8 +1,10 @@
 #pragma once
 #ifdef ENGINE_PLATFORM
-// #ifdef __APPLE__
-// #define GL_SILENCE_DEPRECATION
-// #endif
+#ifdef __APPLE__
+#define GL_SILENCE_DEPRECATION
+#endif
+
+#define PROFILING 1
 
 #include "Core/Log.h"
 #include "Core/Application.h"

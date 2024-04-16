@@ -84,14 +84,34 @@ namespace Engine {
             ImGui::ShowDemoWindow(&showDemoWindow);
 
         ImGui::Begin("FPS");
-        ImGui::Text("%d", (int)(1 / this->m_Time));
+        ImGui::Text("%d fps", (int)FLOAT_TO_FPS(this->m_Time));
         ImGui::End();
 
-        ImGui::Begin("Profiling");
-        for(auto data : Profiling::GetData()) {
-            ImGui::Text("%s: %f ms", data.Name, data.Time);
-        }
-        Profiling::ClearData();
-        ImGui::End();
+        #ifdef PROFILING
+            ImGui::Begin("Profiling");
+            ImGui::BeginTable("Times", 5);
+            ImGui::TableSetupColumn("Name");
+            ImGui::TableSetupColumn("Time");
+            ImGui::TableSetupColumn("AVG");
+            ImGui::TableSetupColumn("Max");
+            ImGui::TableSetupColumn("Min");
+            ImGui::TableHeadersRow();
+
+            for(auto &[key, value] : Profiling::GetData()) {
+                ImGui::TableNextRow();
+                ImGui::TableNextColumn();
+                ImGui::Text("%s", key);
+                ImGui::TableNextColumn();
+                ImGui::Text("%.6f", value.Time);
+                ImGui::TableNextColumn();
+                ImGui::Text("%.6f", value.AVGTime);
+                ImGui::TableNextColumn();
+                ImGui::Text("%.6f", value.MaxTime);
+                ImGui::TableNextColumn();
+                ImGui::Text("%.6f", value.MinTime);
+            }
+            ImGui::EndTable();
+            ImGui::End();
+        #endif
     }
 }

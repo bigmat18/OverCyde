@@ -1,23 +1,37 @@
 #pragma once
 #include <chrono>
+#include "Pch.h"
 #include "../Layers/ImGuiLayer.h"
 
 namespace Engine {
 
     class Profiling {
         public:
-            struct ProfilingData
-            {
-                const char *Name;
+            struct ProfilingData {
                 float Time;
+                float AVGTime;
+                float MaxTime;
+                float MinTime;
             };
 
-            static std::vector<ProfilingData> GetData() { return s_ProfilingData ;}
-            static void AddData(ProfilingData data) { s_ProfilingData.push_back(data); } 
-            static void ClearData() { s_ProfilingData.clear(); }
+            static std::unordered_map<const char *, ProfilingData> GetData() { return s_ProfilingData; }
+
+            static void AddData(const char* name, float time) {
+                if(s_ProfilingData.count(name) == 0) {
+                    s_ProfilingData.insert({name, {.Time = time, 
+                                                   .AVGTime = time, 
+                                                   .MaxTime = time, 
+                                                   .MinTime = time}});
+                } else {
+                    s_ProfilingData[name] = {.Time = time,
+                                             .AVGTime = (s_ProfilingData[name].AVGTime + time) / 2,
+                                             .MaxTime = s_ProfilingData[name].MaxTime < time ? time : s_ProfilingData[name].MaxTime,
+                                             .MinTime = s_ProfilingData[name].MinTime > time ? time : s_ProfilingData[name].MinTime};
+                }
+            } 
 
         private:
-            static std::vector<ProfilingData> s_ProfilingData;
+            static std::unordered_map<const char*, ProfilingData> s_ProfilingData;
     };
 
     template<typename Fn>
@@ -31,7 +45,7 @@ namespace Engine {
 
             void Stop() {
                 float elapsed = this->Elapsed();
-                this->m_Func({this->m_Name, elapsed});
+                this->m_Func(this->m_Name, elapsed);
             }
 
             float Elapsed() {
@@ -49,7 +63,13 @@ namespace Engine {
     };
 }
 
-#define PROFILE_SCOPE(name) Engine::Timer<std::function<void(Profiling::ProfilingData)>> timer##__LINE__( \
-        name, [&](Engine::Profiling::ProfilingData profileResult) {                                       \
-            Engine::Profiling::AddData(profileResult);                                                    \
-        })                                                                                                \
+#define PROFILING 1
+#ifdef PROFILING
+#define PROFILE_SCOPE(name)                                                       \
+        Engine::Timer<std::function<void(const char*, float)>> timer##__LINE__(   \
+            name, [&](const char* key, float time) {                             \
+                Engine::Profiling::AddData(key, time);                           \
+        })      
+#else
+#define PROFILE_SCOPE(name)
+#endif

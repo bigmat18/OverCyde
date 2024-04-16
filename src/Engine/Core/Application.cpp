@@ -32,7 +32,7 @@ namespace Engine {
     void Application::Run() {
 
         while(this->m_Running){ 
-            {
+            {  
                 PROFILE_SCOPE("Application::Run()");
                 this->ProcessEvents();
         
@@ -41,22 +41,26 @@ namespace Engine {
                 RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
                 RenderCommand::Clear();
 
-                for (Layer* layer : m_LayerStack) {
-                    layer->OnUpdate(deltaTime);
-                }
+                {
+                    PROFILE_SCOPE("Application::Run::Update()");
+                    for (Layer* layer : m_LayerStack) {
+                        layer->OnUpdate(deltaTime);
+                    }
 
-                m_ImGuiLayer->Begin();
-                for (Layer* layer : m_LayerStack) {
-                    layer->OnImGuiRender();
-                }
-                m_ImGuiLayer->End();
+                    m_ImGuiLayer->Begin();
+                    for (Layer* layer : m_LayerStack) {
+                        layer->OnImGuiRender();
+                    }
+                    m_ImGuiLayer->End();
 
-                this->m_Window->OnUpdate();
+                    this->m_Window->OnUpdate();
+                }
             }
         }
     } 
 
     void Application::ProcessEvents() {
+        PROFILE_SCOPE("Application::ProcessEvents()");
         for (auto event : this->m_EventStack){
             for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it){
                 if (!event->IsHandled())
