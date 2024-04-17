@@ -4,6 +4,8 @@
 #include "Core/Log.h"
 #include "Core/Types.h"
 #include "Core/Macro.h"
+#include "Core/Input.h"
+#include "Core/Profiling.h"
 
 #include "Layers/Layer.h"
 #include "Layers/ImGuiLayer.h"

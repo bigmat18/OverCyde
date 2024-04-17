@@ -96,15 +96,13 @@ namespace Engine {
 
             static Application* s_Instance;
 
-            void ProcessEvents();
             void OnEvent(Event& e);
-            float CalculateDeltaTime();        
+            float CalculateDeltaTime();
 
             bool m_Running = true;
             bool m_Minimized = false;
             float m_LastFrameTime = 0.0f;
             std::unique_ptr<Window> m_Window;
-            std::vector<Event*> m_EventStack;
 
             ImGuiLayer* m_ImGuiLayer;
             LayerStack m_LayerStack;

@@ -34,7 +34,6 @@ namespace Engine {
         while(this->m_Running){ 
             {  
                 PROFILE_SCOPE("Application::Run()");
-                this->ProcessEvents();
         
                 float deltaTime = this->CalculateDeltaTime();
                 
@@ -57,18 +56,6 @@ namespace Engine {
                 }
             }
         }
-    } 
-
-    void Application::ProcessEvents() {
-        PROFILE_SCOPE("Application::ProcessEvents()");
-        for (auto event : this->m_EventStack){
-            for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it){
-                if (!event->IsHandled())
-                    (*it)->OnEvent(*event);
-            }
-            delete event;
-        }
-        this->m_EventStack.clear();
     }
 
     float Application::CalculateDeltaTime() {
@@ -95,10 +82,16 @@ namespace Engine {
     }
 
     void Application::OnEvent(Event& e){
+        PROFILE_SCOPE("Application::OnEvent()");
+
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_FUN(Application::OnWindowClose));
         dispatcher.Dispatch<KeyPressedEvent>(BIND_FUN(Application::OnKeyPressed));
-        this->m_EventStack.push_back(&e);
+
+        for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
+            if (!e.IsHandled()) 
+                (*it)->OnEvent(e);
+        }
     }
 
     bool Application::OnKeyPressed(KeyPressedEvent& e){
