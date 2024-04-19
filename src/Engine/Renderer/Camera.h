@@ -1,4 +1,5 @@
 #pragma once
+#include "glm/fwd.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -14,6 +15,10 @@ namespace Engine {
             void SetPosition(glm::vec3 position) { this->m_Position = position; }
             void SetFront(glm::vec3 front) { this->m_Front = front; }
             void SetUp(glm::vec3 up) { this->m_Up = up; }
+
+            glm::vec3 GetPosition() const { return m_Position; }
+            glm::vec3 GetFront() const { return m_Front; }
+            glm::vec3 GetUp() const { return m_Up; }
 
             void RecalculateViewMatrix();
             virtual void RecalculateProjectionMatrix() {};
