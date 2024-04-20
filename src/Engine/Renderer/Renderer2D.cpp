@@ -15,8 +15,9 @@
 
 
 namespace Engine {
-
+ 
     Renderer2D::Renderer2DData Renderer2D::s_Data = Renderer2D::Renderer2DData();
+    Camera2DController Renderer2D::s_CameraController = Camera2DController(1.0f);
 
     void Renderer2D::Inizialize() {
         s_Data.BaseShader = Ref<Shader>(Shader::Create("./assets/shaders/base_shader.vert", 
@@ -26,7 +27,22 @@ namespace Engine {
         Renderer2D::InitCircle();
     }
 
-    void Renderer2D::Shutdown() {}
+    void Renderer2D::Shutdown() {
+        s_Data.BaseShader.reset();
+        s_Data.CircleVertexArray.reset();
+        s_Data.SquareVertexArray.reset();
+        s_Data.TriangleVertexArray.reset();
+        s_Data.PolyhedronVertexArray.clear();
+    }
+
+    void Renderer2D::BeginScene(float deltaTime) {
+        s_CameraController.OnUpdate(deltaTime);
+        s_Data.BaseShader->Bind();
+        std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetMatrix4("u_ProjectionView", 
+                                                                                s_CameraController.GetProjectionViewMatrix());
+    }
+
+    void Renderer2D::EndScene() {}
             
     void Renderer2D::DrawTriangle(Vec3f position, Vec3f size, Vec4f color, Vec3f degree) {
         Renderer2D::Draw(s_Data.TriangleVertexArray, position, size, color, degree);
@@ -59,8 +75,6 @@ namespace Engine {
 
         std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetMatrix4("u_Transform", model);
         std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetVec4("u_Color", glm::normalize(color));
-        
-        s_Data.BaseShader->Bind();
         RenderCommand::DrawIndex(VA); 
     }
 

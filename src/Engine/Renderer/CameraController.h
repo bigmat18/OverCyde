@@ -3,6 +3,7 @@
 #include "Camera.h"
 
 namespace Engine {
+
     class Camera2DController {
         public:
             Camera2DController(float aspectRatio, bool rotatin = false);
@@ -10,12 +11,16 @@ namespace Engine {
             void OnUpdate(float deltaTime);
             void OnEvent(Event &e);
 
+            glm::mat4 GetProjectionViewMatrix() { 
+                return m_Camera.GetProjectionViewMatrix(); 
+            }
+
         private:
-            float m_CameraTranslationSpeed = 5.0f, m_CameraRotationSpeed = 180.0f;
+            float m_CameraTranslationSpeed = 2.0f, m_CameraRotationSpeed = 180.0f;
             float m_ZoomLevel = 1.0f;
 
             float m_AspectRatio;
-            float m_Rotation;
+            bool m_Rotation;
             OrthographicCamera m_Camera;
     };
 }

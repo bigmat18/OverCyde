@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "Renderer2D.h"
+#include "../OpenGL/OpenGLShader.h" 
 
 namespace Engine {
     ui32 Renderer::s_Type = 0;
@@ -8,11 +9,20 @@ namespace Engine {
         s_Type = type;
         if (s_Type & Renderer::RendererType::Renderer2D)
             Renderer2D::Inizialize();
-        if (s_Type & Renderer::RendererType::Renderer3D) {}
     }
 
     void Renderer::Shutdown() {
         Renderer2D::Shutdown();
+    }
+
+    void Renderer::BeginScene(float deltaTime) {
+        if (s_Type & Renderer::RendererType::Renderer2D)
+            Renderer2D::BeginScene(deltaTime);
+    }
+
+    void Renderer::EndScene() {
+        if (s_Type & Renderer::RendererType::Renderer2D)
+            Renderer2D::EndScene();
     }
     
     void Renderer::Draw2DTriangle(Vec2f position, Vec2f size, Vec4f color, float degree) {

@@ -10,7 +10,7 @@ namespace Engine {
 
             const glm::mat4 &GetProjectionMatrix() const { return this->m_ProjectionMatrix; }
             const glm::mat4 &GetViewMatrix() const { return this->m_ViewMatrix; }
-            const glm::mat4 &GetViewProjectionMatrix() const { return this->m_ProjectionViewMatrix; }
+            const glm::mat4 &GetProjectionViewMatrix() const { return this->m_ProjectionViewMatrix; }
 
             void SetPosition(glm::vec3 position) { this->m_Position = position; }
             void SetFront(glm::vec3 front) { this->m_Front = front; }
@@ -37,10 +37,13 @@ namespace Engine {
     class OrthographicCamera : public Camera {
         public:
             struct OrthographicData {
-                float Left = 1.0f;
-                float Right = 1.0f;
-                float Bottom = 1.0f; 
-                float Top = 1.0f;
+                float Left;
+                float Right;
+                float Bottom; 
+                float Top;
+
+                OrthographicData(float left = 1.0f, float right = 1.0f, float bottom = 1.0f, float top = 1.0f) :
+                    Left(left), Right(right), Bottom(bottom), Top(top) {}
             };
 
         public:

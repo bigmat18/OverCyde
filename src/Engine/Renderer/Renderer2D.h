@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Shader.h"
 #include "VertexArray.h"
+#include "CameraController.h"
 #include <map>
 
 namespace Engine {
@@ -12,6 +13,9 @@ namespace Engine {
         protected:
             static void Inizialize();
             static void Shutdown();
+
+            static void BeginScene(float deltaTime);
+            static void EndScene();
            
             static void DrawTriangle(Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
      
@@ -41,5 +45,6 @@ namespace Engine {
             static void Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
 
             static Renderer2DData s_Data;
+            static Camera2DController s_CameraController;
     };
 }

@@ -19,6 +19,9 @@ namespace Engine {
             static void Inizialize(ui32 type = 0);
             static void Shutdown();
 
+            static void BeginScene(float deltaTime);
+            static void EndScene(); 
+
             /**
              * Draw triangle in 2D space.
              * @param position a Vec2f with x, y value normalized (default = 0.0f, 0.0f)
