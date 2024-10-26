@@ -7,6 +7,6 @@
 [submodule "libs/glfw"]
 	path = libs/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "libs/glew"]
-	path = libs/glew
-	url = https://github.com/nigels-com/glew.git
+[submodule "libs/glew-cmake"]
+	path = libs/glew-cmake
+	url = https://github.com/Perlmint/glew-cmake.git
