@@ -18,6 +18,9 @@ namespace Engine {
 
             EVENT_CLASS_TYPE(WindowResize);
             EVENT_CLASS_CATEGORY(EventCategoryApplication);
+
+            ui32 GetWidth() const { return m_Width; }
+            ui32 GetHeigth() const { return m_Height; }
             
             virtual std::string ToString() const override { 
                 std::stringstream ss;

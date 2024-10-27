@@ -87,6 +87,7 @@ namespace Engine {
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_FUN(Application::OnWindowClose));
         dispatcher.Dispatch<KeyPressedEvent>(BIND_FUN(Application::OnKeyPressed));
+        dispatcher.Dispatch<WindowResizeEvent>(BIND_FUN(Application::OnWindowResize));
 
         for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
             if (!e.IsHandled()) 
@@ -103,6 +104,11 @@ namespace Engine {
 
     bool Application::OnWindowClose(WindowCloseEvent& e){
         this->m_Running = false;
+        return false;
+    }
+
+    bool Application::OnWindowResize(WindowResizeEvent &e){
+        RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeigth());
         return false;
     }
 

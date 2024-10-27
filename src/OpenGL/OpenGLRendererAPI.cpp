@@ -14,4 +14,8 @@ namespace Engine {
         vertexArray->Bind();
         glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
     }
+
+    void OpenGLRendererAPI::SetViewport(i32 x, i32 y, i32 width, i32 heigth) {
+        glViewport(x, y, width, heigth);
+    }
 }
