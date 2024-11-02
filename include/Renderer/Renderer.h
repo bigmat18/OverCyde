@@ -17,7 +17,7 @@ namespace Engine {
                 Renderer3D = BIT(1)
             }; 
  
-            static void Inizialize(ui32 width, ui32 heigth, ui32 type = 0);
+            static void Inizialize(ui32 width, ui32 heigth, ui32 type = 0, bool activeCamera = false);
             static void Shutdown();
 
             static void BeginScene(float deltaTime);

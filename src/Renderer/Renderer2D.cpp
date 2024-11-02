@@ -18,9 +18,11 @@
 namespace Engine {
  
     Renderer2D::Renderer2DData Renderer2D::s_Data = Renderer2D::Renderer2DData();
-    Camera2DController Renderer2D::s_CameraController = Camera2DController(1.0f);
+    Camera2DController Renderer2D::s_CameraController = Camera2DController();
+    bool Renderer2D::s_IsCameraActive;
 
-    void Renderer2D::Inizialize(ui32 width, ui32 heigth) {
+    void Renderer2D::Inizialize(ui32 width, ui32 heigth, bool activeCamera) {
+        s_IsCameraActive = activeCamera;
         s_Data.BaseShader = Ref<Shader>(Shader::Create("shaders/base_shader.vert", 
                                                        "shaders/base_shader.frag"));
         Renderer2D::InitTriangle();
@@ -38,7 +40,9 @@ namespace Engine {
     }
 
     void Renderer2D::BeginScene(float deltaTime) {
-        s_CameraController.OnUpdate(deltaTime);
+        if(s_IsCameraActive)
+            s_CameraController.OnUpdate(deltaTime);
+            
         s_Data.BaseShader->Bind();
         std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetMatrix4("u_ProjectionView", 
                                                                                 s_CameraController.GetProjectionViewMatrix());

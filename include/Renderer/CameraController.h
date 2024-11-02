@@ -7,7 +7,8 @@ namespace Engine {
 
     class Camera2DController {
         public:
-            Camera2DController(float aspectRatio, bool roation = false);
+            Camera2DController();
+            Camera2DController(float aspectRatio, bool rotation = false);
 
             void OnUpdate(float deltaTime);
             void OnEvent(Event &e);

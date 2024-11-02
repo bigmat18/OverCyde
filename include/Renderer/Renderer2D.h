@@ -12,7 +12,7 @@ namespace Engine {
         friend class Renderer;     
 
         protected:
-            static void Inizialize(ui32 width, ui32 heigth);
+            static void Inizialize(ui32 width, ui32 heigth, bool activeCamera);
             static void Shutdown();
 
             static void BeginScene(float deltaTime);
@@ -49,5 +49,6 @@ namespace Engine {
 
             static Renderer2DData s_Data;
             static Camera2DController s_CameraController;
+            static bool s_IsCameraActive;
     };
 }

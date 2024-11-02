@@ -36,11 +36,21 @@ namespace Engine {
         */
         ui32        RType;
 
-            /** The costructorn for ApplicationProps with default value: WProps = WindowProps default, BGColor = White color, RType = 0*/
-            ApplicationProps(const WindowProps &windowProps = WindowProps(),
-                             const Vec4f &backgroundColor = Vec4f(HEX_COLOR(BACKGROUND_COLOR)),
-                             ui32 rendererType = 0) : 
-            WProps(windowProps), BGColor(backgroundColor), RType(rendererType) {}
+        bool        ActiveCamera;
+
+        bool        ActiveDebugging;
+        
+        /** The costructorn for ApplicationProps with default value: WProps = WindowProps default, BGColor = White color, RType = 0*/
+        ApplicationProps(const WindowProps &windowProps = WindowProps(),
+                         const Vec4f &backgroundColor = Vec4f(HEX_COLOR(BACKGROUND_COLOR)),
+                         ui32 rendererType = 0,
+                         bool activeCamera = false,
+                         bool activeDebugging = false) : 
+        WProps(windowProps), 
+        BGColor(backgroundColor), 
+        RType(rendererType),
+        ActiveCamera(activeCamera),
+        ActiveDebugging(activeDebugging) {}
     };
      
     class ENGINE_API Application {

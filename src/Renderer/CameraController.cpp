@@ -10,6 +10,10 @@
 #include <glm/fwd.hpp>
 
 namespace Engine {
+    Camera2DController::Camera2DController() {
+		m_Camera = OrthographicCamera();
+	}
+
     Camera2DController::Camera2DController(float aspectRatio, bool roation) : 
         m_AspectRatio(aspectRatio), m_Rotation(roation), 
         m_Camera(glm::vec3(0.0f, 0.0f, 0.0f), 

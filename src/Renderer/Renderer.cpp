@@ -7,10 +7,10 @@
 namespace Engine {
     ui32 Renderer::s_Type = 0;
 
-    void Renderer::Inizialize(ui32 width, ui32 heigth, ui32 type) {
+    void Renderer::Inizialize(ui32 width, ui32 heigth, ui32 type, bool activeCamera) {
         s_Type = type;
         if (s_Type & Renderer::RendererType::Renderer2D)
-            Renderer2D::Inizialize(width, heigth);
+            Renderer2D::Inizialize(width, heigth, activeCamera);
     }
 
     void Renderer::Shutdown() {
