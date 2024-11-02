@@ -1,6 +1,7 @@
 #pragma once
-#include "../Core/Macro.h"
-#include "../Core/Types.h"
+#include "Core/Macro.h"
+#include "Core/Types.h"
+#include "Events/ApplicationEvent.h"
 
 namespace Engine {
 
@@ -16,7 +17,7 @@ namespace Engine {
                 Renderer3D = BIT(1)
             }; 
  
-            static void Inizialize(ui32 type = 0);
+            static void Inizialize(ui32 width, ui32 heigth, ui32 type = 0);
             static void Shutdown();
 
             static void BeginScene(float deltaTime);
@@ -71,6 +72,10 @@ namespace Engine {
                                          Vec2f size = Vec2f(1.0f, 1.0f), 
                                          Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
                                          float degree = 0.0f);
+
+            
+            static void OnWindowResize(WindowResizeEvent &e);
+
         private:
             static ui32 s_Type;
     };

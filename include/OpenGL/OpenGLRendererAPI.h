@@ -10,6 +10,6 @@ namespace Engine {
 
             virtual void DrawIndexed(const std::shared_ptr<VertexArray> &vertexArray) override;
 
-            virtual void SetViewport(i32 x, i32 y, i32 width, i32 heigth) override;
+            virtual void SetViewport(ui32 x, ui32 y, ui32 width, ui32 heigth) override;
     };
 }

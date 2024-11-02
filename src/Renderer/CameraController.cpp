@@ -1,5 +1,7 @@
 #include <Renderer/CameraController.h>
 #include <Core/Input.h>
+#include <Events/ApplicationEvent.h>
+#include <Events/MouseEvent.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
@@ -13,7 +15,8 @@ namespace Engine {
                  glm::vec3(0.0f, 1.0f, 0.0f),
                  OrthographicCamera::OrthographicData(-m_AspectRatio * m_ZoomLevel, 
 				 									  m_AspectRatio * m_ZoomLevel, 
-													  -m_ZoomLevel, m_ZoomLevel)) {}
+													  -m_ZoomLevel, 
+													  m_ZoomLevel)) {}
 
 
     void Camera2DController::OnUpdate(float deltaTime) {
@@ -47,6 +50,21 @@ namespace Engine {
     }
     
     void Camera2DController::OnEvent(Event& e) {
-        
+        EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<MouseScrolledEvent>(BIND_FUN(Camera2DController::OnMouseScrolled));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_FUN(Camera2DController::OnWindowResized));
     }
+
+	bool Camera2DController::OnMouseScrolled(MouseScrolledEvent& e) {
+		return true;
+	}
+
+    bool Camera2DController::OnWindowResized(WindowResizeEvent& e) {
+		m_AspectRatio = static_cast<float>(e.GetWidth()) / static_cast<float>(e.GetHeigth());
+		m_Camera.SetLeft(-m_AspectRatio * m_ZoomLevel);
+        m_Camera.SetRight(m_AspectRatio * m_ZoomLevel);
+        m_Camera.SetBottom(-m_ZoomLevel);
+        m_Camera.SetTop(m_ZoomLevel);
+		m_Camera.RecalculateProjectionMatrix();
+	}
 }

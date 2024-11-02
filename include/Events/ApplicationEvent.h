@@ -1,6 +1,7 @@
 #pragma once
 #include "Event.h"
-#include "../Core/Pch.h"
+#include "Core/Types.h"
+#include "Core/Pch.h"
 
 namespace Engine {
     class WindowCloseEvent : public Event {

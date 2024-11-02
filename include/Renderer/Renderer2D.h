@@ -1,9 +1,10 @@
 #pragma once
-#include "../Core/Types.h"
+#include "Core/Types.h"
 #include "Renderer.h"
 #include "Shader.h"
 #include "VertexArray.h"
 #include "CameraController.h"
+#include "Events/ApplicationEvent.h"
 #include <map>
 
 namespace Engine {
@@ -11,7 +12,7 @@ namespace Engine {
         friend class Renderer;     
 
         protected:
-            static void Inizialize();
+            static void Inizialize(ui32 width, ui32 heigth);
             static void Shutdown();
 
             static void BeginScene(float deltaTime);
@@ -24,6 +25,8 @@ namespace Engine {
             static void DrawCircle(float radius, Vec3f position, Vec4f color, Vec3f degree);
 
             static void DrawPolyhedron(ui32 sides, Vec3f position, Vec3f size, Vec4f color, Vec3f degree); 
+
+            static void OnWindowResize(WindowResizeEvent &e);
 
         public:
             struct Renderer2DData {

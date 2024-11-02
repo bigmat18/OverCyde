@@ -16,7 +16,7 @@ namespace Engine {
                 s_RendererAPI->DrawIndexed(vertexArray);
             }
 
-            inline static void SetViewport(i32 x, i32 y, i32 width, i32 heigth) {
+            inline static void SetViewport(ui32 x, ui32 y, ui32 width, ui32 heigth) {
                 s_RendererAPI->SetViewport(x, y, width, heigth);
             }
 

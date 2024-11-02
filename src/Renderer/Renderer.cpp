@@ -1,14 +1,16 @@
 #include <Renderer/Renderer.h>
 #include <Renderer/Renderer2D.h>
 #include <OpenGL/OpenGLShader.h>
+#include <Renderer/RenderCommand.h>
+#include <Events/ApplicationEvent.h>
 
 namespace Engine {
     ui32 Renderer::s_Type = 0;
 
-    void Renderer::Inizialize(ui32 type) {
+    void Renderer::Inizialize(ui32 width, ui32 heigth, ui32 type) {
         s_Type = type;
         if (s_Type & Renderer::RendererType::Renderer2D)
-            Renderer2D::Inizialize();
+            Renderer2D::Inizialize(width, heigth);
     }
 
     void Renderer::Shutdown() {
@@ -45,4 +47,9 @@ namespace Engine {
         Renderer2D::DrawPolyhedron(sides, Vec3f(position, 0.0f), Vec3f(size, 1.0f), color, Vec3f(0.0f, 0.0f, degree));
     }
 
+    void Renderer::OnWindowResize(WindowResizeEvent &e) {
+        // RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeigth());
+        if (s_Type & Renderer::RendererType::Renderer2D)
+            Renderer2D::OnWindowResize(e);
+    }
 }

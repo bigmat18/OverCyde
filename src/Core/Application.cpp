@@ -23,7 +23,7 @@ namespace Engine {
         this->SetInstance(this);
         this->m_Window = std::unique_ptr<Window>(Window::Create(this->m_Props.WProps));
         this->m_Window->SetEventCallback(BIND_FUN(Application::OnEvent));
-        Renderer::Inizialize(this->m_Props.RType);
+        Renderer::Inizialize(props.WProps.Width, props.WProps.Height, this->m_Props.RType);
 
         this->m_ImGuiLayer = new ImGuiLayer();
         this->m_LayerStack.PushOverlay(m_ImGuiLayer);
@@ -108,7 +108,7 @@ namespace Engine {
     }
 
     bool Application::OnWindowResize(WindowResizeEvent &e){
-        RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeigth());
+        Renderer::OnWindowResize(e);
         return false;
     }
 

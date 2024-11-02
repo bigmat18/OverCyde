@@ -21,7 +21,7 @@ namespace Engine {
             glm::vec3 GetUp() const { return m_Up; }
 
             void RecalculateViewMatrix();
-            virtual void RecalculateProjectionMatrix() {};
+            virtual void RecalculateProjectionMatrix() = 0;
 
         protected:
             glm::mat4 m_ProjectionMatrix = glm::mat4(1);
@@ -42,7 +42,7 @@ namespace Engine {
                 float Bottom; 
                 float Top;
 
-                OrthographicData(float left = 1.0f, float right = 1.0f, float bottom = 1.0f, float top = 1.0f) :
+                OrthographicData(float left = -1.0f, float right = 1.0f, float bottom = -1.0f, float top = 1.0f) :
                     Left(left), Right(right), Bottom(bottom), Top(top) {}
             };
 

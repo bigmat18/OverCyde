@@ -20,16 +20,17 @@ namespace Engine {
                                            glm::vec3 front, 
                                            glm::vec3 up,
                                            OrthographicData data) : 
+        m_Data(data),
         Camera(position, front, up, 
                glm::ortho(data.Left, 
                           data.Right, 
                           data.Bottom, 
                           data.Top, 
-                          -1.0f, 1.0f)) 
+                          -1.0f, 1.0f))
     { /*...*/ }
 
     void OrthographicCamera::RecalculateProjectionMatrix() {
-        this->m_ProjectionMatrix = glm::ortho(m_Data.Left, m_Data.Right, m_Data.Bottom, m_Data.Top, -1.0f, -1.0f);
+        this->m_ProjectionMatrix = glm::ortho(m_Data.Left, m_Data.Right, m_Data.Bottom, m_Data.Top, -1.0f, 1.0f);
         this->m_ProjectionViewMatrix = m_ProjectionMatrix * m_ViewMatrix;
     }
 
@@ -40,11 +41,12 @@ namespace Engine {
                                          glm::vec3 front, 
                                          glm::vec3 up,
                                          PerspectiveData data) : 
+        m_Data(data),
         Camera(position, front, up, 
                glm::perspective(glm::radians(data.Fov), 
                                 data.AspectRatio, 
                                 data.NearClip, 
-                                data.FarClip)) 
+                                data.FarClip))
     { /*...*/ }
 
     void PerspectiveCamera::RecalculateProjectionMatrix() {

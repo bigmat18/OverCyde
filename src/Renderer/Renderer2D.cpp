@@ -5,6 +5,7 @@
 #include <Core/Types.h>
 #include <Core/Pch.h>
 #include <OpenGL/OpenGLShader.h>
+#include <Events/ApplicationEvent.h>
 #include <vector>
 
 #define GLM_ENABLE_EXPERIMENTAL
@@ -19,12 +20,13 @@ namespace Engine {
     Renderer2D::Renderer2DData Renderer2D::s_Data = Renderer2D::Renderer2DData();
     Camera2DController Renderer2D::s_CameraController = Camera2DController(1.0f);
 
-    void Renderer2D::Inizialize() {
+    void Renderer2D::Inizialize(ui32 width, ui32 heigth) {
         s_Data.BaseShader = Ref<Shader>(Shader::Create("shaders/base_shader.vert", 
                                                        "shaders/base_shader.frag"));
         Renderer2D::InitTriangle();
         Renderer2D::InitSquare();
         Renderer2D::InitCircle();
+        s_CameraController = Camera2DController(static_cast<float>(width) / static_cast<float>(heigth));
     }
 
     void Renderer2D::Shutdown() {
@@ -155,5 +157,9 @@ namespace Engine {
         VS->SetIndexBuffer(polyhedronIndices);
         VS->SetVertexBuffer(polyhedronVertices);
         s_Data.PolyhedronVertexArray.insert({sides, VS});
+    }
+
+    void Renderer2D::OnWindowResize(WindowResizeEvent &e) {
+        s_CameraController.OnWindowResized(e);
     }
 }

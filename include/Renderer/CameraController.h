@@ -1,5 +1,6 @@
 #pragma once
-#include "../Events/Event.h"
+#include "Events/ApplicationEvent.h"
+#include "Events/MouseEvent.h"
 #include "Camera.h"
 
 namespace Engine {
@@ -15,8 +16,12 @@ namespace Engine {
                 return m_Camera.GetProjectionViewMatrix(); 
             }
 
+            bool OnMouseScrolled(MouseScrolledEvent& e);
+            bool OnWindowResized(WindowResizeEvent& e);
         private:
-            float m_CameraTranslationSpeed = 2.0f, m_CameraRotationSpeed = 180.0f;
+
+            float m_CameraTranslationSpeed = 2.0f;
+            float m_CameraRotationSpeed = 180.0f;
             float m_ZoomLevel = 1.0f;
 
             float m_AspectRatio;
