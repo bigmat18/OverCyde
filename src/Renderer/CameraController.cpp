@@ -33,7 +33,7 @@ namespace Engine {
 
 		if (Input::IsKeyPressed(Key::W)) {
 			position.y += m_CameraTranslationSpeed * deltaTime;
-
+  
 		} else if (Input::IsKeyPressed(Key::S)){
 			position.y -= m_CameraTranslationSpeed * deltaTime;
 		}
