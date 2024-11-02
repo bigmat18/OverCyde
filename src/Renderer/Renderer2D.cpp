@@ -26,7 +26,7 @@ namespace Engine {
         Renderer2D::InitTriangle();
         Renderer2D::InitSquare();
         Renderer2D::InitCircle();
-        s_CameraController = Camera2DController(static_cast<float>(width) / static_cast<float>(heigth));
+        s_CameraController = Camera2DController(static_cast<float>(width) / static_cast<float>(heigth), true);
     }
 
     void Renderer2D::Shutdown() {

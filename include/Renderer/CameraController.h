@@ -7,7 +7,7 @@ namespace Engine {
 
     class Camera2DController {
         public:
-            Camera2DController(float aspectRatio, bool rotatin = false);
+            Camera2DController(float aspectRatio, bool roation = false);
 
             void OnUpdate(float deltaTime);
             void OnEvent(Event &e);
@@ -21,7 +21,7 @@ namespace Engine {
         private:
 
             float m_CameraTranslationSpeed = 2.0f;
-            float m_CameraRotationSpeed = 180.0f;
+            float m_CameraRotationSpeed = 1.0f;
             float m_ZoomLevel = 1.0f;
 
             float m_AspectRatio;

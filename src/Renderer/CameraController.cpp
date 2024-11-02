@@ -5,13 +5,15 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <glm/fwd.hpp>
 
 namespace Engine {
-    Camera2DController::Camera2DController(float aspectRatio, bool rotatin) : 
-        m_AspectRatio(aspectRatio), m_Rotation(rotatin), 
+    Camera2DController::Camera2DController(float aspectRatio, bool roation) : 
+        m_AspectRatio(aspectRatio), m_Rotation(roation), 
         m_Camera(glm::vec3(0.0f, 0.0f, 0.0f), 
-                 glm::vec3(0.0f, 0.0f, 1.0f),
+                 glm::vec3(0.0f, 0.0f, -1.0f),
                  glm::vec3(0.0f, 1.0f, 0.0f),
                  OrthographicCamera::OrthographicData(-m_AspectRatio * m_ZoomLevel, 
 				 									  m_AspectRatio * m_ZoomLevel, 
@@ -21,6 +23,7 @@ namespace Engine {
 
     void Camera2DController::OnUpdate(float deltaTime) {
         glm::vec3 position = m_Camera.GetPosition();
+		glm::vec3 front = m_Camera.GetFront();
         glm::vec3 up = m_Camera.GetUp();
         
 
@@ -38,13 +41,22 @@ namespace Engine {
 			position.y -= m_CameraTranslationSpeed * deltaTime;
 		}
 
-		// if (Input::IsKeyPressed(Key::Q)) {
-        //     up.x = glm::cos(glm::degrees(up.x - (m_CameraRotationSpeed * deltaTime)));
-        //     up.y = glm::sin(glm::degrees(up.y - (m_CameraRotationSpeed * deltaTime)));
-        // }
+		if(m_Rotation) {
+			Mat4f rotation(1.0);
+			if (Input::IsKeyPressed(Key::Q)) {
+				rotation = glm::rotate(Mat4f(1.0), -m_CameraRotationSpeed * deltaTime, Vec3f(0.0, 0.0, 1.0));
+			}
+			if (Input::IsKeyPressed(Key::E)) {
+				rotation = glm::rotate(Mat4f(1.0), m_CameraRotationSpeed * deltaTime, Vec3f(0.0, 0.0, 1.0));
+			}
 
-		// m_Camera.SetUp(up);
+			up = rotation * Vec4f(up, 0.0f);
+			front = rotation * Vec4f(front, 0.0f);
+		}
+
+		m_Camera.SetUp(up);
 		m_Camera.SetPosition(position); 
+		m_Camera.SetFront(front);
 		m_Camera.RecalculateViewMatrix();  
 
     }
