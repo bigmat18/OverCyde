@@ -79,6 +79,12 @@ namespace Engine {
                                       Vec2f size = Vec2f(1.0f, 1.0f), 
                                       float degree = 0.0f);
 
+
+            static void Draw3DCube(Vec3f position = Vec3f(0.0f, 0.0f, 0.0f), 
+                                   Vec3f size = Vec3f(1.0f, 1.0f, 1.0f), 
+                                   Vec4f color = Vec4f(1.0f, 1.0f, 1.0f, 1.0f), 
+                                   Vec3f degree = Vec3f(0.0f, 0.0f, 0.0f));
+
             static void OnWindowResize(WindowResizeEvent &e);
 
         private:

@@ -19,7 +19,7 @@ Engine::Application* Engine::Application::Create() {
     props.WProps.Height = 720;
     props.ActiveCamera = true;
     props.ActiveDebugging = true;
-    props.RType = Renderer::RendererType::Renderer2D;
+    props.RType = Renderer::RendererType::Renderer3D;
 
     return new Game(props);
 }

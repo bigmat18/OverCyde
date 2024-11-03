@@ -5,10 +5,15 @@ void GameLayer::OnUpdate(float deltaTime) {
 
     Engine::Renderer::BeginScene(deltaTime);
 
-    Engine::Renderer::Draw2DTexture("assets/sprites/matt.png", 
-                                    Engine::Vec2f(0.0f, 0.0f),
-                                    Engine::Vec2f(0.25f, 0.25f),
-                                    this->m_Rotation);
+    Engine::Renderer::Draw3DCube(Engine::Vec3f(0.0f, 0.0f, 0.0f),
+                                 Engine::Vec3f(1.0f, 1.0f, 1.0f),
+                                 Engine::Vec4f(1.0f, 1.0f, 1.0f, 1.0f),
+                                 Engine::Vec3f(this->m_Rotation, 0.0, this->m_Rotation));
+
+    // Engine::Renderer::Draw2DTexture("assets/sprites/matt.png", 
+    //                                 Engine::Vec2f(0.0f, 0.0f),
+    //                                 Engine::Vec2f(0.25f, 0.25f),
+    //                                 this->m_Rotation);
 
     // Engine::Renderer::Draw2DSquare(Engine::Vec2f(-0.75f, 0.0f),
     //                                Engine::Vec2f(0.125f, 0.125f),

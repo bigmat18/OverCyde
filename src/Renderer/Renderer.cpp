@@ -25,11 +25,15 @@ namespace Engine {
     void Renderer::BeginScene(float deltaTime) {
         if (s_Type & Renderer::RendererType::Renderer2D)
             Renderer2D::BeginScene(deltaTime);
+        if (s_Type & Renderer::RendererType::Renderer3D)
+            Renderer3D::BeginScene(deltaTime);
     }
 
     void Renderer::EndScene() {
         if (s_Type & Renderer::RendererType::Renderer2D)
             Renderer2D::EndScene();
+        if (s_Type & Renderer::RendererType::Renderer3D)
+            Renderer3D::EndScene();
     }
     
     void Renderer::Draw2DTriangle(Vec2f position, Vec2f size, Vec4f color, float degree) {
@@ -55,6 +59,11 @@ namespace Engine {
     void Renderer::Draw2DTexture(const std::string& path, Vec2f position, Vec2f size, float degree) {
         ENGINE_ASSERT(s_Type & Renderer2D, "You must init Renderer2D");
         Renderer2D::DrawTexture(path, Vec3f(position, 0.0f), Vec3f(size, 1.0f), Vec3f(0.0f, 0.0f, degree));
+    }
+
+    void Renderer::Draw3DCube(Vec3f position, Vec3f size, Vec4f color, Vec3f degree) {
+        ENGINE_ASSERT(s_Type & Renderer3D, "You must init Renderer3D");
+        Renderer3D::DrawCube(position, size, color, degree);
     }
 
     void Renderer::OnWindowResize(WindowResizeEvent &e) {

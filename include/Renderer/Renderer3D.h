@@ -20,6 +20,8 @@ namespace Engine {
 
             static void DrawPyramid(Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
 
+            static void Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
+
         public:
             struct Renderer3DData {
                 Ref<VertexArray> CubeVertexArray;
