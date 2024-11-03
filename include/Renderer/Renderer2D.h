@@ -13,7 +13,7 @@ namespace Engine {
         friend class Renderer;     
 
         protected:
-            static void Inizialize(ui32 width, ui32 heigth, bool activeCamera);
+            static void Initialize(ui32 width, ui32 heigth, bool activeCamera);
             static void Shutdown();
 
             static void BeginScene(float deltaTime);

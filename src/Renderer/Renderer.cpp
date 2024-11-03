@@ -1,5 +1,6 @@
 #include <Renderer/Renderer.h>
 #include <Renderer/Renderer2D.h>
+#include <Renderer/Renderer3D.h>
 #include <OpenGL/OpenGLShader.h>
 #include <Renderer/RenderCommand.h>
 #include <Events/ApplicationEvent.h>
@@ -7,14 +8,18 @@
 namespace Engine {
     ui32 Renderer::s_Type = 0;
 
-    void Renderer::Inizialize(ui32 width, ui32 heigth, ui32 type, bool activeCamera) {
+    void Renderer::Initialize(ui32 width, ui32 heigth, ui32 type, bool activeCamera) {
         s_Type = type;
         if (s_Type & Renderer::RendererType::Renderer2D)
-            Renderer2D::Inizialize(width, heigth, activeCamera);
+            Renderer2D::Initialize(width, heigth, activeCamera);
+
+        if (s_Type & Renderer::RendererType::Renderer3D) 
+            Renderer3D::Initialize(width, heigth, activeCamera);
     }
 
     void Renderer::Shutdown() {
         Renderer2D::Shutdown();
+        Renderer3D::Shutdown();
     }
 
     void Renderer::BeginScene(float deltaTime) {

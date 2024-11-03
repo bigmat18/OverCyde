@@ -11,7 +11,7 @@ Cose da fare per il MattEngine:
     - [] Gestione sistema di building con multi-files
     - [] Gestione di una lib (sia per texture che per shader)
 
- - [] Gestione texture
+ - [X] Gestione texture
     - [X] Creare classe per Texture2D
     - [] Gestione effetto blinding 
 

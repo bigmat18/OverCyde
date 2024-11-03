@@ -21,7 +21,7 @@ namespace Engine {
     Camera2DController Renderer2D::s_CameraController = Camera2DController();
     bool Renderer2D::s_IsCameraActive;
 
-    void Renderer2D::Inizialize(ui32 width, ui32 heigth, bool activeCamera) {
+    void Renderer2D::Initialize(ui32 width, ui32 heigth, bool activeCamera) {
         s_IsCameraActive = activeCamera;
         s_Data.BaseShader = Ref<Shader>(Shader::Create("shaders/base_shader.vert", 
                                                        "shaders/base_shader.frag"));
