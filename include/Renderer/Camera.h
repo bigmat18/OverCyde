@@ -6,7 +6,6 @@
 namespace Engine {
     class Camera {
         public:
-            Camera() {}
             Camera(glm::vec3 position, glm::vec3 front, glm::vec3 up, glm::mat4 projection);
 
             const glm::mat4 &GetProjectionMatrix() const { return this->m_ProjectionMatrix; }
@@ -48,7 +47,6 @@ namespace Engine {
             };
 
         public:
-            OrthographicCamera() {};
             OrthographicCamera(glm::vec3 position, glm::vec3 front, glm::vec3 up, OrthographicData data);
             virtual void RecalculateProjectionMatrix() override;
 
@@ -67,13 +65,12 @@ namespace Engine {
         public:
             struct PerspectiveData {
                 float Fov = 45.0f;
-                float NearClip = 1.778f;
-                float FarClip = 0.1f; 
+                float NearClip = 0.1f;
+                float FarClip = 100.0f; 
                 float AspectRatio = 1000.0f;
             };
 
         public:
-            PerspectiveCamera() {};
             PerspectiveCamera(glm::vec3 position, glm::vec3 front, glm::vec3 up, PerspectiveData data);
             virtual void RecalculateProjectionMatrix() override;
 
