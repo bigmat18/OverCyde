@@ -17,7 +17,7 @@ Engine::Application* Engine::Application::Create() {
     props.WProps.Title = "Game";
     props.WProps.Width = 1080;
     props.WProps.Height = 720;
-    props.ActiveCamera = false;
+    props.ActiveCamera = true;
     props.ActiveDebugging = true;
     props.RType = Renderer::RendererType::Renderer2D;
 

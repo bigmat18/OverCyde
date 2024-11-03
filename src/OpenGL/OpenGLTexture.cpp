@@ -26,6 +26,7 @@ namespace Engine {
         glBindTexture(GL_TEXTURE_2D, 0);
         
         stbi_image_free(buffer);
+        LOG_CLIENT_INFO("active texture {0} on {1}", path, this->ID);
     }
 
     void OpenGLTexture2D::Bind(uint32_t slot) const {

@@ -89,14 +89,14 @@ namespace Engine {
         glfwGetWindowSize(window, &width, &height);
 
         ImGui::SetNextWindowPos({static_cast<float>(xpos), static_cast<float>(ypos)});
-        ImGui::SetNextWindowSize({static_cast<float>(width) / 10.0f, static_cast<float>(height) / 9.0f});
+        ImGui::SetNextWindowSize({static_cast<float>(width) / 10.0f, static_cast<float>(height) / 6.0f});
         ImGui::Begin("FPS");
         ImGui::Text("%d fps", (int)FLOAT_TO_FPS(this->m_Time));
         ImGui::End();
 
         #ifdef PROFILING
             ImGui::SetNextWindowPos({static_cast<float>(xpos) + (static_cast<float>(width) / 10.0f), static_cast<float>(ypos)});
-            ImGui::SetNextWindowSize({(static_cast<float>(width) / 10.0f) * 9.0f, static_cast<float>(height) / 9.0f});
+            ImGui::SetNextWindowSize({(static_cast<float>(width) / 10.0f) * 9.0f, static_cast<float>(height) / 6.0f});
             ImGui::Begin("Profiling");
             ImGui::BeginTable("Times", 5);
             ImGui::TableSetupColumn("Name");
