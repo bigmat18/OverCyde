@@ -14,6 +14,6 @@ namespace Engine {
 
     class Texture2D : public Texture {
         public:
-            static Texture2D* Create(std::string& path);
+            static Texture2D* Create(const std::string& path);
     };
 };

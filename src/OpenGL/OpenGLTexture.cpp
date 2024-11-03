@@ -6,11 +6,11 @@
 #include <stb_image.h>
 
 namespace Engine {
-    OpenGLTexture2D::OpenGLTexture2D(std::string& path) : m_Path(path) {
+    OpenGLTexture2D::OpenGLTexture2D(const std::string& path) : m_Path(path) {
         int channels, width, height;
         stbi_set_flip_vertically_on_load(1);
         stbi_uc* buffer = stbi_load(path.c_str(), &width, &height, &channels, 4);
-        ENGINE_ASSERT(buffer, "Failed to load image");
+        ENGINE_ASSERT(buffer, "Failed to load image - " + path);
         
         this->m_Height = height;
         this->m_Width = width;

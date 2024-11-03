@@ -5,6 +5,7 @@
 #include "VertexArray.h"
 #include "CameraController.h"
 #include "Events/ApplicationEvent.h"
+#include "Renderer/Texture.h"
 #include <map>
 
 namespace Engine {
@@ -26,6 +27,8 @@ namespace Engine {
 
             static void DrawPolyhedron(ui32 sides, Vec3f position, Vec3f size, Vec4f color, Vec3f degree); 
 
+            static void DrawTexture(const std::string& path, Vec3f position, Vec3f size, Vec3f degree);
+
             static void OnWindowResize(WindowResizeEvent &e);
 
         public:
@@ -36,6 +39,7 @@ namespace Engine {
 
                 Ref<Shader> BaseShader;
                 std::map<ui32, Ref<VertexArray>> PolyhedronVertexArray;
+                std::map<std::string, Ref<Texture2D>> Textures2D;
             };
             
         private:
@@ -45,7 +49,7 @@ namespace Engine {
             static void InitCircle();
             static void InitPolyhedron(ui32 sides);
 
-            static void Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
+            static void Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree, bool texture = false);
 
             static Renderer2DData s_Data;
             static Camera2DController s_CameraController;

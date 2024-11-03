@@ -70,7 +70,17 @@ namespace Engine {
         Renderer2D::Draw(s_Data.PolyhedronVertexArray[sides], position, size, color, degree);
     }
 
-    void Renderer2D::Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree) {
+    void Renderer2D::DrawTexture(const std::string& path, Vec3f position, Vec3f size, Vec3f degree) {
+        if(s_Data.Textures2D.count(path) == 0) {
+            Ref<Texture2D> texture = Ref<Texture2D>(Texture2D::Create(path));
+            s_Data.Textures2D.insert({path, texture});
+        }
+        s_Data.Textures2D[path].get()->Bind(0);
+        Renderer2D::Draw(s_Data.SquareVertexArray, position, size, Vec4f(1.0, 1.0, 1.0, 1.0), degree, true);
+    }
+
+
+    void Renderer2D::Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree, bool texture) {
         Mat4f model = glm::mat4(1.0f);
         model = glm::translate(model, position);
         model = glm::scale(model, size);
@@ -81,6 +91,7 @@ namespace Engine {
 
         std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetMatrix4("u_Transform", model);
         std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetVec4("u_Color", glm::normalize(color));
+        std::dynamic_pointer_cast<OpenGLShader>(s_Data.BaseShader)->SetBool("u_ActiveTex", texture);
         RenderCommand::DrawIndex(VA); 
     }
 
@@ -105,10 +116,10 @@ namespace Engine {
 
     void Renderer2D::InitSquare() {
         std::vector<float> vertices = {
-            1.0f, 1.0f, 0.0f,
-            -1.0f, 1.0f, 0.0f,
-            -1.0f, -1.0f, 0.0f, 
-            1.0f, -1.0f, 0.0f
+            1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+            -1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+            1.0f, -1.0f, 0.0f, 1.0f, 0.0f
         };
         std::vector<ui32> indices = {
             0, 1, 2,
@@ -118,6 +129,7 @@ namespace Engine {
         Ref<VertexBuffer> squareVertices = Ref<VertexBuffer>(VertexBuffer::Create(&vertices[0], vertices.size() * sizeof(float)));
         squareVertices->SetLayout({
             { "a_Position", ShaderDataType::Float3 },
+            { "a_TexCoord", ShaderDataType::Float2 },
         });
         
         s_Data.SquareVertexArray = Ref<VertexArray>(VertexArray::Create());

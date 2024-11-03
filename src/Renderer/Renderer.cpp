@@ -47,8 +47,12 @@ namespace Engine {
         Renderer2D::DrawPolyhedron(sides, Vec3f(position, 0.0f), Vec3f(size, 1.0f), color, Vec3f(0.0f, 0.0f, degree));
     }
 
+    void Renderer::Draw2DTexture(const std::string& path, Vec2f position, Vec2f size, float degree) {
+        ENGINE_ASSERT(s_Type & Renderer2D, "You must init Renderer2D");
+        Renderer2D::DrawTexture(path, Vec3f(position, 0.0f), Vec3f(size, 1.0f), Vec3f(0.0f, 0.0f, degree));
+    }
+
     void Renderer::OnWindowResize(WindowResizeEvent &e) {
-        // RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeigth());
         if (s_Type & Renderer::RendererType::Renderer2D)
             Renderer2D::OnWindowResize(e);
     }

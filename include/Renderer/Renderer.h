@@ -74,6 +74,11 @@ namespace Engine {
                                          float degree = 0.0f);
 
             
+            static void Draw2DTexture(const std::string& path,
+                                      Vec2f position = Vec2f(0.0f, 0.0f), 
+                                      Vec2f size = Vec2f(1.0f, 1.0f), 
+                                      float degree = 0.0f);
+
             static void OnWindowResize(WindowResizeEvent &e);
 
         private:
