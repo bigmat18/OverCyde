@@ -6,6 +6,7 @@
 namespace Engine {
     class Camera {
         public:
+            Camera() = default;
             Camera(glm::vec3 position, glm::vec3 front, glm::vec3 up, glm::mat4 projection);
 
             const glm::mat4 &GetProjectionMatrix() const { return this->m_ProjectionMatrix; }
@@ -47,6 +48,7 @@ namespace Engine {
             };
 
         public:
+            OrthographicCamera() = default;
             OrthographicCamera(glm::vec3 position, glm::vec3 front, glm::vec3 up, OrthographicData data);
             virtual void RecalculateProjectionMatrix() override;
 
