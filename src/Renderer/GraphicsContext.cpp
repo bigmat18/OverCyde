@@ -1,6 +1,6 @@
 #include <Renderer/GraphicsContext.h>
 #include <Renderer/RendererAPI.h>
-#include <OpenGL/OpenGLContext.h>
+#include <Renderer/OpenGL/OpenGLContext.h>
 
 namespace Engine {
     GraphicsContext* GraphicsContext::Create(void* window) {

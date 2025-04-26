@@ -1,7 +1,5 @@
 #pragma once
 #include "Buffer.h"
-#include "../Core/Pch.h"
-
 namespace Engine {
     class VertexArray {
         public:

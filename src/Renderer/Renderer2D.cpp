@@ -2,10 +2,11 @@
 #include <Renderer/Buffer.h>
 #include <Renderer/RenderCommand.h>
 #include <Renderer/VertexArray.h>
+#include <Renderer/OpenGL/OpenGLShader.h>
+
 #include <Core/Types.h>
-#include <Core/Pch.h>
-#include <OpenGL/OpenGLShader.h>
-#include <Events/ApplicationEvent.h>
+#include <Core/Events/ApplicationEvent.h>
+
 #include <vector>
 
 #define GLM_ENABLE_EXPERIMENTAL

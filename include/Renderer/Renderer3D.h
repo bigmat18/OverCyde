@@ -2,7 +2,7 @@
 #include "VertexArray.h"
 #include "Renderer.h"
 #include "Shader.h"
-#include "Core/Types.h"
+#include <Core/Types.h>
 
 namespace Engine {
 
@@ -18,8 +18,6 @@ namespace Engine {
 
             static void DrawCube(Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
 
-            static void DrawPyramid(Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
-
             static void Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree);
 
         public:
@@ -32,7 +30,6 @@ namespace Engine {
 
         private:
             static void InitCube();
-            static void InitPyramid();
 
             static Renderer3DData s_Data;
             static bool s_IsCameraActive;

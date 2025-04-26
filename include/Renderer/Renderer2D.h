@@ -1,11 +1,11 @@
 #pragma once
-#include "Core/Types.h"
 #include "Renderer.h"
 #include "Shader.h"
 #include "VertexArray.h"
 #include "CameraController.h"
-#include "Events/ApplicationEvent.h"
-#include "Renderer/Texture.h"
+#include "Texture.h"
+
+#include <Core/Types.h>
 #include <map>
 
 namespace Engine {

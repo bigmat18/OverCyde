@@ -1,7 +1,7 @@
 #include <Renderer/RendererAPI.h>
-#include <OpenGL/OpenGLRendererAPI.h>
-#include <Core/Macro.h>
-#include <Core/Pch.h>
+#include <Renderer/OpenGL/OpenGLRendererAPI.h>
+
+#include <Core/Utils.h>
 
 namespace Engine {
     RendererAPI::API RendererAPI::s_API = RendererAPI::API::OpenGL;

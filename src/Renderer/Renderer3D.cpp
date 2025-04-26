@@ -1,6 +1,7 @@
 #include <Renderer/Renderer3D.h>
-#include <OpenGL/OpenGLShader.h>
+#include <Renderer/OpenGL/OpenGLShader.h>
 #include <Renderer/RenderCommand.h>
+
 #include <Core/Types.h>
 
 namespace Engine {
@@ -14,7 +15,6 @@ namespace Engine {
                                                        "shaders/base_shader.frag"));
 
         Renderer3D::InitCube();
-        Renderer3D::InitPyramid();
     }
 
     void Renderer3D::Shutdown() {
@@ -32,10 +32,6 @@ namespace Engine {
 
     void Renderer3D::DrawCube(Vec3f position, Vec3f size, Vec4f color, Vec3f degree) {
         Renderer3D::Draw(s_Data.CubeVertexArray, position, size, color, degree);
-    }
-
-    void Renderer3D::DrawPyramid(Vec3f position, Vec3f size, Vec4f color, Vec3f degree) {
-
     }
 
     void Renderer3D::Draw(Ref<VertexArray> VA, Vec3f position, Vec3f size, Vec4f color, Vec3f degree) {
@@ -89,9 +85,5 @@ namespace Engine {
         s_Data.CubeVertexArray = Ref<VertexArray>(VertexArray::Create());
         s_Data.CubeVertexArray->SetIndexBuffer(cubeIndices);
         s_Data.CubeVertexArray->SetVertexBuffer(cubeVertices); 
-    }
-
-    void Renderer3D::InitPyramid() {
-
     }
 }

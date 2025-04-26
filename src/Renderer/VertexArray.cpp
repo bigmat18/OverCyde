@@ -1,6 +1,6 @@
 #include <Renderer/VertexArray.h>
 #include <Renderer/RendererAPI.h>
-#include <OpenGL/OpenGLVertexArray.h>
+#include <Renderer/OpenGL/OpenGLVertexArray.h>
 
 namespace Engine {
     VertexArray* VertexArray::Create() {

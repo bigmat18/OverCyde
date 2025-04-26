@@ -1,7 +1,7 @@
 #pragma once
-#include "../Events/Event.h"
-#include "../Core/Macro.h"
-#include "../Core/Types.h"
+#include <Core/Events/Event.h>
+#include <Core/Utils.h>
+#include <Core/Types.h>
 
 namespace Engine {
 

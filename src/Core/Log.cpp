@@ -1,5 +1,5 @@
-#include <Core/Log.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <Core/Log.h>
 
 #define ENGINE_NAME "ENGINE"
 #define CLIENT_NAME "CLIENT"

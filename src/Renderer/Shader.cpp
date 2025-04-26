@@ -1,6 +1,7 @@
 #include <Renderer/Shader.h>
 #include <Renderer/RendererAPI.h>
-#include <OpenGL/OpenGLShader.h>
+#include <Renderer/OpenGL/OpenGLShader.h>
+
 #include <Core/Log.h>
 
 namespace Engine {

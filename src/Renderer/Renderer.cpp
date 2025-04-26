@@ -1,9 +1,10 @@
 #include <Renderer/Renderer.h>
 #include <Renderer/Renderer2D.h>
 #include <Renderer/Renderer3D.h>
-#include <OpenGL/OpenGLShader.h>
+#include <Renderer/OpenGL/OpenGLShader.h>
 #include <Renderer/RenderCommand.h>
-#include <Events/ApplicationEvent.h>
+
+#include <Core/Events/ApplicationEvent.h>
 
 namespace Engine {
     ui32 Renderer::s_Type = 0;

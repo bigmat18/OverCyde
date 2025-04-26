@@ -1,7 +1,7 @@
+#include <Core/Log.h>
 #include <Renderer/Buffer.h>
 #include <Renderer/RendererAPI.h>
-#include <Core/Log.h>
-#include <OpenGL/OpenGLBuffer.h>
+#include <Renderer/OpenGL/OpenGLBuffer.h>
 
 namespace Engine {
     VertexBuffer* VertexBuffer::Create(float *vertices, uint32_t size) {

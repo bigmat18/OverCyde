@@ -1,15 +1,15 @@
 #pragma once
-#include "../Core/Pch.h"
-
+#include <Core/Types.h>
+#include <string>
 namespace Engine {
     class Texture {
         public:
             virtual ~Texture() = default;
             
-            virtual uint32_t GetWindth() const = 0;
-            virtual uint32_t GetHeight() const = 0;
+            virtual ui32 GetWindth() const = 0;
+            virtual ui32 GetHeight() const = 0;
             
-            virtual void Bind(uint32_t slot) const = 0;
+            virtual void Bind(ui32 slot) const = 0;
     };
 
     class Texture2D : public Texture {

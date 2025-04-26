@@ -1,6 +1,5 @@
 #pragma once
-#include "../Core/Pch.h"
-#include "../Core/Types.h"
+#include <Core/Types.h>
 #include "VertexArray.h"
 
 namespace Engine {

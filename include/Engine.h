@@ -1,22 +1,22 @@
 #pragma once
 
-#include "Core/Application.h"
+#include "Application.h"
+
 #include "Core/Log.h"
 #include "Core/Types.h"
-#include "Core/Macro.h"
-#include "Core/Input.h"
+#include "Core/Utils.h"
 #include "Core/Profiling.h"
 
-#include "Layers/Layer.h"
-#include "Layers/ImGuiLayer.h"
+#include "Core/Layers/Layer.h"
 #include "Window/Window.h"
 
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/MouseEvent.h"
-#include "Events/KeyEvent.h"
-#include "Events/KeyCode.h"
-#include "Events/MouseCode.h"
+#include "Core/Events/Event.h"
+#include "Core/Events/ApplicationEvent.h"
+#include "Core/Events/MouseEvent.h"
+#include "Core/Events/KeyEvent.h"
+
+#include "Input/KeyCode.h"
+#include "Input/MouseCode.h"
 
 #include "Renderer/Renderer.h"
 #include "Renderer/RenderCommand.h"

@@ -1,6 +1,6 @@
 #include <Renderer/Texture.h>
 #include <Renderer/RendererAPI.h>
-#include <OpenGL/OpenGLTexture.h>
+#include <Renderer/OpenGL/OpenGLTexture.h>
 
 namespace Engine {
     Texture2D* Texture2D::Create(const std::string& path) {

@@ -7,7 +7,7 @@
 #define PROFILING 1
 
 #include "Core/Log.h"
-#include "Core/Application.h"
+#include "Application.h"
 
 int main(void) {
     Engine::Log::Inizialize();

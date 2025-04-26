@@ -1,7 +1,8 @@
 #include <Renderer/CameraController.h>
-#include <Core/Input.h>
-#include <Events/ApplicationEvent.h>
-#include <Events/MouseEvent.h>
+#include <Input/Input.h>
+
+#include <Core/Events/ApplicationEvent.h>
+#include <Core/Events/MouseEvent.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
