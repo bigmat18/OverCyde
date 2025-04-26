@@ -8,7 +8,6 @@
 #include <Core/Layers/EngineGUILayer.h>
 #include <Core/Log.h>
 #include <Core/Utils.h>
-#include <Core/Profiling.h>
 
 namespace Engine {
     Application *Application::s_Instance = nullptr;
@@ -35,31 +34,23 @@ namespace Engine {
     void Application::Run() {
 
         while(this->m_Running){ 
-            {  
-                PROFILE_SCOPE("Application::Run()");
         
-                float deltaTime = this->CalculateDeltaTime();
+            float deltaTime = this->CalculateDeltaTime();
                 
-                RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
-                RenderCommand::Clear();
+            RenderCommand::SetClearColor(glm::normalize(this->m_Props.BGColor));
+            RenderCommand::Clear();
 
-                {
-                    PROFILE_SCOPE("Application::Run::Update()");
-                    for (Layer* layer : m_LayerStack) {
-                        layer->OnUpdate(deltaTime);
-                    }
-                    
-                    if(m_Props.ActiveDebugging) {
-                        m_GUILayer->Begin();
-                        for (Layer* layer : m_LayerStack) {
-                            layer->OnImGuiRender();
-                        }
-                        m_GUILayer->End();
-                    }
+            for (Layer* layer : m_LayerStack)
+                layer->OnUpdate(deltaTime);
+                
+            if(m_Props.ActiveDebugging) {
+                m_GUILayer->Begin();
+                for (Layer* layer : m_LayerStack)
+                    layer->OnImGuiRender();
+                m_GUILayer->End();
 
-                    this->m_Window->OnUpdate();
-                }
             }
+            this->m_Window->OnUpdate();
         }
     }
 
@@ -87,8 +78,6 @@ namespace Engine {
     }
 
     void Application::OnEvent(Event& e){
-        PROFILE_SCOPE("Application::OnEvent()");
-
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_FUN(Application::OnWindowClose));
         dispatcher.Dispatch<KeyPressedEvent>(BIND_FUN(Application::OnKeyPressed));

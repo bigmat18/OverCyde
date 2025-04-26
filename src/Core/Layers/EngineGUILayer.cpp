@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 
 #include <Core/Layers/EngineGUILayer.h>
-#include <Core/Profiling.h>
 #include <Application.h>
 
 namespace Engine {
@@ -93,34 +92,5 @@ namespace Engine {
         ImGui::Begin("FPS");
         ImGui::Text("%d fps", (int)FLOAT_TO_FPS(this->m_Time));
         ImGui::End();
-
-        #ifdef PROFILING
-            ImGui::SetNextWindowPos({static_cast<float>(xpos) + (static_cast<float>(width) / 10.0f), static_cast<float>(ypos)});
-            ImGui::SetNextWindowSize({(static_cast<float>(width) / 10.0f) * 9.0f, static_cast<float>(height) / 6.0f});
-            ImGui::Begin("Profiling");
-            ImGui::BeginTable("Times", 5);
-            ImGui::TableSetupColumn("Name");
-            ImGui::TableSetupColumn("Time");
-            ImGui::TableSetupColumn("AVG");
-            ImGui::TableSetupColumn("Max");
-            ImGui::TableSetupColumn("Min");
-            ImGui::TableHeadersRow();
-
-            for(auto &[key, value] : Profiling::GetData()) {
-                ImGui::TableNextRow();
-                ImGui::TableNextColumn();
-                ImGui::Text("%s", key);
-                ImGui::TableNextColumn();
-                ImGui::Text("%.6f", value.Time);
-                ImGui::TableNextColumn();
-                ImGui::Text("%.6f", value.AVGTime);
-                ImGui::TableNextColumn();
-                ImGui::Text("%.6f", value.MaxTime);
-                ImGui::TableNextColumn();
-                ImGui::Text("%.6f", value.MinTime);
-            }
-            ImGui::EndTable();
-            ImGui::End();
-        #endif
     }
 }

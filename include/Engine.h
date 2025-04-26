@@ -5,7 +5,6 @@
 #include "Core/Log.h"
 #include "Core/Types.h"
 #include "Core/Utils.h"
-#include "Core/Profiling.h"
 
 #include "Core/Layers/Layer.h"
 #include "Window/Window.h"
